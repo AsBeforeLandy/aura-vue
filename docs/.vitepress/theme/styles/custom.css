@@ -68,6 +68,35 @@
   letter-spacing: -0.02em;
 }
 
+/* text 是中文长句（"Vue3 基础组件 + 表单组件库"），默认与 name 同字号（桌面 56px）
+   会折成两行、压过品牌名。降一档并增加行高，让 name 重新成为视觉重心。 */
+.VPHero .text {
+  max-width: 440px;
+  font-size: 26px;
+  line-height: 1.4;
+  color: var(--vp-c-text-1);
+}
+
+@media (min-width: 640px) {
+  .VPHero .text {
+    max-width: 520px;
+    font-size: 32px;
+    line-height: 1.35;
+  }
+}
+
+@media (min-width: 960px) {
+  .VPHero .text {
+    font-size: 36px;
+    line-height: 1.3;
+  }
+
+  /* 有 logo 图时，main 区按比例收窄，长文案需要略宽的情感空间 */
+  .VPHero.has-image .text {
+    max-width: 480px;
+  }
+}
+
 .VPHero .tagline {
   opacity: 0.85;
 }
