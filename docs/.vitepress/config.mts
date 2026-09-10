@@ -4,6 +4,8 @@ import { demoPlugin } from './demo-plugin.ts';
 export default defineConfig({
   title: 'Aura Vue',
   description: 'Vue3 基础组件 + 表单组件库',
+  // GitHub Pages 项目页部署在 <user>.github.io/<repo>/ 子路径下
+  base: '/aura-vue/',
   cleanUrls: true,
   vite: {
     plugins: [demoPlugin()]
