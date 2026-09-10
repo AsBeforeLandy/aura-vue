@@ -14,7 +14,8 @@ jobs:
 
       - uses: pnpm/action-setup@v4
         with:
-          version: 9
+          # 与本地开发版本一致（lockfile 为 pnpm 7 的 lockfileVersion 5.4，pnpm 9+ 无法读取）
+          version: 7
 
       - uses: actions/setup-node@v4
         with:
