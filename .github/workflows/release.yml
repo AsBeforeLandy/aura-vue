@@ -7,13 +7,12 @@ on:
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 # 仓库 Secrets 里配置了 NPM_TOKEN 后发布流程才会真正执行；
-# 未配置时跳过整个 job，避免每次 push 都因 npm 401 报红
+# 未配置时仅跳过发布步骤（env 上下文只能用于步骤级 if，不能用于 job 级 if）
 env:
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 jobs:
   release:
-    if: ${{ env.NPM_TOKEN != '' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -39,6 +38,7 @@ jobs:
         run: pnpm test
 
       - name: Publish to npm
+        if: ${{ env.NPM_TOKEN != '' }}
         id: changesets
         uses: changesets/action@v1
         with:
