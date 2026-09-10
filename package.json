@@ -6,8 +6,12 @@
     "node": ">=18"
   },
   "scripts": {
-    "build": "pnpm --filter @aura/components build",
-    "test": "pnpm --filter @aura/components test",
+    "build": "pnpm --filter @aura/components build && pnpm --filter @aura/business build",
+    "build:components": "pnpm --filter @aura/components build",
+    "build:business": "pnpm --filter @aura/business build",
+    "test": "pnpm --filter @aura/components test && pnpm --filter @aura/business test",
+    "test:components": "pnpm --filter @aura/components test",
+    "test:business": "pnpm --filter @aura/business test",
     "docs:dev": "pnpm --filter @aura/docs dev",
     "docs:build": "pnpm --filter @aura/docs build",
     "changeset": "changeset",

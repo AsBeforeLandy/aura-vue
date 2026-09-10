@@ -1,0 +1,162 @@
+/**
+ * PageContainer 样式
+ *
+ * 提供管理系统的「页面骨架」：统一内外边距、标题层级与内容卡片的视觉语言。
+ * 使用方从此不必每个页面重复写 padding / 标题 / 卡片，页面之间的一致性由组件保证。
+ */
+
+.aura-page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: var(--aura-page-padding, 16px);
+  min-height: 100%;
+  box-sizing: border-box;
+}
+
+/* ---------- 面包屑 ---------- */
+.aura-page-container-breadcrumb {
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.aura-page-container-breadcrumb-link {
+  color: var(--aura-text-secondary, rgba(0, 0, 0, 0.55));
+  text-decoration: none;
+  transition: color 0.2s var(--aura-easing, ease);
+
+  &:hover {
+    color: var(--aura-color-primary, #7c3aed);
+  }
+}
+
+/* ---------- 标题区 ---------- */
+.aura-page-container-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 12px;
+
+  &.is-divider {
+    border-bottom: 1px solid var(--aura-border-color, #e4e0ee);
+  }
+}
+
+.aura-page-container-header-main {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+
+.aura-page-container-back {
+  // 返回按钮作为"路径"而非"主操作"，视觉上弱化
+  flex-shrink: 0;
+  font-size: 14px;
+  color: var(--aura-text-secondary, rgba(0, 0, 0, 0.55));
+
+  &:hover {
+    color: var(--aura-color-primary, #7c3aed);
+  }
+}
+
+.aura-page-container-heading {
+  min-width: 0;
+}
+
+.aura-page-container-title {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--aura-text, rgba(0, 0, 0, 0.88));
+  // 长标题换行而非撑破布局
+  word-break: break-word;
+}
+
+.aura-page-container-subtitle {
+  margin-top: 4px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--aura-text-secondary, rgba(0, 0, 0, 0.55));
+}
+
+.aura-page-container-extra {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* ---------- 内容区 ---------- */
+.aura-page-container-body {
+  flex: 1;
+  min-height: 0;
+
+  &.is-card {
+    padding: 16px;
+    background: var(--aura-bg, #fff);
+    border: 1px solid var(--aura-border-color, #e4e0ee);
+    border-radius: var(--aura-radius, 6px);
+  }
+}
+
+/* ---------- 底部操作栏 ---------- */
+.aura-page-container-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--aura-border-color, #e4e0ee);
+
+  &.is-fixed {
+    // 吸底：常见于长表单页，操作按钮始终可见
+    position: sticky;
+    bottom: 0;
+    z-index: 4;
+    margin: 0 calc(var(--aura-page-padding, 16px) * -1)
+      calc(var(--aura-page-padding, 16px) * -1);
+    padding: 12px var(--aura-page-padding, 16px);
+    background: var(--aura-bg, #fff);
+    // 上方投影提示"内容仍在下方滚动"
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.04);
+  }
+}
+
+/* ---------- 暗色主题 ---------- */
+html.dark {
+  .aura-page-container-header.is-divider,
+  .aura-page-container-footer {
+    border-color: var(--aura-border-color, #322e42);
+  }
+
+  .aura-page-container-body.is-card,
+  .aura-page-container-footer.is-fixed {
+    background: var(--aura-bg, #1b1a22);
+    border-color: var(--aura-border-color, #322e42);
+  }
+}
+
+/* ---------- 移动端 ---------- */
+@media (max-width: 768px) {
+  .aura-page-container {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .aura-page-container-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .aura-page-container-extra {
+    // 窄屏下操作区换行右对齐，不挤压标题
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .aura-page-container-title {
+    font-size: 16px;
+  }
+}

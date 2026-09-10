@@ -1,0 +1,63 @@
+{
+  "name": "@aura/business",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Aura Vue3 业务组件库：基于 Element Plus 二次封装的 B 端场景组件",
+  "keywords": [
+    "vue",
+    "vue3",
+    "components",
+    "business",
+    "pro-table",
+    "pro-form",
+    "admin",
+    "element-plus"
+  ],
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./style.css": "./dist/style.css",
+    "./src/*": "./src/*"
+  },
+  "sideEffects": [
+    "**/*.less",
+    "**/*.css"
+  ],
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage"
+  },
+  "peerDependencies": {
+    "element-plus": "^2.8.0",
+    "vue": "^3.4.0"
+  },
+  "dependencies": {
+    "@aura/components": "workspace:*",
+    "@aura/shared": "workspace:*",
+    "@element-plus/icons-vue": "^2.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.0",
+    "@vitest/coverage-v8": "^3.0.0",
+    "@vue/test-utils": "^2.4.6",
+    "element-plus": "^2.8.8",
+    "happy-dom": "^15.7.4",
+    "less": "^4.2.0",
+    "lodash-unified": "^1.0.3",
+    "typescript": "^5.6.3",
+    "vite": "^6.0.0",
+    "vite-plugin-dts": "^4.3.0",
+    "vitest": "^3.0.0",
+    "vue": "^3.5.12"
+  }
+}

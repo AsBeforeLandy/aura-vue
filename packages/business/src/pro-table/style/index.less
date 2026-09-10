@@ -1,0 +1,151 @@
+/**
+ * ProTable 样式
+ *
+ * 命名遵循组件库 BEM 约定（aura-pro-table / __element / --modifier）。
+ * 颜色全部走 CSS 变量，使用方可直接覆盖换肤。
+ * 这里不重写 Element Plus 的内部类名，只做"外壳"布局与间距控制，
+ * 避免深埋选择器在 EP 升级时失效。
+ */
+
+.aura-pro-table {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+/* ---------- 查询区 ---------- */
+.aura-pro-table-search {
+  padding: 16px 16px 0;
+  background: var(--aura-bg, #fff);
+  border: 1px solid var(--aura-border-color, #d9d9d9);
+  border-radius: var(--aura-radius, 6px);
+
+  // 查询项的最后一行收掉底部外边距，避免下方出现双倍留白
+  .el-form-item {
+    margin-bottom: 16px;
+  }
+
+  .el-form-item__label {
+    color: var(--aura-text-secondary, rgba(0, 0, 0, 0.55));
+  }
+}
+
+.aura-pro-table-search-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  // 允许按钮组换行，窄屏下不至于溢出
+  flex-wrap: wrap;
+}
+
+.aura-pro-table-search-arrow {
+  margin-left: 2px;
+  transition: transform 0.2s var(--aura-easing, ease);
+  vertical-align: -2px;
+
+  &.is-open {
+    transform: rotate(180deg);
+  }
+}
+
+/* ---------- 主体卡片 ---------- */
+.aura-pro-table-card {
+  position: relative;
+  padding: 16px;
+  background: var(--aura-bg, #fff);
+  border: 1px solid var(--aura-border-color, #d9d9d9);
+  border-radius: var(--aura-radius, 6px);
+}
+
+/* ---------- 工具条 ---------- */
+.aura-pro-table-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.aura-pro-table-toolbar-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--aura-text, rgba(0, 0, 0, 0.88));
+}
+
+.aura-pro-table-toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.aura-pro-table-header-tip {
+  margin-left: 4px;
+  color: var(--aura-text-secondary, rgba(0, 0, 0, 0.55));
+  cursor: help;
+  vertical-align: -2px;
+}
+
+/* ---------- 列设置面板 ---------- */
+.aura-pro-table-column-setting {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 260px;
+  // 列很多时可滚动，不撑破气泡
+  overflow-y: auto;
+}
+
+/* ---------- 分页 ---------- */
+.aura-pro-table-pagination {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+/* ---------- 表格微调 ---------- */
+.aura-pro-table-card {
+  .el-table {
+    --el-table-border-color: var(--aura-border-color, #d9d9d9);
+  }
+
+  // 表头字重提一档，与内容区拉开层级
+  .el-table th.el-table__cell {
+    background: var(--aura-docs-bg-soft, #fafafa);
+    font-weight: 600;
+    color: var(--aura-text, rgba(0, 0, 0, 0.88));
+  }
+}
+
+/* ---------- 暗色主题 ---------- */
+// Element Plus 自带暗色变量，这里只需补齐自定义外壳色
+html.dark {
+  .aura-pro-table-search,
+  .aura-pro-table-card {
+    background: var(--aura-bg, #1b1a22);
+    border-color: var(--aura-border-color, #322e42);
+  }
+
+  .aura-pro-table-card {
+    .el-table th.el-table__cell {
+      background: var(--aura-docs-bg-soft, #232030);
+    }
+  }
+}
+
+/* ---------- 移动端 ---------- */
+@media (max-width: 768px) {
+  .aura-pro-table-toolbar {
+    flex-wrap: wrap;
+  }
+
+  .aura-pro-table-pagination {
+    justify-content: center;
+
+    // 窄屏隐藏"跳至第几页"，避免横向溢出
+    :deep(.el-pagination__jump),
+    :deep(.el-pagination__sizes) {
+      display: none;
+    }
+  }
+}

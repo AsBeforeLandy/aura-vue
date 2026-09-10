@@ -78,6 +78,16 @@ export default defineConfig({
         {
           text: '反馈',
           items: [{ text: 'Modal 对话框', link: '/components/modal' }]
+        },
+        {
+          text: '业务组件',
+          items: [
+            { text: 'ProTable 高级表格', link: '/components/pro-table' },
+            { text: 'ProForm 高级表单', link: '/components/pro-form' },
+            { text: 'ProModalForm 弹窗表单', link: '/components/pro-modal-form' },
+            { text: 'Description 描述列表', link: '/components/description' },
+            { text: 'PageContainer 页面容器', link: '/components/page-container' }
+          ]
         }
       ],
       '/styles/': [

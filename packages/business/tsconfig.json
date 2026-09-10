@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "dist",
+    "paths": {
+      // Element Plus 的公开类型里引用了 lodash-unified（其内部依赖），
+      // 在 pnpm 的严格 node_modules 布局下该路径不可达，会导致 dts 生成时报
+      // TS2742（inferred type cannot be named）。这里显式映射一份，
+      // 保证生成的 .d.ts 里能写出稳定的类型引用路径。
+      "lodash-unified": ["./node_modules/lodash-unified/type.d.ts"]
+    }
+  },
+  "include": ["src", "__tests__", "vite.config.ts", "vitest.config.ts"]
+}

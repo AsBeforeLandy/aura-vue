@@ -1,0 +1,52 @@
+/**
+ * ProModalForm 样式
+ *
+ * 弹窗内的表单承担"填满内容区"的职责，这里收掉表单自身的底部留白，
+ * 避免弹窗底部出现多余空白。
+ */
+
+.aura-pro-modal-form {
+  .el-dialog__body {
+    padding-top: 12px;
+    padding-bottom: 8px;
+  }
+
+  .el-dialog__header {
+    padding-bottom: 12px;
+    margin-right: 0;
+    border-bottom: 1px solid var(--aura-border-color, #ebeef5);
+  }
+
+  .el-dialog__footer {
+    padding-top: 12px;
+    border-top: 1px solid var(--aura-border-color, #ebeef5);
+  }
+
+  // 弹窗内表单项收敛间距，避免长表单在有限高度里显得松散
+  .el-form-item {
+    margin-bottom: 16px;
+  }
+
+  // 详情模式下把表单标签字重提一档，让"字段名"与"值"有清晰分层
+  .aura-pro-form-readonly {
+    min-height: 30px;
+  }
+}
+
+/* ---------- 暗色主题 ---------- */
+html.dark {
+  .aura-pro-modal-form {
+    .el-dialog__header,
+    .el-dialog__footer {
+      border-color: var(--aura-border-color, #322e42);
+    }
+  }
+}
+
+/* ---------- 移动端 ---------- */
+@media (max-width: 768px) {
+  .aura-pro-modal-form {
+    // 窄屏弹窗应占满可用宽度，避免两侧留白挤压表单
+    --el-dialog-width: calc(100vw - 32px) !important;
+  }
+}

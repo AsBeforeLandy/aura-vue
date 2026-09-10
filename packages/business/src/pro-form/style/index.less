@@ -1,0 +1,87 @@
+/**
+ * ProForm 样式
+ *
+ * 只做「外层节奏」控制（间距/只读态/提示位/操作区），
+ * 控件本身的外观完全交给 Element Plus，不重复造轮子。
+ */
+
+.aura-pro-form {
+  width: 100%;
+
+  .el-form-item {
+    margin-bottom: 18px;
+  }
+
+  // 栅格列内纵向留白，让每行字段视觉成组
+  .el-col {
+    padding-bottom: 2px;
+  }
+
+  // 表单项的辅助说明：贴在控件下方，不与 label 区对齐
+  .el-form-item__content {
+    flex-wrap: wrap;
+  }
+}
+
+/* ---------- 字段提示 ---------- */
+.aura-pro-form-tip {
+  margin-left: 4px;
+  color: var(--aura-text-secondary, rgba(0, 0, 0, 0.55));
+  cursor: help;
+  vertical-align: -2px;
+  font-size: 13px;
+}
+
+/* ---------- 辅助说明文字 ---------- */
+.aura-pro-form-extra {
+  margin: -12px 0 14px;
+  padding-left: 2px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--aura-text-secondary, rgba(0, 0, 0, 0.45));
+}
+
+/* ---------- 只读态 ---------- */
+.aura-pro-form-readonly {
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--aura-text, rgba(0, 0, 0, 0.88));
+  // 只读值是"数据"而非"可编辑控件"，用浅底块弱化控件感
+  padding: 0 2px;
+  word-break: break-all;
+}
+
+/* ---------- 底部操作区 ---------- */
+.aura-pro-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 8px;
+  margin-top: 4px;
+  border-top: 1px solid var(--aura-border-color, #d9d9d9);
+}
+
+/* ---------- 暗色主题 ---------- */
+html.dark {
+  .aura-pro-form-actions {
+    border-top-color: var(--aura-border-color, #322e42);
+  }
+
+  .aura-pro-form-extra,
+  .aura-pro-form-tip {
+    color: var(--aura-text-secondary, rgba(255, 255, 255, 0.45));
+  }
+}
+
+/* ---------- 移动端 ---------- */
+@media (max-width: 768px) {
+  .aura-pro-form-actions {
+    // 窄屏按钮撑满，便于点击
+    .el-button {
+      flex: 1;
+    }
+  }
+}

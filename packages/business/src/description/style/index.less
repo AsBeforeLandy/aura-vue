@@ -1,0 +1,155 @@
+/**
+ * Description 样式
+ *
+ * 自绘而非复用 ElDescriptions：本项目需要「分组 + schema 驱动 + 与 ProTable 一致的值渲染」，
+ * 自绘能保证两个组件对同一份数据的展示结果完全一致（tag 颜色、日期格式、空值占位）。
+ */
+
+.aura-description {
+  width: 100%;
+}
+
+.aura-description-title {
+  margin-bottom: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--aura-text, rgba(0, 0, 0, 0.88));
+}
+
+.aura-description-group + .aura-description-group {
+  margin-top: 20px;
+}
+
+.aura-description-group-title {
+  margin-bottom: 10px;
+  padding-left: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--aura-text, rgba(0, 0, 0, 0.88));
+  // 左侧色条标记分组，比纯文字标题更易扫读
+  border-left: 3px solid var(--aura-color-primary, #7c3aed);
+}
+
+/* ---------- 栅格表 ---------- */
+.aura-description-table {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.aura-description-cell {
+  display: flex;
+  padding: 10px 0;
+  min-width: 0;
+
+  &.is-span-1 + &.is-span-1 {
+    // 同列相邻时保留内侧间距，避免两列文字贴在一起
+    padding-left: 0;
+  }
+}
+
+/* ---------- 标签与值 ---------- */
+.aura-description-label {
+  flex-shrink: 0;
+  padding-right: 12px;
+  color: var(--aura-text-secondary, rgba(0, 0, 0, 0.55));
+  line-height: 1.6;
+  word-break: break-word;
+}
+
+.aura-description-value {
+  flex: 1;
+  min-width: 0;
+  color: var(--aura-text, rgba(0, 0, 0, 0.88));
+  line-height: 1.6;
+  word-break: break-word;
+}
+
+/* ---------- 垂直方向：标签在上，值在下 ---------- */
+.is-vertical {
+  .aura-description-cell {
+    flex-direction: column;
+    padding: 8px 0;
+  }
+
+  .aura-description-label {
+    padding-right: 0;
+    padding-bottom: 4px;
+    font-size: 13px;
+    color: var(--aura-text-secondary, rgba(0, 0, 0, 0.45));
+  }
+}
+
+/* ---------- 边框模式 ---------- */
+.is-bordered {
+  border: 1px solid var(--aura-border-color, #d9d9d9);
+  border-radius: var(--aura-radius, 6px);
+  overflow: hidden;
+
+  .aura-description-cell {
+    padding: 10px 14px;
+    // 用负边距技巧消除外圈多余边框的问题不适用，
+    // 这里直接给每个单元格画右下边框，再由容器 overflow 裁掉外圈
+    border-right: 1px solid var(--aura-border-color, #d9d9d9);
+    border-bottom: 1px solid var(--aura-border-color, #d9d9d9);
+  }
+
+  .aura-description-label {
+    padding-right: 12px;
+    color: var(--aura-text-secondary, rgba(0, 0, 0, 0.55));
+  }
+}
+
+.is-bordered.is-vertical {
+  .aura-description-cell {
+    border-right-color: var(--aura-border-color, #d9d9d9);
+  }
+}
+
+/* ---------- 尺寸 ---------- */
+.is-large {
+  .aura-description-cell {
+    padding: 14px 16px;
+  }
+
+  .aura-description-label,
+  .aura-description-value {
+    font-size: 15px;
+  }
+}
+
+.is-small {
+  .aura-description-cell {
+    padding: 6px 10px;
+  }
+
+  .aura-description-label,
+  .aura-description-value {
+    font-size: 13px;
+  }
+}
+
+/* ---------- 暗色主题 ---------- */
+html.dark {
+  .is-bordered {
+    border-color: var(--aura-border-color, #322e42);
+
+    .aura-description-cell {
+      border-color: var(--aura-border-color, #322e42);
+    }
+  }
+}
+
+/* ---------- 移动端 ---------- */
+@media (max-width: 768px) {
+  .aura-description-cell {
+    // 窄屏一律单列，避免"标签+值"被压成难读的窄条
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+
+  .is-bordered .aura-description-cell {
+    border-right: none;
+  }
+}
