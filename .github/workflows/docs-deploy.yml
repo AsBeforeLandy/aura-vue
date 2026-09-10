@@ -35,6 +35,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Build packages
+        # 文档站 demo 从 @aura/components 的 dist 引入组件 JS，需先构建
+        run: pnpm build
+
       - name: Build docs
         run: pnpm docs:build
 
