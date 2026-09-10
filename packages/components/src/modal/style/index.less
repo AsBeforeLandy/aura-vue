@@ -1,0 +1,84 @@
+@import '../../style/base.less';
+
+.aura-modal {
+  &-mask {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.45);
+  }
+
+  &-wrap {
+    position: fixed;
+    inset: 0;
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    box-sizing: border-box;
+  }
+
+  &-panel {
+    width: 520px;
+    max-width: 100%;
+    background: var(--aura-bg);
+    border-radius: var(--aura-radius);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+  }
+
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    border-bottom: 1px solid var(--aura-border-color);
+  }
+
+  &-close {
+    color: var(--aura-text-secondary);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--aura-text);
+    }
+  }
+
+  &-body {
+    padding: 20px;
+    font-size: 14px;
+  }
+
+  &-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 12px 20px;
+    border-top: 1px solid var(--aura-border-color);
+  }
+}
+
+.aura-modal-enter-active,
+.aura-modal-leave-active {
+  transition: opacity 0.2s;
+}
+
+.aura-modal-enter-active .aura-modal-panel,
+.aura-modal-leave-active .aura-modal-panel {
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.aura-modal-enter-from,
+.aura-modal-leave-to {
+  opacity: 0;
+}
+
+.aura-modal-enter-from .aura-modal-panel,
+.aura-modal-leave-to .aura-modal-panel {
+  transform: scale(0.95);
+}

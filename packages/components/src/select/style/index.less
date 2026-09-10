@@ -1,0 +1,118 @@
+@import '../../style/base.less';
+
+.aura-select {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 320px;
+  font-size: 14px;
+
+  &--disabled {
+    opacity: 0.5;
+
+    .aura-select-trigger {
+      cursor: not-allowed;
+    }
+  }
+}
+
+/* ---------- 触发框 ---------- */
+.aura-select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  height: 34px;
+  padding: 0 8px 0 12px;
+  border: 1px solid var(--aura-border-color);
+  border-radius: var(--aura-radius);
+  background: var(--aura-bg);
+  color: var(--aura-text);
+  font-size: 14px;
+  text-align: left;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &:focus-visible,
+  &--open {
+    border-color: var(--aura-color-primary);
+  }
+
+  &--open {
+    box-shadow: 0 0 0 2px var(--aura-color-primary-shadow, rgba(124, 58, 237, 0.15));
+  }
+}
+
+.aura-select-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.aura-select-placeholder {
+  color: var(--aura-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.aura-select-arrow {
+  flex-shrink: 0;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid var(--aura-text-secondary);
+  transition: transform 0.2s;
+
+  &--open {
+    transform: rotate(180deg);
+  }
+}
+
+/* ---------- 下拉面板（Teleport 到 body，fixed 定位由 JS 计算） ---------- */
+.aura-select-dropdown {
+  position: fixed;
+  z-index: 1050;
+  max-height: 264px;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  box-sizing: border-box;
+  overflow-y: auto;
+  background: var(--aura-select-popup-bg, var(--aura-bg));
+  border: 1px solid var(--aura-border-color);
+  border-radius: var(--aura-radius);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.aura-select-option {
+  display: flex;
+  align-items: center;
+  padding: 7px 10px;
+  border-radius: calc(var(--aura-radius) - 2px);
+  color: var(--aura-text);
+  line-height: 20px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+
+  &--active {
+    background: var(--aura-color-primary-shadow, rgba(124, 58, 237, 0.08));
+  }
+
+  &--selected {
+    color: var(--aura-color-primary);
+    font-weight: 600;
+  }
+
+  &--disabled {
+    color: var(--aura-text-secondary);
+    cursor: not-allowed;
+
+    &:hover {
+      background: none;
+    }
+  }
+}

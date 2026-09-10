@@ -1,0 +1,38 @@
+@import '../../style/base.less';
+
+.aura-form-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 16px;
+
+  &--error {
+    .aura-form-item-label {
+      color: var(--aura-color-danger);
+    }
+  }
+
+  &-label {
+    width: 80px;
+    padding-right: 12px;
+    text-align: right;
+    font-size: 14px;
+    line-height: 34px;
+    color: var(--aura-text);
+  }
+
+  &-required {
+    margin-right: 4px;
+    color: var(--aura-color-danger);
+  }
+
+  &-control {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &-error {
+    margin-top: 4px;
+    font-size: 12px;
+    color: var(--aura-color-danger);
+  }
+}

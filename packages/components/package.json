@@ -1,0 +1,55 @@
+{
+  "name": "@aura/components",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "AUI Vue3 基础组件与表单组件库",
+  "keywords": [
+    "vue",
+    "vue3",
+    "components",
+    "ui",
+    "form"
+  ],
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./style.css": "./dist/style.css",
+    "./src/*": "./src/*"
+  },
+  "sideEffects": [
+    "**/*.less",
+    "**/*.css"
+  ],
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage"
+  },
+  "peerDependencies": {
+    "vue": "^3.4.0"
+  },
+  "dependencies": {
+    "@aura/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.0",
+    "@vitest/coverage-v8": "^3.0.0",
+    "@vue/test-utils": "^2.4.6",
+    "happy-dom": "^15.7.4",
+    "less": "^4.2.0",
+    "typescript": "^5.6.3",
+    "vite": "^6.0.0",
+    "vite-plugin-dts": "^4.3.0",
+    "vitest": "^3.0.0",
+    "vue": "^3.5.12"
+  }
+}

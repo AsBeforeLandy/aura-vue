@@ -1,0 +1,52 @@
+@import '../../style/base.less';
+
+.aura-input {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 320px;
+  padding: 0 10px;
+  border: 1px solid var(--aura-border-color);
+  border-radius: var(--aura-radius);
+  background: var(--aura-bg);
+  transition: border-color 0.2s;
+
+  &:focus-within {
+    border-color: var(--aura-color-primary);
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &-inner {
+    flex: 1;
+    height: 32px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--aura-text);
+    font-size: 14px;
+
+    &::placeholder {
+      color: var(--aura-text-secondary);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  &-clear {
+    padding: 0 4px;
+    color: var(--aura-text-secondary);
+    font-size: 14px;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--aura-text);
+    }
+  }
+}

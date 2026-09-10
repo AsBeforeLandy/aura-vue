@@ -1,0 +1,11 @@
+node_modules
+dist
+coverage
+.vitepress/cache
+.vitepress/dist
+*.log
+.DS_Store
+.vitepress/*.timestamp-*.mjs
+
+.pnpm-store
+.workbuddy

@@ -1,0 +1,106 @@
+/**
+ * Aura Vue 文档站定制主题 —— Element Plus 式精装手册
+ * 品牌色 #7c3aed（紫），与 @aura/components 保持一致
+ */
+
+:root {
+  /* 品牌色系 */
+  --vp-c-brand-1: #7c3aed;
+  --vp-c-brand-2: #6d28d9;
+  --vp-c-brand-3: #8b5cf6;
+  --vp-c-brand-soft: rgba(124, 58, 237, 0.14);
+  --vp-c-brand: #7c3aed;
+
+  /* 按钮 */
+  --vp-button-brand-bg: #7c3aed;
+  --vp-button-brand-text: #ffffff;
+  --vp-button-brand-border: #7c3aed;
+  --vp-button-brand-hover-bg: #6d28d9;
+  --vp-button-brand-hover-text: #ffffff;
+  --vp-button-brand-hover-border: #6d28d9;
+  --vp-button-brand-active-bg: #5b21b6;
+  --vp-button-brand-active-border: #5b21b6;
+
+  /* 侧边栏 / 目录激活色 */
+  --vp-sidebar-bg-color: #fbfafd;
+
+  /* 首页 hero：渐变标题 + 光晕背景 */
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(120deg, #7c3aed 30%, #a78bfa);
+  --vp-home-hero-image-background-image: linear-gradient(
+    -45deg,
+    rgba(124, 58, 237, 0.35) 45%,
+    rgba(167, 139, 250, 0.35) 55%
+  );
+  --vp-home-hero-image-filter: blur(48px);
+
+  /* 代码块 */
+  --vp-code-block-bg: #f6f4fb;
+  --vp-code-color: #7c3aed;
+
+  /* 自定义组件 */
+  --aura-docs-border: #e4e0ee;
+  --aura-docs-bg-soft: #fbfafd;
+}
+
+.dark {
+  --vp-c-brand-1: #a78bfa;
+  --vp-c-brand-2: #8b5cf6;
+  --vp-c-brand-3: #c4b5fd;
+  --vp-c-brand-soft: rgba(167, 139, 250, 0.16);
+  --vp-sidebar-bg-color: #1b1a22;
+  --vp-code-block-bg: #232030;
+  --vp-code-color: #c4b5fd;
+  --aura-docs-border: #322e42;
+  --aura-docs-bg-soft: #232030;
+  /* 暗色下 hero 标题用亮紫渐变，保证对比度 */
+  --vp-home-hero-name-background: linear-gradient(120deg, #a78bfa 30%, #d6c9ff);
+}
+
+/* ---------- 首页 hero ---------- */
+.VPHero .name,
+.VPHero .text {
+  letter-spacing: -0.02em;
+}
+
+.VPHero .tagline {
+  opacity: 0.85;
+}
+
+/* hero 下方实况演示卡片（EP 首页同款思路） */
+.aura-hero-demo {
+  max-width: 720px;
+  margin: 40px auto 72px;
+  padding: 28px 32px;
+  border: 1px solid var(--aura-docs-border);
+  border-radius: 16px;
+  background: var(--aura-docs-bg-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 0 12px 32px rgba(124, 58, 237, 0.08);
+}
+
+.aura-hero-demo .aura-hero-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ---------- 内容区细节 ---------- */
+.vp-doc h1 {
+  letter-spacing: -0.01em;
+}
+
+/* API 表格表头着色，EP 风格 */
+.vp-doc th {
+  background: var(--aura-docs-bg-soft) !important;
+  color: var(--vp-c-text-2);
+}
+
+/* 侧边栏分组标题 */
+.VPSidebarItem.level-0 > .item > .text {
+  font-weight: 600;
+}
