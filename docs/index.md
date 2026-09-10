@@ -52,4 +52,4 @@ features:
     linkText: 安装说明
 ---
 
-<HomeShowcase />
+<!-- 实况演示区由主题层注入到 home-hero-after 插槽（见 .vitepress/theme/index.ts） -->

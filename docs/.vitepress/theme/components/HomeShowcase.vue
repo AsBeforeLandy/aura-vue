@@ -18,6 +18,7 @@
             <Button type="primary">主要</Button>
             <Button type="dashed">虚线</Button>
             <Button type="text">文本</Button>
+            <Button type="primary" :loading="loading" @click="simulate">加载态</Button>
           </div>
         </article>
 
@@ -85,6 +86,7 @@ const keyword = ref('');
 const onlyMine = ref(true);
 const city = ref('');
 const dialogOpen = ref(false);
+const loading = ref(false);
 
 const cities = [
   { label: '杭州', value: 'hangzhou' },
@@ -92,13 +94,22 @@ const cities = [
   { label: '深圳（暂不可选）', value: 'shenzhen', disabled: true }
 ];
 
+function simulate() {
+  loading.value = true;
+  setTimeout(() => (loading.value = false), 1600);
+}
+
 const componentCount = 6;
-const testCount = 52;
+const testCount = 53;
 </script>
 
 <style scoped>
 .aura-showcase {
+  position: relative;
+  z-index: 2;
   padding: 8px 24px 72px;
+  /* 蒲公英 canvas 在更底层绘制，这里保持透明以露出背景 */
+  background: transparent;
 }
 
 .aura-showcase-inner {
@@ -137,7 +148,10 @@ const testCount = 52;
   flex-direction: column;
   border: 1px solid var(--vp-c-divider);
   border-radius: 12px;
-  background: var(--vp-c-bg-soft);
+  /* 半透明玻璃质感，让底层蒲公英背景透出来 */
+  background: var(--aura-docs-card-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   overflow: hidden;
   transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
 }
@@ -154,7 +168,7 @@ const testCount = 52;
   justify-content: space-between;
   padding: 14px 20px;
   border-bottom: 1px solid var(--vp-c-divider);
-  background: var(--vp-c-bg);
+  background: var(--aura-docs-card-head-bg);
 }
 
 .aura-card-head h3 {

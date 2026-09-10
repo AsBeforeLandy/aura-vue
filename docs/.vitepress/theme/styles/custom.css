@@ -41,6 +41,9 @@
   /* 自定义组件 */
   --aura-docs-border: #e4e0ee;
   --aura-docs-bg-soft: #fbfafd;
+  /* 首页卡片半透明玻璃质感（让底层蒲公英背景透出） */
+  --aura-docs-card-bg: rgba(255, 255, 255, 0.72);
+  --aura-docs-card-head-bg: rgba(255, 255, 255, 0.6);
 }
 
 .dark {
@@ -53,6 +56,8 @@
   --vp-code-color: #c4b5fd;
   --aura-docs-border: #322e42;
   --aura-docs-bg-soft: #232030;
+  --aura-docs-card-bg: rgba(35, 32, 48, 0.68);
+  --aura-docs-card-head-bg: rgba(27, 26, 34, 0.6);
   /* 暗色下 hero 标题用亮紫渐变，保证对比度 */
   --vp-home-hero-name-background: linear-gradient(120deg, #a78bfa 30%, #d6c9ff);
 }
@@ -67,26 +72,18 @@
   opacity: 0.85;
 }
 
-/* hero 下方实况演示卡片（EP 首页同款思路） */
-.aura-hero-demo {
-  max-width: 720px;
-  margin: 40px auto 72px;
-  padding: 28px 32px;
-  border: 1px solid var(--aura-docs-border);
-  border-radius: 16px;
-  background: var(--aura-docs-bg-soft);
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  box-shadow: 0 12px 32px rgba(124, 58, 237, 0.08);
+/* 蒲公英背景在最底层，hero 与展示区需要叠在其上 */
+.VPHome .VPHero,
+.VPHome .VPHomeFeatures,
+.VPHome .VPHomeContent {
+  position: relative;
+  z-index: 2;
 }
 
-.aura-hero-demo .aura-hero-row {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: center;
+/* 首页整体透明，露出固定定位的 canvas */
+.VPHome {
+  position: relative;
+  overflow-x: clip;
 }
 
 /* ---------- 内容区排版 ---------- */
@@ -231,11 +228,6 @@
 
 /* ---------- 移动端 ---------- */
 @media (max-width: 768px) {
-  .aura-hero-demo {
-    margin: 32px 16px 56px;
-    padding: 22px 18px;
-  }
-
   .vp-doc h2 {
     margin-top: 36px;
   }

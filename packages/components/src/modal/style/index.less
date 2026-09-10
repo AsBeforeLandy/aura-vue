@@ -63,22 +63,31 @@
   }
 }
 
-.aura-modal-enter-active,
-.aura-modal-leave-active {
-  transition: opacity 0.2s;
+/**
+ * 遮罩 / 面板的进出场动画。
+ *
+ * 注意：动画类挂在根节点 .aura-modal 上，但根节点是 position: static 的纯逻辑容器
+ * （真正可见的是 position: fixed 的 mask / wrap 子元素）。因此 transition 必须写在
+ * 子元素选择器上——若写在根节点，根节点没有可绘制的盒子，透明度变化不可见，
+ * 而 mask 会因为不走过渡而"瞬间蹦出"，表现为遮罩闪动。
+ */
+.aura-modal-enter-active .aura-modal-mask,
+.aura-modal-leave-active .aura-modal-mask {
+  transition: opacity 0.2s var(--aura-easing, ease);
 }
 
 .aura-modal-enter-active .aura-modal-panel,
 .aura-modal-leave-active .aura-modal-panel {
-  transition: transform 0.2s, opacity 0.2s;
+  transition: transform 0.2s var(--aura-easing, ease), opacity 0.2s var(--aura-easing, ease);
 }
 
-.aura-modal-enter-from,
-.aura-modal-leave-to {
+.aura-modal-enter-from .aura-modal-mask,
+.aura-modal-leave-to .aura-modal-mask {
   opacity: 0;
 }
 
 .aura-modal-enter-from .aura-modal-panel,
 .aura-modal-leave-to .aura-modal-panel {
-  transform: scale(0.95);
+  transform: scale(0.94);
+  opacity: 0;
 }

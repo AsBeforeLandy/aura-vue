@@ -9,6 +9,13 @@ export default defineConfig({
   cleanUrls: true,
   lastUpdated: true,
   appearance: true,
+  head: [
+    ['link', { rel: 'icon', href: '/aura-vue/favicon.ico', sizes: 'any' }],
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/aura-vue/logo.svg' }],
+    ['link', { rel: 'apple-touch-icon', href: '/aura-vue/apple-touch-icon.png' }],
+    ['link', { rel: 'manifest', href: '/aura-vue/site.webmanifest' }],
+    ['meta', { name: 'theme-color', content: '#7c3aed' }]
+  ],
   markdown: {
     theme: { light: 'github-light', dark: 'github-dark' }
   },

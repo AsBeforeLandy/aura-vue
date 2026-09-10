@@ -146,3 +146,38 @@ describe('Modal - 异常场景', () => {
     expect($('.aura-modal-body')!.textContent).toBe('');
   });
 });
+
+/**
+ * 动画样式契约（回归防护）：
+ *
+ * 遮罩与面板是 position: fixed 的子元素，而动画类挂在 position: static 的根节点上。
+ * 过渡必须写成 `.aura-modal-enter-active .aura-modal-mask` 这种**后代选择器**；
+ * 若误写成 `.aura-modal-enter-active { transition: ... }`（作用在无可见盒子的根节点上），
+ * 遮罩会因不参与过渡而瞬间蹦出，表现为"遮罩闪动"。
+ *
+ * happy-dom 不计算样式表过渡，也无法观察到 Transition 类名的帧级变化，
+ * 因此这里直接读取 Less 源码断言选择器契约。
+ */
+describe('Modal - 动画样式契约', () => {
+  it('过渡作用于 mask / panel 子元素，而非无盒子的根节点', async () => {
+    const { readFileSync } = await import('node:fs');
+    const { fileURLToPath } = await import('node:url');
+    const { dirname, resolve } = await import('node:path');
+
+    const here = dirname(fileURLToPath(import.meta.url));
+    const css = readFileSync(
+      resolve(here, '../src/modal/style/index.less'),
+      'utf-8'
+    );
+
+    // 遮罩与面板各自参与过渡
+    expect(css).toMatch(/\.aura-modal-enter-active\s+\.aura-modal-mask/);
+    expect(css).toMatch(/\.aura-modal-enter-active\s+\.aura-modal-panel/);
+    // 初始态必须包含透明/缩放，否则没有动画起止差
+    expect(css).toMatch(/\.aura-modal-enter-from\s+\.aura-modal-mask/);
+    expect(css).toMatch(/\.aura-modal-enter-from\s+\.aura-modal-panel/);
+
+    // 反例：过渡不得直接作用在根节点（根节点无可见盒子，会让遮罩瞬间蹦出）
+    expect(css).not.toMatch(/\.aura-modal-enter-active\s*[,{]/);
+  });
+});
