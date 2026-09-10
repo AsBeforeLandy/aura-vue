@@ -1,11 +1,13 @@
 node_modules
 dist
 coverage
-.vitepress/cache
-.vitepress/dist
 *.log
 .DS_Store
-.vitepress/*.timestamp-*.mjs
+
+# VitePress（根目录 gitignore 的含斜杠模式会锚定到根，需用 **/ 匹配子目录）
+**/.vitepress/cache/
+**/.vitepress/dist/
+**/.vitepress/*.timestamp-*.mjs
 
 .pnpm-store
 .workbuddy
