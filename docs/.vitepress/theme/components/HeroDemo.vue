@@ -7,7 +7,7 @@
       <Button type="text">文本按钮</Button>
     </div>
     <div class="aura-hero-row">
-      <Input v-model="name" placeholder="请输入内容" style="max-width: 220px" />
+      <Input v-model="name" placeholder="请输入内容" style="max-width: 220px" clearable />
       <Switch v-model="on" />
       <Button type="primary" size="small" @click="count++">
         点了 {{ count }} 次

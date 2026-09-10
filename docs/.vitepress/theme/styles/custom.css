@@ -89,18 +89,154 @@
   justify-content: center;
 }
 
-/* ---------- 内容区细节 ---------- */
+/* ---------- 内容区排版 ---------- */
 .vp-doc h1 {
   letter-spacing: -0.01em;
 }
 
-/* API 表格表头着色，EP 风格 */
-.vp-doc th {
-  background: var(--aura-docs-bg-soft) !important;
-  color: var(--vp-c-text-2);
+.vp-doc h2 {
+  margin-top: 44px;
+  padding-top: 22px;
+  border-top: 1px solid var(--vp-c-divider);
+  letter-spacing: -0.01em;
 }
 
-/* 侧边栏分组标题 */
+.vp-doc h3 {
+  margin-top: 28px;
+}
+
+/* ---------- 表格：EP 风格表头 + 圆角外框 ---------- */
+.vp-doc table {
+  display: table;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 20px 0;
+}
+
+.vp-doc th {
+  background: var(--aura-docs-bg-soft) !important;
+  color: var(--vp-c-text-1);
+  font-weight: 600;
+  font-size: 13.5px;
+  text-align: left;
+  padding: 10px 14px !important;
+  border: none !important;
+  border-bottom: 1px solid var(--vp-c-divider) !important;
+}
+
+.vp-doc td {
+  padding: 10px 14px !important;
+  border: none !important;
+  border-bottom: 1px solid var(--vp-c-divider) !important;
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+
+.vp-doc tr:last-child td {
+  border-bottom: none !important;
+}
+
+.vp-doc tbody tr {
+  background: transparent !important;
+}
+
+.vp-doc tbody tr:hover td {
+  background: var(--aura-docs-bg-soft);
+}
+
+/* 表格内联代码（类型列）不过度抢眼 */
+.vp-doc td code {
+  font-size: 12.5px;
+  white-space: nowrap;
+}
+
+/* ---------- 代码块圆角 ---------- */
+.vp-doc div[class*='language-'] {
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+.vp-doc div[class*='language-'] pre {
+  border-radius: 10px;
+}
+
+/* ---------- 提示容器圆角对齐 ---------- */
+.vp-doc .custom-block {
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 13.5px;
+}
+
+.vp-doc .custom-block .custom-block-title {
+  font-weight: 600;
+}
+
+/* ---------- 侧边栏 ---------- */
 .VPSidebarItem.level-0 > .item > .text {
   font-weight: 600;
+}
+
+.VPSidebarItem.level-1 .text,
+.VPSidebarItem.level-2 .text {
+  font-size: 13.5px;
+}
+
+.VPSidebarItem.is-active > .item .link .text {
+  font-weight: 600;
+}
+
+/* ---------- 导航栏 ---------- */
+.VPNavBarTitle .title {
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+/* ---------- 首页 feature 卡片 ---------- */
+.VPFeature {
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+}
+
+.VPFeature:hover {
+  border-color: var(--vp-c-brand-2);
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.1);
+  transform: translateY(-2px);
+}
+
+.VPFeature .box {
+  height: 100%;
+}
+
+.VPFeature .title {
+  font-size: 15px;
+}
+
+.VPFeature .details {
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+
+/* ---------- 页脚 ---------- */
+.VPFooter {
+  border-top: 1px solid var(--vp-c-divider);
+}
+
+/* ---------- 本地搜索框 ---------- */
+.VPNavBarSearch .DocSearch-Button {
+  border-radius: 8px;
+}
+
+/* ---------- 移动端 ---------- */
+@media (max-width: 768px) {
+  .aura-hero-demo {
+    margin: 32px 16px 56px;
+    padding: 22px 18px;
+  }
+
+  .vp-doc h2 {
+    margin-top: 36px;
+  }
 }

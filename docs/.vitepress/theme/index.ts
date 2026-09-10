@@ -2,6 +2,7 @@ import { h } from 'vue';
 import DefaultTheme from 'vitepress/theme';
 import Demo from './components/Demo.vue';
 import HeroDemo from './components/HeroDemo.vue';
+import HomeShowcase from './components/HomeShowcase.vue';
 import './styles/custom.css';
 import '@aura/components/src/style/base.less';
 import '@aura/components/src/button/style/index.less';
@@ -16,11 +17,12 @@ export default {
   // 通过 Layout 插槽把实况演示注入首页 hero 下方（比 markdown <template> 更稳）
   Layout() {
     return h(DefaultTheme.Layout, null, {
-      'home-hero-after': () => h(HeroDemo)
+      'home-hero-after': () => [h(HeroDemo), h(HomeShowcase)]
     });
   },
   enhanceApp({ app }) {
     app.component('Demo', Demo);
     app.component('HeroDemo', HeroDemo);
+    app.component('HomeShowcase', HomeShowcase);
   }
 };
