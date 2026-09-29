@@ -372,6 +372,31 @@ check('无构建产物的包必须标记 private', () => {
   );
 });
 
+check('可发布的作用域包必须声明 publishConfig.access = "public"', () => {
+  // 作用域包（@scope/name）在 npm 上默认是 restricted。
+  // 免费账号无法发布 restricted 包，`npm publish` 会以 402 失败——
+  // 而且失败发生在「版本号已提升、tag 已打」之后，排查成本很高。
+  // 本项目两个可发布包都是作用域包，必须显式声明 public。
+  const offenders = readdirSync(join(ROOT, 'packages'), { withFileTypes: true })
+    .filter((e) => e.isDirectory())
+    .map((e) => e.name)
+    .filter((name) => {
+      const p = join(ROOT, 'packages', name, 'package.json');
+      if (!existsSync(p)) return false;
+      const pkg = JSON.parse(readFileSync(p, 'utf-8'));
+      if (pkg.private === true) return false; // 不发布的包无需关心
+      if (!String(pkg.name ?? '').startsWith('@')) return false; // 非作用域包默认 public
+      return pkg.publishConfig?.access !== 'public';
+    });
+
+  assert(
+    offenders.length === 0,
+    `以下作用域包未声明 publishConfig.access = "public"，发布会被 npm 拒绝（402）：\n         ${offenders.join(
+      '\n         ',
+    )}`,
+  );
+});
+
 group('文档引用的包内路径');
 
 /**

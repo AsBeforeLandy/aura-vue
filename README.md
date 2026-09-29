@@ -56,10 +56,11 @@ pnpm format:check    # Prettier 只检查（CI 用）
 pnpm typecheck       # vue-tsc 类型检查
 pnpm size            # 包体积预算
 pnpm attw            # 发布包的类型解析校验（需 npm 在 PATH 上）
+pnpm api-surface     # 公开 API 表面与快照比对（防破坏性变更）
 pnpm smoke           # 产物冒烟测试（需先 build）
 
 # 一键全链路（提交前建议跑一次）
-pnpm verify          # lint + typecheck + test:coverage + build + size + attw + smoke
+pnpm verify          # lint + typecheck + test:coverage + build + size + attw + api-surface + smoke
 pnpm verify:fast     # 同上，但跳过覆盖率阈值
 
 # 发版
@@ -72,21 +73,27 @@ pnpm release         # 构建并发布到 npm
 
 提交与 CI 各自守一层，覆盖面刻意保持一致：
 
-| 关卡         | 触发时机  | 执行内容                                                                                   |
-| ------------ | --------- | ------------------------------------------------------------------------------------------ |
-| `pre-commit` | 本地提交  | `lint-staged` → 对暂存文件 `eslint --fix` + `prettier --write`                             |
-| `commit-msg` | 本地提交  | `commitlint` 校验 Conventional Commits 格式                                                |
-| CI           | push / PR | lint → format:check → typecheck → test:coverage → build → size → attw → smoke → docs:build |
+| 关卡         | 触发时机  | 执行内容                                                                                                 |
+| ------------ | --------- | -------------------------------------------------------------------------------------------------------- |
+| `pre-commit` | 本地提交  | `lint-staged` → 对暂存文件 `eslint --fix` + `prettier --write`                                           |
+| `commit-msg` | 本地提交  | `commitlint` 校验 Conventional Commits 格式                                                              |
+| CI           | push / PR | lint → format:check → typecheck → test:coverage → build → size → attw → api-surface → smoke → docs:build |
 
-两道最关键的**产物级**门禁：
+三道最关键的**产物级**门禁（lint / test / build 都发现不了它们拦的问题）：
 
 - **`pnpm smoke`** —— 文档站通过源码路径消费样式，产物从不被真正「装机」消费，
   因此「开发态正常、交付态断裂」类问题只能靠它拦住：
   exports 指向不存在的文件、通配符写法非法、产物残留未构建的依赖、
-  声明文件里混进 `node_modules` 相对路径、文档教了不存在的导入路径。
+  声明文件里混进 `node_modules` 相对路径、作用域包漏了 `publishConfig.access`、
+  文档教了不存在的导入路径。
 - **`pnpm attw`** —— 校验发布包的**类型**在 `node16` 与 `bundler` 两种解析模式下都能解析。
-  `.vue.d.ts` 与 `.vue.js` 文件名对不上、类型引用不可移植这类问题，
-  lint / test / build 都发现不了。
+  `.vue.d.ts` 与 `.vue.js` 文件名对不上、类型引用不可移植这类问题，只有它拦得住。
+- **`pnpm api-surface`** —— 与快照比对导出名 / props / emits。
+  改个 prop 名类型照样编译通过，但消费方会在运行时静默失效；
+  这一步把 API 破坏性变更变成显式动作（更新快照 + 写 changeset）。
+
+这三个脚本依赖构建期配合：`scripts/postbuild-dts.mjs` 在 `vite build` 之后
+补全声明文件里的相对引用、并把混进来的 `node_modules` 相对路径收敛回裸包名。
 
 两者依赖构建期脚本 `scripts/postbuild-dts.mjs`：在 `vite build` 之后补全声明文件里的相对引用、
 并把混进来的 `node_modules` 相对路径收敛回裸包名。

@@ -8,6 +8,8 @@ import { Modal } from '../src/modal';
  * 用一个 TestHost 匿名父组件驱动受控显隐，并在 ok/cancel/close 回调中记录标记，
  * 从而验证事件被正确触发（Teleport 出去的节点无法用 wrapper.find/trigger）。
  */
+const mountedWrappers: ReturnType<typeof mount>[] = [];
+
 function mountHost(
   props: Record<string, unknown> = {},
   slots: Record<string, unknown> = {},
@@ -35,6 +37,7 @@ function mountHost(
       },
     }),
   );
+  mountedWrappers.push(wrapper);
   return {
     wrapper,
     visible,
@@ -48,7 +51,16 @@ function mountHost(
 
 const $ = (sel: string) => document.querySelector(sel) as HTMLElement | null;
 
+/**
+ * 必须先卸载再清空 body。
+ *
+ * Teleport 会在 body 里留下锚点（注释节点），Vue 内部持有它的引用。
+ * 如果只清 body 不卸载组件，残留实例的锚点会变成游离节点，
+ * 下一次挂载就会报 `Cannot read properties of null (reading 'insertBefore')`——
+ * 而且报错位置在**下一个**用例里，排查时极易误判。
+ */
 afterEach(() => {
+  for (const wrapper of mountedWrappers.splice(0)) wrapper.unmount();
   document.body.innerHTML = '';
 });
 
@@ -143,6 +155,199 @@ describe('Modal - 异常场景', () => {
     await show();
 
     expect($('.aura-modal-body')!.textContent).toBe('');
+  });
+});
+
+/**
+ * 焦点管理（WAI-ARIA dialog 模式）。
+ *
+ * 这些用例覆盖的是「键盘用户能否真正用起来」：
+ * 打开后焦点要进弹窗、Tab 不能跑到背后页面、关闭后焦点要还回去。
+ * 三者缺一，读屏与纯键盘用户就会「卡住」。
+ */
+describe('Modal - 焦点管理', () => {
+  /** 在 body 里放一个用于测量焦点归还的按钮，并聚焦它 */
+  function focusOutsideButton(): HTMLButtonElement {
+    const btn = document.createElement('button');
+    btn.textContent = '触发器';
+    document.body.appendChild(btn);
+    btn.focus();
+    return btn;
+  }
+
+  /** 派发 Tab 按键并返回事件对象（用于断言是否被 preventDefault） */
+  function pressTab(shiftKey = false): KeyboardEvent {
+    const evt = new KeyboardEvent('keydown', {
+      key: 'Tab',
+      shiftKey,
+      bubbles: true,
+      cancelable: true,
+    });
+    document.dispatchEvent(evt);
+    return evt;
+  }
+
+  /** 打开弹窗并等待 watch 里的 nextTick 落定 */
+  async function openAndSettle(show: () => Promise<void>) {
+    await show();
+    await nextTick();
+  }
+
+  it('正常：打开后焦点落到面板上（读屏会先播报对话框）', async () => {
+    const { show } = mountHost({ title: '删除确认' });
+    await openAndSettle(show);
+
+    expect(document.activeElement).toBe($('.aura-modal-panel'));
+  });
+
+  it('正常：关闭后焦点归还给打开前的元素', async () => {
+    const trigger = focusOutsideButton();
+    const { show, visible } = mountHost();
+    await openAndSettle(show);
+
+    visible.value = false;
+    await nextTick();
+
+    expect(document.activeElement).toBe(trigger);
+  });
+
+  it('正常：Tab 在最后一个可聚焦元素上时回到第一个（焦点陷阱）', async () => {
+    const { show } = mountHost();
+    await openAndSettle(show);
+
+    const items = [
+      ...document.querySelectorAll<HTMLElement>(
+        '.aura-modal-panel button, .aura-modal-panel [tabindex]:not([tabindex="-1"])',
+      ),
+    ];
+    expect(items.length).toBeGreaterThan(1);
+
+    items[items.length - 1].focus();
+    const evt = pressTab();
+
+    expect(evt.defaultPrevented).toBe(true);
+    expect(document.activeElement).toBe(items[0]);
+  });
+
+  it('正常：Shift+Tab 在第一个可聚焦元素上时跳到最后', async () => {
+    const { show } = mountHost();
+    await openAndSettle(show);
+
+    const items = [
+      ...document.querySelectorAll<HTMLElement>(
+        '.aura-modal-panel button, .aura-modal-panel [tabindex]:not([tabindex="-1"])',
+      ),
+    ];
+    items[0].focus();
+    const evt = pressTab(true);
+
+    expect(evt.defaultPrevented).toBe(true);
+    expect(document.activeElement).toBe(items[items.length - 1]);
+  });
+
+  it('边界：焦点在弹窗之外时按 Tab 会被拉回弹窗内', async () => {
+    const outside = focusOutsideButton();
+    const { show } = mountHost();
+    await openAndSettle(show);
+
+    // 模拟用户点到页面上再按 Tab
+    outside.focus();
+    const evt = pressTab();
+
+    expect(evt.defaultPrevented).toBe(true);
+    expect($('.aura-modal-panel')!.contains(document.activeElement)).toBe(true);
+  });
+
+  it('边界：弹窗内没有可聚焦元素时，Tab 不会把焦点漏到背后页面', async () => {
+    const { show } = mountHost();
+    await openAndSettle(show);
+
+    // 极端情况：面板内所有控件都不可用（例如请求进行中的只读弹窗）
+    document
+      .querySelectorAll<HTMLButtonElement>('.aura-modal-panel button')
+      .forEach((btn) => btn.setAttribute('disabled', ''));
+
+    const evt = pressTab();
+
+    expect(evt.defaultPrevented).toBe(true);
+    expect(document.activeElement).toBe($('.aura-modal-panel'));
+  });
+
+  it('边界：ESC 关闭弹窗（closeOnEsc 默认 true）', async () => {
+    const { visible, marks, show } = mountHost();
+    await openAndSettle(show);
+
+    document.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }),
+    );
+    await nextTick();
+
+    expect(marks).toContain('close');
+    expect(visible.value).toBe(false);
+  });
+
+  it('边界：closeOnEsc=false 时 ESC 不关闭', async () => {
+    const { visible, marks, show } = mountHost({ closeOnEsc: false });
+    await openAndSettle(show);
+
+    document.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }),
+    );
+    await nextTick();
+
+    expect(marks).toEqual([]);
+    expect(visible.value).toBe(true);
+  });
+
+  it('边界：弹窗已关闭时按键不产生副作用', async () => {
+    const { marks } = mountHost();
+    // 从未打开
+    document.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }),
+    );
+    pressTab();
+    await nextTick();
+
+    expect(marks).toEqual([]);
+  });
+});
+
+describe('Modal - 可访问性标记', () => {
+  it('正常：面板带 tabindex="-1" 以支持程序化聚焦', async () => {
+    const { show } = mountHost();
+    await show();
+
+    expect($('.aura-modal-panel')!.getAttribute('tabindex')).toBe('-1');
+  });
+
+  it('正常：对话框用 title 作为无障碍名称', async () => {
+    const { show } = mountHost({ title: '编辑资料' });
+    await show();
+
+    expect($('.aura-modal-wrap')!.getAttribute('aria-label')).toBe('编辑资料');
+  });
+
+  it('边界：未传 title 时不输出空的 aria-label', async () => {
+    const { show } = mountHost();
+    await show();
+
+    expect($('.aura-modal-wrap')!.hasAttribute('aria-label')).toBe(false);
+  });
+
+  it('正常：关闭控件是原生 button（天然可聚焦、可键盘触发）', async () => {
+    const { visible, marks, show } = mountHost();
+    await show();
+
+    const closeBtn = $('.aura-modal-close');
+    expect(closeBtn!.tagName).toBe('BUTTON');
+    expect(closeBtn!.getAttribute('type')).toBe('button');
+    expect(closeBtn!.getAttribute('aria-label')).toBe('关闭');
+
+    closeBtn!.click();
+    await nextTick();
+
+    expect(marks).toContain('close');
+    expect(visible.value).toBe(false);
   });
 });
 

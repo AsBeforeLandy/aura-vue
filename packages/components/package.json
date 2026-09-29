@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "type": "module",
   "description": "Aura Vue3 基础组件与表单组件库",
+  "engines": {
+    "node": "^20.19.0 || ^22.13.0 || >=24"
+  },
   "keywords": [
     "vue",
     "vue3",
@@ -40,10 +43,14 @@
     "dist",
     "src"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "vite build && node ../../scripts/postbuild-dts.mjs",
     "test": "vitest run",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "prepublishOnly": "pnpm build"
   },
   "peerDependencies": {
     "vue": "^3.4.0"

@@ -6,6 +6,16 @@ on:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
+# changesets/action 需要写权限：它会把 version commit 推回主分支、
+# 创建/更新 "Version Packages" PR，并打 tag。
+# 不显式声明会落到仓库默认权限（新仓库默认为只读 contents），
+# 表现为发布步骤静默失败——这正是「配了 NPM_TOKEN 却发不出去」的常见原因。
+permissions:
+  contents: write
+  pull-requests: write
+  # npm provenance 通过 OIDC 签发，需要 id-token 写权限
+  id-token: write
+
 # 仓库 Secrets 里配置了 NPM_TOKEN 后发布流程才会真正执行；
 # 未配置时仅跳过发布步骤（env 上下文只能用于步骤级 if，不能用于 job 级 if）
 env:
@@ -16,6 +26,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # changesets 需要完整历史来判断哪些 changeset 尚未被消费
+          fetch-depth: 0
 
       - uses: pnpm/action-setup@v4
         with:
@@ -31,11 +44,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build
-        run: pnpm build
-
-      - name: Test
-        run: pnpm test
+      # 发布前的校验与 CI 保持一致：不通过就不该发出去。
+      # 这里刻意复用单步 verify，而不是再抄一份步骤清单——
+      # 同一份链路定义在两处必然漂移。
+      - name: Verify
+        run: pnpm verify
 
       - name: Publish to npm
         if: ${{ env.NPM_TOKEN != '' }}
@@ -47,3 +60,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # 生成 provenance 声明（供应链可追溯）。放在这里而不是包的 publishConfig，
+          # 是为了不影响维护者本地手动发布——provenance 依赖 CI 的 OIDC，本地会直接失败。
+          NPM_CONFIG_PROVENANCE: true

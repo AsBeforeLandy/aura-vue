@@ -1,0 +1,173 @@
+{
+  "exports": [
+    "AuraComponents",
+    "Button",
+    "Form",
+    "FormItem",
+    "Input",
+    "Modal",
+    "Select",
+    "Switch",
+    "buttonProps",
+    "components",
+    "default",
+    "formContextKey",
+    "formItemHookKey",
+    "formItemProps",
+    "formProps",
+    "inputProps",
+    "modalProps",
+    "selectProps",
+    "switchProps",
+    "useControllable",
+    "validateValue"
+  ],
+  "componentMap": "components",
+  "components": {
+    "Button": {
+      "props": {
+        "block": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "disabled": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "loading": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "size": {
+          "type": ["String"],
+          "default": "middle"
+        },
+        "type": {
+          "type": ["String"],
+          "default": "default"
+        }
+      },
+      "emits": ["click"]
+    },
+    "Input": {
+      "props": {
+        "clearable": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "defaultValue": {
+          "type": ["String"]
+        },
+        "disabled": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "modelValue": {
+          "type": ["String"]
+        },
+        "placeholder": {
+          "type": ["String"],
+          "default": ""
+        }
+      },
+      "emits": ["change", "clear", "update:modelValue"]
+    },
+    "Form": {
+      "props": {
+        "model": {
+          "type": ["Object"],
+          "required": true
+        }
+      },
+      "emits": []
+    },
+    "FormItem": {
+      "props": {
+        "label": {
+          "type": ["String"],
+          "default": ""
+        },
+        "prop": {
+          "type": ["String"]
+        },
+        "required": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "rules": {
+          "type": ["Array"],
+          "default": "[function]"
+        }
+      },
+      "emits": []
+    },
+    "Switch": {
+      "props": {
+        "defaultValue": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "disabled": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "modelValue": {
+          "type": ["Boolean"]
+        }
+      },
+      "emits": ["change", "update:modelValue"]
+    },
+    "Select": {
+      "props": {
+        "defaultValue": {
+          "type": ["String"]
+        },
+        "disabled": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "modelValue": {
+          "type": ["String"]
+        },
+        "options": {
+          "type": ["Array"],
+          "default": "[function]"
+        },
+        "placeholder": {
+          "type": ["String"],
+          "default": ""
+        }
+      },
+      "emits": ["change", "update:modelValue"]
+    },
+    "Modal": {
+      "props": {
+        "closeOnClickMask": {
+          "type": ["Boolean"],
+          "default": true
+        },
+        "closeOnEsc": {
+          "type": ["Boolean"],
+          "default": true
+        },
+        "footer": {
+          "type": ["Boolean"],
+          "default": true
+        },
+        "modelValue": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "title": {
+          "type": ["String"],
+          "default": ""
+        },
+        "width": {
+          "type": ["Number", "String"],
+          "default": 520
+        }
+      },
+      "emits": ["cancel", "close", "ok", "update:modelValue"]
+    }
+  }
+}

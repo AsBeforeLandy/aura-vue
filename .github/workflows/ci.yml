@@ -65,6 +65,12 @@ jobs:
         # 这类问题 lint / test / build 都发现不了，只有它拦得住。
         run: pnpm attw
 
+      - name: Public API surface
+        # 与快照比对导出名 / props / emits。
+        # 改个 prop 名字类型照样编译通过，但消费方会在运行时静默失效——
+        # 这一步把「API 破坏性变更」变成显式动作（改快照 + 写 changeset）。
+        run: pnpm api-surface
+
       - name: Artifact smoke test
         run: pnpm smoke
 

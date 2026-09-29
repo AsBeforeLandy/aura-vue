@@ -1,0 +1,323 @@
+{
+  "exports": [
+    "AuraBusiness",
+    "Description",
+    "PageContainer",
+    "ProForm",
+    "ProModalForm",
+    "ProTable",
+    "businessComponents",
+    "default",
+    "descriptionProps",
+    "formatDate",
+    "formatMoney",
+    "getByPath",
+    "normalizeRules",
+    "omitEmpty",
+    "pageContainerProps",
+    "proFormProps",
+    "proModalFormProps",
+    "proTableProps",
+    "renderCell",
+    "renderControl",
+    "resolveTitle"
+  ],
+  "componentMap": "businessComponents",
+  "components": {
+    "ProTable": {
+      "props": {
+        "border": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "clearOnReload": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "columns": {
+          "type": ["Array"],
+          "required": true
+        },
+        "data": {
+          "type": ["Array"]
+        },
+        "emptyText": {
+          "type": ["String"],
+          "default": "暂无数据"
+        },
+        "pagination": {
+          "type": ["Boolean", "Object"],
+          "default": "[function]"
+        },
+        "request": {
+          "type": ["Function"]
+        },
+        "rowKey": {
+          "type": ["String"],
+          "default": "id"
+        },
+        "rowSelection": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "search": {
+          "type": ["Boolean"],
+          "default": true
+        },
+        "searchDefaultCollapsed": {
+          "type": ["Boolean"],
+          "default": true
+        },
+        "searchSpan": {
+          "type": ["Number"],
+          "default": 3
+        },
+        "size": {
+          "type": ["String"],
+          "default": "default"
+        },
+        "stripe": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "title": {
+          "type": ["String"],
+          "default": ""
+        },
+        "toolbar": {
+          "type": ["Object"],
+          "default": "[function]"
+        }
+      },
+      "emits": ["error", "loaded", "page-change", "search", "selection-change"]
+    },
+    "ProForm": {
+      "props": {
+        "columns": {
+          "type": ["Number"],
+          "default": 2
+        },
+        "defaultValue": {
+          "type": ["Object"],
+          "default": "[function]"
+        },
+        "disabled": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "gutter": {
+          "type": ["Number"],
+          "default": 20
+        },
+        "items": {
+          "type": ["Array"],
+          "required": true
+        },
+        "labelPosition": {
+          "type": ["String"],
+          "default": "right"
+        },
+        "labelWidth": {
+          "type": ["Number", "String"],
+          "default": 96
+        },
+        "modelValue": {
+          "type": ["Object"]
+        },
+        "readonly": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "resetText": {
+          "type": ["String"],
+          "default": "重置"
+        },
+        "showActions": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "size": {
+          "type": ["String"],
+          "default": "default"
+        },
+        "submitText": {
+          "type": ["String"],
+          "default": "提交"
+        },
+        "submitting": {
+          "type": ["Boolean"],
+          "default": false
+        }
+      },
+      "emits": [
+        "change",
+        "reset",
+        "submit",
+        "update:modelValue",
+        "validate-error"
+      ]
+    },
+    "ProModalForm": {
+      "props": {
+        "appendToBody": {
+          "type": ["Boolean"],
+          "default": true
+        },
+        "cancelText": {
+          "type": ["String"],
+          "default": "取消"
+        },
+        "closeOnClickModal": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "closeOnPressEscape": {
+          "type": ["Boolean"],
+          "default": true
+        },
+        "columns": {
+          "type": ["Number"],
+          "default": 2
+        },
+        "initialValues": {
+          "type": ["Object"],
+          "default": "[function]"
+        },
+        "items": {
+          "type": ["Array"],
+          "required": true
+        },
+        "labelPosition": {
+          "type": ["String"],
+          "default": "right"
+        },
+        "labelWidth": {
+          "type": ["Number", "String"],
+          "default": 96
+        },
+        "mode": {
+          "type": ["String"],
+          "default": "create"
+        },
+        "modelValue": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "okText": {
+          "type": ["String"],
+          "default": ""
+        },
+        "resetOnOpen": {
+          "type": ["Boolean"],
+          "default": true
+        },
+        "submit": {
+          "type": ["Function"]
+        },
+        "title": {
+          "type": ["String"],
+          "default": ""
+        },
+        "width": {
+          "type": ["Number", "String"],
+          "default": 640
+        }
+      },
+      "emits": [
+        "cancel",
+        "closed",
+        "error",
+        "open",
+        "success",
+        "update:modelValue"
+      ]
+    },
+    "Description": {
+      "props": {
+        "bordered": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "columns": {
+          "type": ["Number"],
+          "default": 2
+        },
+        "data": {
+          "type": ["Object"],
+          "default": "[function]"
+        },
+        "direction": {
+          "type": ["String"],
+          "default": "horizontal"
+        },
+        "emptyText": {
+          "type": ["String"],
+          "default": "-"
+        },
+        "groups": {
+          "type": ["Array"]
+        },
+        "items": {
+          "type": ["Array"]
+        },
+        "labelWidth": {
+          "type": ["Number", "String"],
+          "default": 110
+        },
+        "size": {
+          "type": ["String"],
+          "default": "default"
+        },
+        "title": {
+          "type": ["String"],
+          "default": ""
+        }
+      },
+      "emits": []
+    },
+    "PageContainer": {
+      "props": {
+        "back": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "backLink": {
+          "type": ["String"],
+          "default": ""
+        },
+        "breadcrumbs": {
+          "type": ["Array"]
+        },
+        "card": {
+          "type": ["Boolean"],
+          "default": true
+        },
+        "divider": {
+          "type": ["Boolean"],
+          "default": true
+        },
+        "fixedFooter": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "loading": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "padding": {
+          "type": ["Number", "String"],
+          "default": 16
+        },
+        "subTitle": {
+          "type": ["String"],
+          "default": ""
+        },
+        "title": {
+          "type": ["String"],
+          "default": ""
+        }
+      },
+      "emits": ["back"]
+    }
+  }
+}

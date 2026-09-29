@@ -26,6 +26,13 @@
     border-radius: var(--aura-radius);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
     overflow: hidden;
+
+    // 面板带 tabindex="-1"，打开时会被程序化聚焦。
+    // 面板是个大容器，给它画焦点环会把整个弹窗框住，视觉上像出错；
+    // 键盘可达性由内部控件保证，这里只去掉容器的轮廓。
+    &:focus {
+      outline: none;
+    }
   }
 
   &-header {
@@ -39,6 +46,11 @@
   }
 
   &-close {
+    // 元素是原生 <button>，先抹掉浏览器默认外观
+    padding: 0;
+    border: 0;
+    background: none;
+    font-family: inherit;
     color: var(--aura-text-secondary);
     font-size: 18px;
     line-height: 1;
@@ -46,6 +58,13 @@
 
     &:hover {
       color: var(--aura-text);
+    }
+
+    // 键盘用户需要看到焦点位置
+    &:focus-visible {
+      outline: 2px solid var(--aura-color-primary);
+      outline-offset: 2px;
+      border-radius: 2px;
     }
   }
 
