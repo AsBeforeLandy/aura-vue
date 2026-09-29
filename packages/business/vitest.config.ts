@@ -6,6 +6,11 @@ export default defineConfig({
   test: {
     environment: 'happy-dom',
     include: ['__tests__/**/*.test.ts'],
+    // 业务组件的单测要挂载 Element Plus 的重组件（ElTable / ElDropdown /
+    // ElDatePicker 等），单个用例耗时本来就长；在 CI 与其他工作流并行、
+    // runner 资源紧张时，默认 5s 会偶发超时（Release 作业就因此挂过一次）。
+    // 这里放宽到 15s：只影响「卡死多久才判失败」，不影响通过用例的速度。
+    testTimeout: 15_000,
     server: {
       deps: {
         // element-plus 的产物里 `import AsyncValidator from 'async-validator'`
