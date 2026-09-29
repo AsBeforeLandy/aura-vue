@@ -58,21 +58,30 @@ export const proModalFormProps = {
   items: { type: Array as PropType<ProFormItem[]>, required: true },
   mode: { type: String as PropType<ProModalFormMode>, default: 'create' },
   title: { type: String, default: '' },
-  submit: { type: Function as PropType<ProModalFormProps['submit']>, default: undefined },
+  submit: {
+    type: Function as PropType<ProModalFormProps['submit']>,
+    default: undefined,
+  },
   initialValues: {
     type: Object as PropType<Record<string, unknown>>,
-    default: () => ({})
+    default: () => ({}),
   },
   resetOnOpen: { type: Boolean, default: true },
   width: { type: [Number, String] as PropType<number | string>, default: 640 },
   columns: { type: Number, default: 2 },
-  labelWidth: { type: [Number, String] as PropType<number | string>, default: 96 },
-  labelPosition: { type: String as PropType<'left' | 'right' | 'top'>, default: 'right' },
+  labelWidth: {
+    type: [Number, String] as PropType<number | string>,
+    default: 96,
+  },
+  labelPosition: {
+    type: String as PropType<'left' | 'right' | 'top'>,
+    default: 'right',
+  },
   closeOnClickModal: { type: Boolean, default: false },
   closeOnPressEscape: { type: Boolean, default: true },
   okText: { type: String, default: '' },
   cancelText: { type: String, default: '取消' },
-  appendToBody: { type: Boolean, default: true }
+  appendToBody: { type: Boolean, default: true },
 } as const;
 
 /** 按模式推导默认标题 */
@@ -81,7 +90,7 @@ export function resolveTitle(mode: ProModalFormMode, title?: string): string {
   const map: Record<ProModalFormMode, string> = {
     create: '新增',
     edit: '编辑',
-    view: '查看'
+    view: '查看',
   };
   return map[mode];
 }

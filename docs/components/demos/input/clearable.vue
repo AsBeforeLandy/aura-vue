@@ -13,7 +13,13 @@ function onChange(v: string) {
 
 <template>
   <div class="aura-input-demo">
-    <Input v-model="value" placeholder="请输入内容" clearable @change="onChange" @clear="logs.unshift('clear')" />
+    <Input
+      v-model="value"
+      placeholder="请输入内容"
+      clearable
+      @change="onChange"
+      @clear="logs.unshift('clear')"
+    />
     <p class="aura-tip">当前值：{{ value || '（空）' }}</p>
     <ul class="aura-logs">
       <li v-for="(log, i) in logs" :key="i">{{ log }}</li>

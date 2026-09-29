@@ -31,7 +31,10 @@ export interface ProTableColumn<T = Record<string, unknown>> {
    */
   valueEnum?: Record<
     string,
-    { text: string; color?: 'success' | 'warning' | 'danger' | 'info' | 'primary' }
+    {
+      text: string;
+      color?: 'success' | 'warning' | 'danger' | 'info' | 'primary';
+    }
   >;
   /** 日期格式化模板，用于 date / datetime（默认 YYYY-MM-DD / YYYY-MM-DD HH:mm:ss） */
   dateFormat?: string;
@@ -40,7 +43,11 @@ export interface ProTableColumn<T = Record<string, unknown>> {
   /** 该列是否出现在查询表单中 */
   hideInSearch?: boolean;
   /** 自定义单元格渲染（逃生舱，优先级高于 valueType） */
-  cellRender?: (params: { row: T; value: unknown; index: number }) => VNodeChild;
+  cellRender?: (params: {
+    row: T;
+    value: unknown;
+    index: number;
+  }) => VNodeChild;
   /** 表头提示文案 */
   tip?: string;
 
@@ -56,7 +63,8 @@ export interface ProTableColumn<T = Record<string, unknown>> {
 }
 
 /** 查询控件的类型（与展示类型是两套语义，不可混用） */
-export type ProTableSearchValueType = 'text' | 'select' | 'date' | 'dateRange' | 'number';
+export type ProTableSearchValueType =
+  'text' | 'select' | 'date' | 'dateRange' | 'number';
 
 /** 查询项配置：在列配置基础上，指定用哪种控件渲染 */
 export interface ProTableSearchItem {
@@ -113,7 +121,7 @@ export interface ProTableRequestResult<T = Record<string, unknown>> {
 
 /** request 函数类型 */
 export type ProTableRequest<T = Record<string, unknown>> = (
-  params: ProTableRequestParams
+  params: ProTableRequestParams,
 ) => Promise<ProTableRequestResult<T>>;
 
 /** 工具条列设置项 */
@@ -204,18 +212,21 @@ export interface ProTableInstance {
 export const proTableProps = {
   columns: { type: Array as PropType<ProTableColumn[]>, required: true },
   request: { type: Function as PropType<ProTableRequest>, default: undefined },
-  data: { type: Array as PropType<Record<string, unknown>[]>, default: undefined },
+  data: {
+    type: Array as PropType<Record<string, unknown>[]>,
+    default: undefined,
+  },
   rowKey: { type: String, default: 'id' },
   search: { type: Boolean, default: true },
   searchDefaultCollapsed: { type: Boolean, default: true },
   searchSpan: { type: Number, default: 3 },
   pagination: {
     type: [Object, Boolean] as PropType<ProTablePagination | false>,
-    default: () => ({ current: 1, pageSize: 10 })
+    default: () => ({ current: 1, pageSize: 10 }),
   },
   toolbar: {
     type: Object as PropType<ProTableToolbarConfig>,
-    default: () => ({ reload: true, density: true, columnSetting: true })
+    default: () => ({ reload: true, density: true, columnSetting: true }),
   },
   size: { type: String as PropType<ProTableSize>, default: 'default' },
   rowSelection: { type: Boolean, default: false },
@@ -223,5 +234,5 @@ export const proTableProps = {
   border: { type: Boolean, default: false },
   emptyText: { type: String, default: '暂无数据' },
   title: { type: String, default: '' },
-  clearOnReload: { type: Boolean, default: false }
+  clearOnReload: { type: Boolean, default: false },
 } as const;

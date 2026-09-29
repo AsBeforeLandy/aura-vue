@@ -15,7 +15,7 @@
         :key="item.name"
         :xs="24"
         :sm="item.fullWidth ? 24 : 24"
-        :md="item.fullWidth ? 24 : item.span ?? 24 / columns"
+        :md="item.fullWidth ? 24 : (item.span ?? 24 / columns)"
       >
         <ElFormItem
           :label="item.label"
@@ -25,7 +25,9 @@
           <template v-if="item.tip" #label>
             <span>{{ item.label }}</span>
             <ElTooltip :content="item.tip" placement="top">
-              <ElIcon :class="prefixCls('pro-form-tip')"><QuestionFilled /></ElIcon>
+              <ElIcon :class="prefixCls('pro-form-tip')"
+                ><QuestionFilled
+              /></ElIcon>
             </ElTooltip>
           </template>
 
@@ -45,12 +47,11 @@
             :item="item"
           />
 
-          <component
-            :is="controlNode(item)"
-            v-else
-          />
+          <component :is="controlNode(item)" v-else />
         </ElFormItem>
-        <div v-if="item.extra" :class="prefixCls('pro-form-extra')">{{ item.extra }}</div>
+        <div v-if="item.extra" :class="prefixCls('pro-form-extra')">
+          {{ item.extra }}
+        </div>
       </ElCol>
     </ElRow>
 
@@ -74,7 +75,7 @@ import {
   ElFormItem,
   ElIcon,
   ElRow,
-  ElTooltip
+  ElTooltip,
 } from 'element-plus';
 import { QuestionFilled } from '@element-plus/icons-vue';
 import { prefixCls } from '@aura/shared';
@@ -82,7 +83,7 @@ import {
   proFormProps,
   type ProFormEmits,
   type ProFormInstance,
-  type ProFormItem
+  type ProFormItem,
 } from './types';
 import { normalizeRules, renderControl } from './render-control';
 import './style/index.less';
@@ -131,7 +132,9 @@ function ensureKeys() {
 }
 
 const resolvedLabelWidth = computed(() =>
-  typeof props.labelWidth === 'number' ? `${props.labelWidth}px` : props.labelWidth
+  typeof props.labelWidth === 'number'
+    ? `${props.labelWidth}px`
+    : props.labelWidth,
 );
 
 /** 过滤条件隐藏的字段 */
@@ -139,7 +142,7 @@ const visibleItems = computed(() =>
   props.items.filter((item) => {
     if (typeof item.hidden === 'function') return !item.hidden();
     return !item.hidden;
-  })
+  }),
 );
 
 function isReadonly(item: ProFormItem): boolean {
@@ -153,7 +156,9 @@ function formatReadonly(item: ProFormItem): string {
   if (Array.isArray(value)) {
     if (item.options?.length) {
       return value
-        .map((v) => item.options!.find((o) => o.value === v)?.label ?? String(v))
+        .map(
+          (v) => item.options!.find((o) => o.value === v)?.label ?? String(v),
+        )
         .join('、');
     }
     return value.join('、');
@@ -172,7 +177,7 @@ function controlNode(item: ProFormItem) {
     return renderControl(item, {
       value: innerModel[item.name],
       disabled: props.disabled || Boolean(item.disabled),
-      onUpdate: (val: unknown) => handleChange(item.name, val)
+      onUpdate: (val: unknown) => handleChange(item.name, val),
     });
   };
 }
@@ -236,10 +241,10 @@ async function validate(): Promise<boolean> {
   const validatableNames = new Set(
     props.items
       .filter((item) => Array.isArray(item.rules) && item.rules.length > 0)
-      .map((item) => item.name)
+      .map((item) => item.name),
   );
   const validatable = fields.filter(
-    (field) => field.prop && validatableNames.has(field.prop)
+    (field) => field.prop && validatableNames.has(field.prop),
   );
   if (!validatable.length) return true;
 
@@ -252,7 +257,7 @@ async function validate(): Promise<boolean> {
       } catch {
         return false;
       }
-    })
+    }),
   );
   return results.every(Boolean);
 }
@@ -308,7 +313,7 @@ defineExpose<ProFormInstance>({
   getValues,
   setValues,
   getValue,
-  setValue
+  setValue,
 });
 
 /** 初始值快照，用于 reset 时恢复 */
@@ -317,7 +322,9 @@ let initialSnapshot: Record<string, unknown> = {};
 /** 记录初始值：受控模式取 modelValue，非受控取 defaultValue */
 function syncInitialValues() {
   initialSnapshot = {
-    ...(isControlled.value ? props.modelValue ?? {} : props.defaultValue ?? {})
+    ...(isControlled.value
+      ? (props.modelValue ?? {})
+      : (props.defaultValue ?? {})),
   };
   // 非受控模式下用 defaultValue 作为内部状态的起点
   if (!isControlled.value) {
@@ -328,13 +335,13 @@ function syncInitialValues() {
 watch(
   () => props.items,
   () => ensureKeys(),
-  { immediate: true, deep: true }
+  { immediate: true, deep: true },
 );
 
 watch(
   () => props.defaultValue,
   () => syncInitialValues(),
-  { immediate: true, deep: true }
+  { immediate: true, deep: true },
 );
 
 // 受控模式下把外部值同步进影子对象。
@@ -342,6 +349,6 @@ watch(
 watch(
   () => props.modelValue,
   () => syncFromProps(),
-  { immediate: true, deep: true, flush: 'sync' }
+  { immediate: true, deep: true, flush: 'sync' },
 );
 </script>

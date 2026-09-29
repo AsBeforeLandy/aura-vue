@@ -12,14 +12,14 @@ const items: ProFormItem[] = [
     label: '项目名称',
     valueType: 'text',
     span: 12,
-    rules: [{ required: true, message: '请输入项目名称' }]
+    rules: [{ required: true, message: '请输入项目名称' }],
   },
   {
     name: 'owner',
     label: '负责人',
     valueType: 'text',
     span: 12,
-    rules: [{ required: true, message: '请输入负责人' }]
+    rules: [{ required: true, message: '请输入负责人' }],
   },
   {
     name: 'priority',
@@ -29,21 +29,21 @@ const items: ProFormItem[] = [
     options: [
       { label: '高', value: 'high' },
       { label: '中', value: 'mid' },
-      { label: '低', value: 'low' }
+      { label: '低', value: 'low' },
     ],
-    rules: [{ required: true, message: '请选择优先级' }]
+    rules: [{ required: true, message: '请选择优先级' }],
   },
   {
     name: 'online',
     label: '是否上线',
     valueType: 'switch',
-    span: 12
+    span: 12,
   },
   {
     name: 'range',
     label: '周期',
     valueType: 'dateRange',
-    span: 12
+    span: 12,
   },
   {
     name: 'desc',
@@ -51,13 +51,15 @@ const items: ProFormItem[] = [
     valueType: 'textarea',
     fullWidth: true,
     tip: '不超过 200 字',
-    rules: [{ required: true, message: '请填写项目说明' }]
-  }
+    rules: [{ required: true, message: '请填写项目说明' }],
+  },
 ];
 
 async function submit() {
   const values = await formRef.value?.validate();
-  result.value = values ? `校验通过，提交数据：${JSON.stringify(values)}` : '校验未通过，请检查标红项';
+  result.value = values
+    ? `校验通过，提交数据：${JSON.stringify(values)}`
+    : '校验未通过，请检查标红项';
 }
 </script>
 

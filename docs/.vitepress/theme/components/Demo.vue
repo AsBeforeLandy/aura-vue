@@ -8,7 +8,9 @@
     </div>
     <div v-if="sourceText" class="demo-togglebar">
       <button type="button" class="demo-toggle" @click="toggle">
-        <span class="demo-toggle-icon" :class="{ open }" aria-hidden="true">{ } </span>
+        <span class="demo-toggle-icon" :class="{ open }" aria-hidden="true"
+          >{ }
+        </span>
         {{ open ? '收起代码' : '查看代码' }}
       </button>
       <span class="demo-toggle-divider" aria-hidden="true"></span>
@@ -18,6 +20,7 @@
     </div>
     <transition name="demo-collapse">
       <div v-show="open && sourceText" class="demo-source">
+        <!-- eslint-disable-next-line vue/no-v-html -- 渲染 highlight.js 转义后的代码高亮结果，非用户输入 -->
         <pre><code class="hljs" v-html="highlighted"></code></pre>
       </div>
     </transition>
@@ -53,10 +56,7 @@ const highlighted = computed(() => {
 });
 
 function escapeHtml(s: string): string {
-  return s
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
 function toggle() {
@@ -87,7 +87,9 @@ async function copySource() {
   border: 1px solid var(--aura-docs-border, var(--vp-c-divider));
   border-radius: 10px;
   overflow: hidden;
-  transition: border-color 0.25s, box-shadow 0.25s;
+  transition:
+    border-color 0.25s,
+    box-shadow 0.25s;
 }
 .demo:hover {
   border-color: var(--vp-c-brand-3);
@@ -159,16 +161,37 @@ async function copySource() {
 <style>
 /* hljs token 色，适配 VitePress 主题变量（跟随暗/亮） */
 .demo-source .hljs-tag,
-.demo-source .hljs-name { color: var(--vp-c-brand-1, #7c3aed); }
-.demo-source .hljs-attr { color: #e879f9; }
-.demo-source .hljs-string { color: #7ee787; }
-.demo-source .hljs-comment { color: var(--vp-c-text-3, #8b949e); font-style: italic; }
-.demo-source .hljs-attribute { color: #ffa657; }
-.demo-source .hljs-built_in { color: #79c0ff; }
-.demo-source .hljs-title { color: #d2a8ff; }
-.demo-source .hljs-meta { color: #ff7b72; }
+.demo-source .hljs-name {
+  color: var(--vp-c-brand-1, #7c3aed);
+}
+.demo-source .hljs-attr {
+  color: #e879f9;
+}
+.demo-source .hljs-string {
+  color: #7ee787;
+}
+.demo-source .hljs-comment {
+  color: var(--vp-c-text-3, #8b949e);
+  font-style: italic;
+}
+.demo-source .hljs-attribute {
+  color: #ffa657;
+}
+.demo-source .hljs-built_in {
+  color: #79c0ff;
+}
+.demo-source .hljs-title {
+  color: #d2a8ff;
+}
+.demo-source .hljs-meta {
+  color: #ff7b72;
+}
 .demo-source .hljs-keyword,
-.demo-source .hljs-selector-tag { color: #ff7b72; }
+.demo-source .hljs-selector-tag {
+  color: #ff7b72;
+}
 .demo-source .hljs-number,
-.demo-source .hljs-literal { color: #79c0ff; }
+.demo-source .hljs-literal {
+  color: #79c0ff;
+}
 </style>

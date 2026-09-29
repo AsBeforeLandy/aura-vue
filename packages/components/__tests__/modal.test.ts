@@ -10,16 +10,13 @@ import { Modal } from '../src/modal';
  */
 function mountHost(
   props: Record<string, unknown> = {},
-  slots: Record<string, unknown> = {}
+  slots: Record<string, unknown> = {},
 ) {
   const marks: string[] = [];
   const visible = ref(false);
   const wrapper = mount(
     defineComponent({
       setup() {
-        const show = () => {
-          visible.value = true;
-        };
         return () =>
           h(
             Modal,
@@ -31,12 +28,12 @@ function mountHost(
               onOk: () => marks.push('ok'),
               onCancel: () => marks.push('cancel'),
               onClose: () => marks.push('close'),
-              ...props
+              ...props,
             },
-            slots
+            slots,
           );
-      }
-    })
+      },
+    }),
   );
   return {
     wrapper,
@@ -45,7 +42,7 @@ function mountHost(
     show: async () => {
       visible.value = true;
       await nextTick();
-    }
+    },
   };
 }
 
@@ -68,12 +65,14 @@ describe('Modal - 正常场景', () => {
   it('渲染标题、默认插槽与底部取消/确定按钮', async () => {
     const { show } = mountHost(
       { title: '删除确认' },
-      { default: () => '确认删除这条数据吗？' }
+      { default: () => '确认删除这条数据吗？' },
     );
     await show();
 
     expect($('.aura-modal-title')!.textContent).toBe('删除确认');
-    expect($('.aura-modal-body')!.textContent).toContain('确认删除这条数据吗？');
+    expect($('.aura-modal-body')!.textContent).toContain(
+      '确认删除这条数据吗？',
+    );
     expect($('.aura-modal-footer')).not.toBeNull();
   });
 
@@ -167,7 +166,7 @@ describe('Modal - 动画样式契约', () => {
     const here = dirname(fileURLToPath(import.meta.url));
     const css = readFileSync(
       resolve(here, '../src/modal/style/index.less'),
-      'utf-8'
+      'utf-8',
     );
 
     // 遮罩与面板各自参与过渡

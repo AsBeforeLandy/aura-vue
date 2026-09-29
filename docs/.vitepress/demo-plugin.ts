@@ -22,7 +22,8 @@ export function demoPlugin(): Plugin {
       const matches = [...code.matchAll(demoTagRe)];
       if (matches.length === 0) return;
 
-      const replacements: Array<{ start: number; end: number; text: string }> = [];
+      const replacements: Array<{ start: number; end: number; text: string }> =
+        [];
       const imports: string[] = [];
       const uid = runId++;
 
@@ -34,7 +35,7 @@ export function demoPlugin(): Plugin {
         const srcVar = `__demo_s${uid}_${idx}`;
         imports.push(
           `import ${compVar} from '${src}';`,
-          `import ${srcVar} from '${src}?raw';`
+          `import ${srcVar} from '${src}?raw';`,
         );
 
         const tagStart = m.index ?? 0;
@@ -65,6 +66,6 @@ export function demoPlugin(): Plugin {
       out += scriptBlock;
 
       return { code: out, map: null };
-    }
+    },
   };
 }

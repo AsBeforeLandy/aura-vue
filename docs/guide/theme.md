@@ -22,27 +22,27 @@ Aura Vue 将设计令牌（Design Token）统一收敛到 CSS Variables，所有
 
 ## 令牌一览
 
-| 变量 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--aura-color-primary` | 品牌主色 | `#7c3aed` |
-| `--aura-color-success` | 成功态色 | `#22c55e` |
-| `--aura-color-warning` | 警告态色 | `#f59e0b` |
-| `--aura-color-danger` | 危险态色 | `#ef4444` |
-| `--aura-border-color` | 边框色 | `#d9d9d9` |
-| `--aura-bg` | 容器背景色 | `#ffffff` |
-| `--aura-text` | 主文本色 | `rgba(0, 0, 0, 0.88)` |
+| 变量                    | 说明       | 默认值                |
+| ----------------------- | ---------- | --------------------- |
+| `--aura-color-primary`  | 品牌主色   | `#7c3aed`             |
+| `--aura-color-success`  | 成功态色   | `#22c55e`             |
+| `--aura-color-warning`  | 警告态色   | `#f59e0b`             |
+| `--aura-color-danger`   | 危险态色   | `#ef4444`             |
+| `--aura-border-color`   | 边框色     | `#d9d9d9`             |
+| `--aura-bg`             | 容器背景色 | `#ffffff`             |
+| `--aura-text`           | 主文本色   | `rgba(0, 0, 0, 0.88)` |
 | `--aura-text-secondary` | 次要文本色 | `rgba(0, 0, 0, 0.55)` |
-| `--aura-radius` | 圆角基准值 | `6px` |
+| `--aura-radius`         | 圆角基准值 | `6px`                 |
 
 ### 组件级令牌
 
 部分组件还暴露了组件级变量，用于面板、浮层等局部配色：
 
-| 变量 | 所属组件 | 说明 | 默认值 |
-| --- | --- | --- | --- |
-| `--aura-select-popup-bg` | Select | 下拉面板背景色 | `--aura-bg` |
-| `--aura-select-color-scheme` | Select | 面板色彩方案 | `light` |
-| `--aura-color-primary-shadow` | Select | 选项高亮底色 | `--aura-color-primary` 低透明度 |
+| 变量                          | 所属组件 | 说明           | 默认值                          |
+| ----------------------------- | -------- | -------------- | ------------------------------- |
+| `--aura-select-popup-bg`      | Select   | 下拉面板背景色 | `--aura-bg`                     |
+| `--aura-select-color-scheme`  | Select   | 面板色彩方案   | `light`                         |
+| `--aura-color-primary-shadow` | Select   | 选项高亮底色   | `--aura-color-primary` 低透明度 |
 
 ## 全局换肤
 
@@ -64,7 +64,7 @@ Aura Vue 将设计令牌（Design Token）统一收敛到 CSS Variables，所有
 Aura Vue 约定使用 `[data-theme="dark"]` 选择器激活暗色主题。在应用入口定义暗色令牌：
 
 ```css
-[data-theme="dark"] {
+[data-theme='dark'] {
   --aura-bg: #1f2937;
   --aura-text: rgba(255, 255, 255, 0.88);
   --aura-text-secondary: rgba(255, 255, 255, 0.55);

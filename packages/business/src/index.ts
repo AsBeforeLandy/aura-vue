@@ -17,7 +17,7 @@ export const businessComponents = {
   ProForm,
   ProModalForm,
   Description,
-  PageContainer
+  PageContainer,
 } as const;
 
 /**
@@ -32,7 +32,7 @@ export const AuraBusiness: Plugin = {
     for (const [name, component] of Object.entries(businessComponents)) {
       app.component(name, component);
     }
-  }
+  },
 };
 
 export default AuraBusiness;

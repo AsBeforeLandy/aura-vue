@@ -223,7 +223,10 @@
 
 /* ---------- 首页 feature 卡片 ---------- */
 .VPFeature {
-  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+  transition:
+    border-color 0.25s,
+    box-shadow 0.25s,
+    transform 0.25s;
 }
 
 .VPFeature:hover {

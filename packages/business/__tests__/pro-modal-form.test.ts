@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { mount, type VueWrapper } from '@vue/test-utils';
 import { nextTick } from 'vue';
+import { ElDialog } from 'element-plus';
 import ProModalForm from '../src/pro-modal-form/ProModalForm.vue';
 import type { ProFormItem } from '../src/pro-form/types';
 
@@ -29,16 +30,21 @@ const items: ProFormItem[] = [
   {
     name: 'username',
     label: '用户名',
-    rules: [{ required: true, message: '请输入用户名' }]
+    rules: [{ required: true, message: '请输入用户名' }],
   },
-  { name: 'role', label: '角色', valueType: 'select', options: [{ label: '管理员', value: 'admin' }] }
+  {
+    name: 'role',
+    label: '角色',
+    valueType: 'select',
+    options: [{ label: '管理员', value: 'admin' }],
+  },
 ];
 
 /** 打开弹窗并等待 Teleport 内容挂载 */
 async function mountOpen(props: Record<string, unknown> = {}) {
   const wrapper = mount(ProModalForm, {
     props: { modelValue: true, items, ...props },
-    attachTo: document.body
+    attachTo: document.body,
   });
   mountedWrappers.push(wrapper);
   await nextTick();
@@ -48,7 +54,9 @@ async function mountOpen(props: Record<string, unknown> = {}) {
 
 /** 取当前弹窗底部按钮（取消 / 确定） */
 function footerButtons(): HTMLElement[] {
-  return [...document.querySelectorAll('.el-dialog__footer .el-button')] as HTMLElement[];
+  return [
+    ...document.querySelectorAll('.el-dialog__footer .el-button'),
+  ] as HTMLElement[];
 }
 
 /** 点击底部最后一个按钮（即主按钮） */
@@ -88,7 +96,7 @@ describe('ProModalForm', () => {
   it('正常：initialValues 回填到表单', async () => {
     const wrapper = await mountOpen({
       mode: 'edit',
-      initialValues: { username: 'Landy' }
+      initialValues: { username: 'Landy' },
     });
     const instance = wrapper.vm as unknown as {
       getValues: () => Record<string, unknown>;
@@ -102,16 +110,20 @@ describe('ProModalForm', () => {
     const wrapper = await mountOpen({
       initialValues: { username: 'ok' },
       submit,
-      onSuccess
+      onSuccess,
     });
-    const instance = wrapper.vm as unknown as { getValues: () => Record<string, unknown> };
+    const instance = wrapper.vm as unknown as {
+      getValues: () => Record<string, unknown>;
+    };
     expect(instance.getValues().username).toBe('ok');
 
     clickPrimaryButton();
 
     await settle();
 
-    expect(submit).toHaveBeenCalledWith(expect.objectContaining({ username: 'ok' }));
+    expect(submit).toHaveBeenCalledWith(
+      expect.objectContaining({ username: 'ok' }),
+    );
     expect(onSuccess).toHaveBeenCalled();
     // 提交成功后应请求关闭弹窗
     expect(wrapper.emitted('update:modelValue')?.at(-1)).toEqual([false]);
@@ -127,13 +139,19 @@ describe('ProModalForm', () => {
 
   it('边界：view 模式下表单整体只读', async () => {
     await mountOpen({ mode: 'view', initialValues: { username: '只读值' } });
-    expect(document.body.querySelector('.aura-pro-form-readonly')?.textContent).toBe('只读值');
+    expect(
+      document.body.querySelector('.aura-pro-form-readonly')?.textContent,
+    ).toBe('只读值');
   });
 
   it('边界：submit 抛错时保持弹窗打开并 emit error', async () => {
     const submit = vi.fn().mockRejectedValue(new Error('服务端校验失败'));
     const onError = vi.fn();
-    const wrapper = await mountOpen({ initialValues: { username: 'x' }, submit, onError });
+    const wrapper = await mountOpen({
+      initialValues: { username: 'x' },
+      submit,
+      onError,
+    });
 
     clickPrimaryButton();
 
@@ -155,5 +173,133 @@ describe('ProModalForm', () => {
     expect(submit).not.toHaveBeenCalled();
     // 校验失败同样不应该关闭弹窗
     expect(wrapper.emitted('update:modelValue')).toBeUndefined();
+  });
+});
+
+describe('ProModalForm 弹窗生命周期', () => {
+  it('正常：取消按钮关闭弹窗并派发 cancel', async () => {
+    const wrapper = await mountOpen({ initialValues: { username: 'x' } });
+
+    // 第一个按钮是取消
+    footerButtons()[0].click();
+    await settle();
+
+    expect(wrapper.emitted('cancel')).toBeTruthy();
+    expect(wrapper.emitted('update:modelValue')?.at(-1)).toEqual([false]);
+  });
+
+  it('正常：ElDialog 的 open / closed 透传为组件事件', async () => {
+    const wrapper = await mountOpen({ initialValues: { username: 'x' } });
+    const dialog = wrapper.findComponent(ElDialog);
+
+    dialog.vm.$emit('open');
+    dialog.vm.$emit('closed');
+    await nextTick();
+
+    expect(wrapper.emitted('open')).toHaveLength(1);
+    expect(wrapper.emitted('closed')).toHaveLength(1);
+  });
+
+  it('正常：遮罩触发的可见性变化会向上同步并派发 cancel', async () => {
+    const wrapper = await mountOpen({ initialValues: { username: 'x' } });
+    const dialog = wrapper.findComponent(ElDialog);
+
+    dialog.vm.$emit('update:modelValue', false);
+    await nextTick();
+
+    expect(wrapper.emitted('update:modelValue')?.at(-1)).toEqual([false]);
+    expect(wrapper.emitted('cancel')).toHaveLength(1);
+  });
+
+  it('正常：edit 模式的主按钮文案为「保存」', async () => {
+    await mountOpen({ mode: 'edit', initialValues: { username: 'x' } });
+    expect(footerButtons().at(-1)?.textContent).toContain('保存');
+  });
+
+  it('正常：显式 okText 覆盖默认文案', async () => {
+    await mountOpen({
+      mode: 'edit',
+      okText: '立即提交',
+      initialValues: { username: 'x' },
+    });
+    expect(footerButtons().at(-1)?.textContent).toContain('立即提交');
+  });
+
+  it('正常：footer 插槽透出 ok / cancel 控制函数', async () => {
+    const wrapper = mount(ProModalForm, {
+      props: { modelValue: true, items, initialValues: { username: 'ok' } },
+      attachTo: document.body,
+      slots: {
+        footer: `
+          <template #footer="{ ok, cancel }">
+            <button class="slot-cancel" @click="cancel">自定义取消</button>
+            <button class="slot-ok" @click="ok">自定义确定</button>
+          </template>
+        `,
+      },
+    });
+    await nextTick();
+    await settle();
+
+    const cancelBtn = document.querySelector('.slot-cancel') as HTMLElement;
+    expect(cancelBtn).not.toBeNull();
+    cancelBtn.click();
+    await settle();
+
+    expect(wrapper.emitted('cancel')).toBeTruthy();
+    wrapper.unmount();
+    document.body.innerHTML = '';
+  });
+
+  it('边界：未提供 submit 时确认后退化为受控用法（emit success 并关闭）', async () => {
+    const wrapper = await mountOpen({ initialValues: { username: 'ok' } });
+
+    clickPrimaryButton();
+    await settle();
+
+    expect(wrapper.emitted('success')?.[0]).toEqual([
+      expect.objectContaining({ username: 'ok' }),
+    ]);
+    expect(wrapper.emitted('update:modelValue')?.at(-1)).toEqual([false]);
+  });
+
+  it('边界：resetOnOpen 为 false 时重开保留未提交的草稿', async () => {
+    const wrapper = await mountOpen({
+      initialValues: { username: 'first' },
+      resetOnOpen: false,
+    });
+    const vm = wrapper.vm as unknown as {
+      setValues: (values: Record<string, unknown>) => void;
+      getValues: () => Record<string, unknown>;
+    };
+
+    vm.setValues({ username: 'draft' });
+    await nextTick();
+
+    // 关闭再打开：resetOnOpen=false 时不应以 initialValues 覆盖草稿
+    await wrapper.setProps({ modelValue: false });
+    await settle();
+    await wrapper.setProps({ modelValue: true });
+    await settle();
+
+    expect(vm.getValues().username).toBe('draft');
+  });
+
+  it('边界：resetOnOpen 默认为 true 时重开恢复为 initialValues', async () => {
+    const wrapper = await mountOpen({ initialValues: { username: 'first' } });
+    const vm = wrapper.vm as unknown as {
+      setValues: (values: Record<string, unknown>) => void;
+      getValues: () => Record<string, unknown>;
+    };
+
+    vm.setValues({ username: 'draft' });
+    await nextTick();
+
+    await wrapper.setProps({ modelValue: false });
+    await settle();
+    await wrapper.setProps({ modelValue: true });
+    await settle();
+
+    expect(vm.getValues().username).toBe('first');
   });
 });

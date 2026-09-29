@@ -70,13 +70,16 @@ const tableClass = computed(() =>
     prefixCls('description-table'),
     props.bordered && 'is-bordered',
     `is-${props.direction}`,
-    `is-${props.size}`
-  )
+    `is-${props.size}`,
+  ),
 );
 
 const labelStyle = computed(() => {
   if (props.direction === 'vertical') return undefined;
-  const width = typeof props.labelWidth === 'number' ? `${props.labelWidth}px` : props.labelWidth;
+  const width =
+    typeof props.labelWidth === 'number'
+      ? `${props.labelWidth}px`
+      : props.labelWidth;
   return { width };
 });
 
@@ -86,7 +89,10 @@ function effectiveSpan(item: DescriptionItem): number {
 }
 
 function cellClass(item: DescriptionItem) {
-  return classNames(prefixCls('description-cell'), `is-span-${effectiveSpan(item)}`);
+  return classNames(
+    prefixCls('description-cell'),
+    `is-span-${effectiveSpan(item)}`,
+  );
 }
 
 /** 单元格宽度用行内样式，避免为 1-4 列的所有组合穷举类名 */
@@ -112,12 +118,18 @@ function valueNode(item: DescriptionItem) {
     if (item.valueEnum) {
       const matched = item.valueEnum[String(raw)];
       if (!matched) return String(raw);
-      return h(ElTag as never, { type: matched.color ?? 'info', size: 'small' }, () => matched.text);
+      return h(
+        ElTag as never,
+        { type: matched.color ?? 'info', size: 'small' },
+        () => matched.text,
+      );
     }
 
     switch (item.valueType) {
       case 'tag':
-        return h(ElTag as never, { type: 'info', size: 'small' }, () => String(raw));
+        return h(ElTag as never, { type: 'info', size: 'small' }, () =>
+          String(raw),
+        );
       case 'date':
         return formatDate(raw, item.dateFormat ?? 'YYYY-MM-DD');
       case 'datetime':

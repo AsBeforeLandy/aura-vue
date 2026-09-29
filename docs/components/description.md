@@ -12,11 +12,11 @@
 
 ## 何时不用
 
-| 场景 | 应该用 |
-| --- | --- |
-| 只有零星两三个字段 | 直接用普通标签结构，不必引入组件 |
-| 需要展示可编辑内容 | [ProForm](/components/pro-form) 的只读模式 |
-| 数据是列表形态而非单条记录 | [ProTable](/components/pro-table) |
+| 场景                       | 应该用                                     |
+| -------------------------- | ------------------------------------------ |
+| 只有零星两三个字段         | 直接用普通标签结构，不必引入组件           |
+| 需要展示可编辑内容         | [ProForm](/components/pro-form) 的只读模式 |
+| 数据是列表形态而非单条记录 | [ProTable](/components/pro-table)          |
 
 ## 基础用法
 
@@ -31,7 +31,7 @@
 ```ts
 const items: DescriptionItem[] = [
   { key: 'orderNo', label: '订单号' },
-  { key: 'amount', label: '金额', valueType: 'money' }
+  { key: 'amount', label: '金额', valueType: 'money' },
 ];
 ```
 
@@ -42,7 +42,7 @@ const items: DescriptionItem[] = [
 ```ts
 const groups: DescriptionGroup[] = [
   { title: '订单信息', items: [/* ... */] },
-  { title: '客户信息', items: [/* ... */] }
+  { title: '客户信息', items: [/* ... */] },
 ];
 ```
 
@@ -59,13 +59,13 @@ const groups: DescriptionGroup[] = [
 
 ## 展示类型
 
-| valueType | 效果 |
-| --- | --- |
-| `text` | 原样输出（默认） |
-| `tag` | 渲染为 `ElTag`，配色由 `valueEnum` 决定 |
-| `date` | 格式化为 `YYYY-MM-DD` |
-| `datetime` | 格式化为 `YYYY-MM-DD HH:mm:ss` |
-| `money` | 千分位分隔 |
+| valueType  | 效果                                    |
+| ---------- | --------------------------------------- |
+| `text`     | 原样输出（默认）                        |
+| `tag`      | 渲染为 `ElTag`，配色由 `valueEnum` 决定 |
+| `date`     | 格式化为 `YYYY-MM-DD`                   |
+| `datetime` | 格式化为 `YYYY-MM-DD HH:mm:ss`          |
+| `money`    | 千分位分隔                              |
 
 `date` / `datetime` 可用 `dateFormat` 自定义模板。
 
@@ -78,32 +78,32 @@ const groups: DescriptionGroup[] = [
 
 ### Props
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| items | 描述项（与 `groups` 二选一） | `DescriptionItem[]` | - |
-| groups | 分组描述项（与 `items` 二选一） | `DescriptionGroup[]` | - |
-| data | 数据源 | `Record<string, unknown>` | `{}` |
-| columns | 每行几列 | `number` | `2` |
-| direction | 标签与值的方向 | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| bordered | 是否显示边框 | `boolean` | `false` |
-| labelWidth | 标签列宽度 | `number \| string` | `110` |
-| emptyText | 全局空值占位 | `string` | `'-'` |
-| title | 列表标题 | `string` | `''` |
-| size | 尺寸 | `'large' \| 'default' \| 'small'` | `'default'` |
+| 属性       | 说明                            | 类型                              | 默认值         |
+| ---------- | ------------------------------- | --------------------------------- | -------------- |
+| items      | 描述项（与 `groups` 二选一）    | `DescriptionItem[]`               | -              |
+| groups     | 分组描述项（与 `items` 二选一） | `DescriptionGroup[]`              | -              |
+| data       | 数据源                          | `Record<string, unknown>`         | `{}`           |
+| columns    | 每行几列                        | `number`                          | `2`            |
+| direction  | 标签与值的方向                  | `'horizontal' \| 'vertical'`      | `'horizontal'` |
+| bordered   | 是否显示边框                    | `boolean`                         | `false`        |
+| labelWidth | 标签列宽度                      | `number \| string`                | `110`          |
+| emptyText  | 全局空值占位                    | `string`                          | `'-'`          |
+| title      | 列表标题                        | `string`                          | `''`           |
+| size       | 尺寸                            | `'large' \| 'default' \| 'small'` | `'default'`    |
 
 ### DescriptionItem
 
-| 属性 | 说明 | 类型 |
-| --- | --- | --- |
-| key | 字段名 / 取值路径（支持 `a.b`） | `string` |
-| label | 标签文案 | `string` |
-| span | 占据列数 | `number` |
-| valueType | 展示形态 | `'text' \| 'tag' \| 'date' \| 'datetime' \| 'money'` |
-| valueEnum | tag 的取值到文案/颜色映射 | `Record<string, { text, color }>` |
-| dateFormat | 日期格式化模板 | `string` |
-| emptyText | 该字段的空值占位 | `string` |
-| hidden | 是否隐藏 | `boolean` |
-| render | 自定义渲染（逃生舱） | `({ value, item }) => VNodeChild` |
+| 属性       | 说明                            | 类型                                                 |
+| ---------- | ------------------------------- | ---------------------------------------------------- |
+| key        | 字段名 / 取值路径（支持 `a.b`） | `string`                                             |
+| label      | 标签文案                        | `string`                                             |
+| span       | 占据列数                        | `number`                                             |
+| valueType  | 展示形态                        | `'text' \| 'tag' \| 'date' \| 'datetime' \| 'money'` |
+| valueEnum  | tag 的取值到文案/颜色映射       | `Record<string, { text, color }>`                    |
+| dateFormat | 日期格式化模板                  | `string`                                             |
+| emptyText  | 该字段的空值占位                | `string`                                             |
+| hidden     | 是否隐藏                        | `boolean`                                            |
+| render     | 自定义渲染（逃生舱）            | `({ value, item }) => VNodeChild`                    |
 
 ### 类型导出
 
@@ -112,20 +112,20 @@ import type {
   DescriptionItem,
   DescriptionGroup,
   DescriptionDirection,
-  DescriptionProps
+  DescriptionProps,
 } from '@aura/business';
 ```
 
 ### CSS 类名
 
-| 类名 | 说明 |
-| --- | --- |
-| `.aura-description` | 组件根节点 |
-| `.aura-description-group` | 分组容器 |
-| `.aura-description-group-title` | 分组标题 |
-| `.aura-description-item` | 单个字段 |
-| `.aura-description-label` | 标签 |
-| `.aura-description-value` | 值 |
+| 类名                            | 说明       |
+| ------------------------------- | ---------- |
+| `.aura-description`             | 组件根节点 |
+| `.aura-description-group`       | 分组容器   |
+| `.aura-description-group-title` | 分组标题   |
+| `.aura-description-item`        | 单个字段   |
+| `.aura-description-label`       | 标签       |
+| `.aura-description-value`       | 值         |
 
 ## 相关文档
 

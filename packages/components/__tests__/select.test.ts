@@ -6,7 +6,7 @@ import { Select } from '../src/select';
 const OPTIONS = [
   { label: '选项 A', value: 'a' },
   { label: '选项 B', value: 'b' },
-  { label: '选项 C', value: 'c' }
+  { label: '选项 C', value: 'c' },
 ];
 
 /** Teleport 面板挂在 body 下，跨用例会残留，统一收集并在 afterEach 卸载 */
@@ -36,7 +36,7 @@ function isOpen(wrapper: VueWrapper<any>) {
 
 function getOptions(): HTMLElement[] {
   return Array.from(
-    document.body.querySelectorAll<HTMLElement>('.aura-select-option')
+    document.body.querySelectorAll<HTMLElement>('.aura-select-option'),
   );
 }
 
@@ -77,18 +77,18 @@ describe('Select - 正常场景', () => {
     await trigger.trigger('keydown', { key: 'ArrowDown' });
     expect(isOpen(wrapper)).toBe(true);
     expect(
-      document.body.querySelector('.aura-select-option--active')?.textContent
+      document.body.querySelector('.aura-select-option--active')?.textContent,
     ).toContain('选项 A');
 
     await trigger.trigger('keydown', { key: 'ArrowDown' });
     expect(
-      document.body.querySelector('.aura-select-option--active')?.textContent
+      document.body.querySelector('.aura-select-option--active')?.textContent,
     ).toContain('选项 B');
 
     await trigger.trigger('keydown', { key: 'ArrowUp' });
     await trigger.trigger('keydown', { key: 'ArrowUp' });
     expect(
-      document.body.querySelector('.aura-select-option--active')?.textContent
+      document.body.querySelector('.aura-select-option--active')?.textContent,
     ).toContain('选项 C');
 
     await trigger.trigger('keydown', { key: 'Enter' });
@@ -109,7 +109,7 @@ describe('Select - 边界场景', () => {
   it('受控模式：外部未更新时选中值复位', async () => {
     const wrapper = mountSelect({
       modelValue: 'a',
-      options: OPTIONS
+      options: OPTIONS,
     });
 
     await openPanel(wrapper);
@@ -123,8 +123,8 @@ describe('Select - 边界场景', () => {
     const wrapper = mountSelect({
       options: [
         { label: '禁用项', value: 'x', disabled: true },
-        { label: '可选', value: 'ok' }
-      ]
+        { label: '可选', value: 'ok' },
+      ],
     });
 
     await openPanel(wrapper);
@@ -144,12 +144,12 @@ describe('Select - 边界场景', () => {
     const wrapper = mountSelect({ options: ['a'], disabled: true });
 
     expect(
-      wrapper.find('.aura-select-trigger').attributes('disabled')
+      wrapper.find('.aura-select-trigger').attributes('disabled'),
     ).toBeDefined();
     await openPanel(wrapper);
     expect(isOpen(wrapper)).toBe(false);
     expect(
-      wrapper.find('.aura-select-trigger').attributes('aria-expanded')
+      wrapper.find('.aura-select-trigger').attributes('aria-expanded'),
     ).toBe('false');
   });
 });
@@ -178,11 +178,17 @@ describe('Select - 异常场景', () => {
     const wrapper = mountSelect({ options: ['a'] });
 
     await openPanel(wrapper);
-    await wrapper.find('.aura-select-trigger').trigger('keydown', { key: 'Escape' });
+    await wrapper
+      .find('.aura-select-trigger')
+      .trigger('keydown', { key: 'Escape' });
     expect(isOpen(wrapper)).toBe(false);
 
     wrapper.unmount();
-    expect(removeSpy).toHaveBeenCalledWith('mousedown', expect.any(Function), true);
+    expect(removeSpy).toHaveBeenCalledWith(
+      'mousedown',
+      expect.any(Function),
+      true,
+    );
     removeSpy.mockRestore();
   });
 });

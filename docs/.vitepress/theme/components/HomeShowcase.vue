@@ -18,7 +18,9 @@
             <Button type="primary">主要</Button>
             <Button type="dashed">虚线</Button>
             <Button type="text">文本</Button>
-            <Button type="primary" :loading="loading" @click="simulate">加载态</Button>
+            <Button type="primary" :loading="loading" @click="simulate"
+              >加载态</Button
+            >
           </div>
         </article>
 
@@ -56,16 +58,22 @@
             <a class="aura-card-link" href="./components/modal">查看文档 →</a>
           </div>
           <div class="aura-card-body aura-card-body-col">
-            <Button type="primary" @click="dialogOpen = true">打开对话框</Button>
+            <Button type="primary" @click="dialogOpen = true"
+              >打开对话框</Button
+            >
             <span class="aura-hint">遮罩 / Esc / × 均可关闭</span>
           </div>
         </article>
       </div>
 
       <div class="aura-showcase-foot">
-        <span class="aura-stat"><b>{{ componentCount }}</b> 个组件</span>
+        <span class="aura-stat"
+          ><b>{{ componentCount }}</b> 个组件</span
+        >
         <span class="aura-dot" aria-hidden="true">·</span>
-        <span class="aura-stat"><b>{{ testCount }}</b> 条单元测试</span>
+        <span class="aura-stat"
+          ><b>{{ testCount }}</b> 条单元测试</span
+        >
         <span class="aura-dot" aria-hidden="true">·</span>
         <span class="aura-stat">v<b>0.1.0</b></span>
       </div>
@@ -91,7 +99,7 @@ const loading = ref(false);
 const cities = [
   { label: '杭州', value: 'hangzhou' },
   { label: '上海', value: 'shanghai' },
-  { label: '深圳（暂不可选）', value: 'shenzhen', disabled: true }
+  { label: '深圳（暂不可选）', value: 'shenzhen', disabled: true },
 ];
 
 function simulate() {
@@ -153,7 +161,10 @@ const testCount = 53;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   overflow: hidden;
-  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+  transition:
+    border-color 0.25s,
+    box-shadow 0.25s,
+    transform 0.25s;
 }
 
 .aura-card:hover {

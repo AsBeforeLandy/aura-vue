@@ -9,7 +9,7 @@ import {
   ElRadio,
   ElRadioGroup,
   ElSelect,
-  ElSwitch
+  ElSwitch,
 } from 'element-plus';
 import type { ProFormItem, ProFormOption } from './types';
 
@@ -30,7 +30,7 @@ export function renderControl(
     value: unknown;
     disabled: boolean;
     onUpdate: (value: unknown) => void;
-  }
+  },
 ): VNodeChild {
   const { value, disabled, onUpdate } = ctx;
   const passthrough = (item.props ?? {}) as Record<string, unknown>;
@@ -40,40 +40,54 @@ export function renderControl(
     'onUpdate:modelValue': onUpdate,
     disabled,
     placeholder: item.placeholder ?? defaultPlaceholder(item),
-    ...passthrough
+    ...passthrough,
   };
 
   switch (item.valueType) {
     case 'textarea':
-      return h(asComponent(ElInput), { ...common, type: 'textarea', rows: passthrough.rows ?? 3 });
+      return h(asComponent(ElInput), {
+        ...common,
+        type: 'textarea',
+        rows: passthrough.rows ?? 3,
+      });
 
     case 'password':
-      return h(asComponent(ElInput), { ...common, type: 'password', showPassword: true });
+      return h(asComponent(ElInput), {
+        ...common,
+        type: 'password',
+        showPassword: true,
+      });
 
     case 'number':
       return h(asComponent(ElInputNumber), {
         ...common,
         controlsPosition: 'right',
-        style: 'width: 100%'
+        style: 'width: 100%',
       });
 
     case 'select':
       return h(
         asComponent(ElSelect),
-        { ...common, clearable: passthrough.clearable ?? true, style: 'width: 100%' },
         {
-          default: () => (item.options ?? []).map(renderOption)
-        }
+          ...common,
+          clearable: passthrough.clearable ?? true,
+          style: 'width: 100%',
+        },
+        {
+          default: () => (item.options ?? []).map(renderOption),
+        },
       );
 
     case 'radio':
       return h(asComponent(ElRadioGroup), common, {
-        default: () => (item.options ?? []).map((opt) => renderRadio(opt, disabled))
+        default: () =>
+          (item.options ?? []).map((opt) => renderRadio(opt, disabled)),
       });
 
     case 'checkbox':
       return h(asComponent(ElCheckboxGroup), common, {
-        default: () => (item.options ?? []).map((opt) => renderCheckbox(opt, disabled))
+        default: () =>
+          (item.options ?? []).map((opt) => renderCheckbox(opt, disabled)),
       });
 
     case 'switch':
@@ -84,7 +98,7 @@ export function renderControl(
         ...common,
         type: 'date',
         valueFormat: 'YYYY-MM-DD',
-        style: 'width: 100%'
+        style: 'width: 100%',
       });
 
     case 'datetime':
@@ -92,7 +106,7 @@ export function renderControl(
         ...common,
         type: 'datetime',
         valueFormat: 'YYYY-MM-DD HH:mm:ss',
-        style: 'width: 100%'
+        style: 'width: 100%',
       });
 
     case 'dateRange':
@@ -102,7 +116,7 @@ export function renderControl(
         valueFormat: 'YYYY-MM-DD',
         startPlaceholder: '开始日期',
         endPlaceholder: '结束日期',
-        style: 'width: 100%'
+        style: 'width: 100%',
       });
 
     case 'time':
@@ -110,7 +124,7 @@ export function renderControl(
         ...common,
         type: 'time',
         valueFormat: 'HH:mm:ss',
-        style: 'width: 100%'
+        style: 'width: 100%',
       });
 
     // slot 类型的控件由外部具名插槽提供，这里返回 null 占位
@@ -119,27 +133,42 @@ export function renderControl(
 
     case 'text':
     default:
-      return h(asComponent(ElInput), { ...common, clearable: passthrough.clearable ?? true });
+      return h(asComponent(ElInput), {
+        ...common,
+        clearable: passthrough.clearable ?? true,
+      });
   }
 }
 
 function renderOption(opt: ProFormOption) {
-  return h(asComponent(ElOption), { key: String(opt.value), label: opt.label, value: opt.value });
+  return h(asComponent(ElOption), {
+    key: String(opt.value),
+    label: opt.label,
+    value: opt.value,
+  });
 }
 
 function renderRadio(opt: ProFormOption, groupDisabled: boolean) {
   return h(
     asComponent(ElRadio),
-    { key: String(opt.value), value: opt.value, disabled: groupDisabled || opt.disabled },
-    () => opt.label
+    {
+      key: String(opt.value),
+      value: opt.value,
+      disabled: groupDisabled || opt.disabled,
+    },
+    () => opt.label,
   );
 }
 
 function renderCheckbox(opt: ProFormOption, groupDisabled: boolean) {
   return h(
     asComponent(ElCheckbox),
-    { key: String(opt.value), value: opt.value, disabled: groupDisabled || opt.disabled },
-    () => opt.label
+    {
+      key: String(opt.value),
+      value: opt.value,
+      disabled: groupDisabled || opt.disabled,
+    },
+    () => opt.label,
   );
 }
 
@@ -152,12 +181,14 @@ function defaultPlaceholder(item: ProFormItem): string {
 
 /** 把业务侧的 ProFormRule 转成 Element Plus 可消费的 rule 数组 */
 export function normalizeRules(
-  rules?: ProFormItem['rules']
+  rules?: ProFormItem['rules'],
 ): Array<Record<string, unknown>> | undefined {
   if (!rules) return undefined;
   const list = Array.isArray(rules) ? rules : [rules];
   return list.map((rule) => {
-    const base: Record<string, unknown> = { trigger: rule.trigger ?? ['blur', 'change'] };
+    const base: Record<string, unknown> = {
+      trigger: rule.trigger ?? ['blur', 'change'],
+    };
     if (rule.required !== undefined) base.required = rule.required;
     if (rule.message !== undefined) base.message = rule.message;
     if (rule.min !== undefined) base.min = rule.min;
@@ -170,11 +201,15 @@ export function normalizeRules(
       base.validator = (
         _r: unknown,
         value: unknown,
-        callback: (error?: Error) => void
+        callback: (error?: Error) => void,
       ) => {
         const result = rule.validator!(value, rule);
         if (typeof result === 'boolean') {
-          result ? callback() : callback(new Error(rule.message ?? '校验未通过'));
+          if (result) {
+            callback();
+          } else {
+            callback(new Error(rule.message ?? '校验未通过'));
+          }
           return;
         }
         if (typeof result === 'string') {

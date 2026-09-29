@@ -4,31 +4,64 @@ on:
   push:
     branches: [main]
   pull_request:
+    branches: [main]
+
+# 同一分支的重复推送只保留最新一次校验
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   verify:
+    name: Lint / Typecheck / Coverage / Build / Size / Smoke / Docs
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
           # 与本地开发版本一致（lockfile 为 pnpm 7 的 lockfileVersion 5.4，pnpm 9+ 无法读取）
-          version: 7
+          version: 7.33.7
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: pnpm
+          cache: 'pnpm'
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build
-        run: pnpm build
+      - name: Lint
+        run: pnpm lint
 
-      - name: Test
-        run: pnpm test
+      - name: Format check
+        run: pnpm format:check
 
+      - name: Typecheck
+        # Vite 走 esbuild 转译会静默忽略类型错误，
+        # 只有独立跑 vue-tsc 才能拦住类型层面的回归
+        run: pnpm typecheck
+
+      # 用覆盖率模式跑测试以强制 vitest 的 coverage.thresholds
+      - name: Unit tests (coverage)
+        run: pnpm test:coverage
+
+      # 关键门禁：验证构建产物本身可交付。
+      # 「开发态正常、交付态断裂」类问题（exports 指向不存在的文件、
+      # 跨包导入未构建、alias 泄漏）无法被 lint / test 发现，
+      # 只有构建 + 冒烟测试能拦住。
+      - name: Build libraries
+        run: pnpm build:lib
+
+      - name: Size budget
+        run: pnpm size
+
+      - name: Artifact smoke test
+        run: pnpm smoke
+
+      # 文档站引用的是组件产物，放在最后验证整体可构建
       - name: Build docs
         run: pnpm docs:build

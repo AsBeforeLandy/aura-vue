@@ -12,8 +12,14 @@ function onChange(v: string) {
 
 <template>
   <div class="aura-input-demo">
-    <Input :default-value="'非受控初始值'" placeholder="请输入内容" @change="onChange" />
-    <p class="aura-tip">内部自持，通过 change 外抛：{{ inner || '（尚未输入）' }}</p>
+    <Input
+      :default-value="'非受控初始值'"
+      placeholder="请输入内容"
+      @change="onChange"
+    />
+    <p class="aura-tip">
+      内部自持，通过 change 外抛：{{ inner || '（尚未输入）' }}
+    </p>
     <Input disabled placeholder="禁用状态" />
     <Input model-value="只读的受控值" disabled />
   </div>

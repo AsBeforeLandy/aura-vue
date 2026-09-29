@@ -1,0 +1,12 @@
+node_modules
+dist
+coverage
+.pnpm-store
+.workbuddy
+.worktrees
+**/.vitepress/cache
+**/.vitepress/dist
+**/*.timestamp-*.mjs
+pnpm-lock.yaml
+*.ico
+*.png

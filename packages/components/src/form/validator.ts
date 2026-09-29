@@ -20,7 +20,7 @@ export type FormRules = Record<string, Rule[]>;
 /** 依次执行规则，返回第一个错误文案，全部通过返回 null */
 export async function validateValue(
   value: unknown,
-  rules: Rule[]
+  rules: Rule[],
 ): Promise<string | null> {
   for (const rule of rules) {
     const isEmpty = value === undefined || value === null || value === '';

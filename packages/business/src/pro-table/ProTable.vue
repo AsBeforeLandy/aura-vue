@@ -1,12 +1,11 @@
 <template>
   <div :class="prefixCls('pro-table')">
     <!-- 查询区：由 columns 中未标记 hideInSearch 的列自动生成 -->
-    <div v-if="showSearch && searchColumns.length > 0" :class="prefixCls('pro-table-search')">
-      <ElForm
-        :model="searchForm"
-        label-width="auto"
-        @submit.prevent
-      >
+    <div
+      v-if="showSearch && searchColumns.length > 0"
+      :class="prefixCls('pro-table-search')"
+    >
+      <ElForm :model="searchForm" label-width="auto" @submit.prevent>
         <ElRow :gutter="16">
           <ElCol
             v-for="col in visibleSearchColumns"
@@ -69,7 +68,9 @@
                 <ElButton type="primary" :icon="Search" @click="handleSearch">
                   查询
                 </ElButton>
-                <ElButton :icon="RefreshLeft" @click="handleReset">重置</ElButton>
+                <ElButton :icon="RefreshLeft" @click="handleReset"
+                  >重置</ElButton
+                >
                 <ElButton
                   v-if="searchColumns.length > searchSpan"
                   link
@@ -96,7 +97,11 @@
         </div>
         <div :class="prefixCls('pro-table-toolbar-actions')">
           <slot name="toolbar" />
-          <ElTooltip v-if="toolbar?.reload !== false" content="刷新" placement="top">
+          <ElTooltip
+            v-if="toolbar?.reload !== false"
+            content="刷新"
+            placement="top"
+          >
             <ElButton circle :icon="Refresh" @click="reload()" />
           </ElTooltip>
           <ElDropdown
@@ -176,7 +181,9 @@
           <template #header>
             <span>{{ col.title }}</span>
             <ElTooltip v-if="col.tip" :content="col.tip" placement="top">
-              <ElIcon :class="prefixCls('pro-table-header-tip')"><QuestionFilled /></ElIcon>
+              <ElIcon :class="prefixCls('pro-table-header-tip')"
+                ><QuestionFilled
+              /></ElIcon>
             </ElTooltip>
           </template>
           <template #default="scope">
@@ -231,9 +238,17 @@ import {
   ElTable,
   ElTableColumn,
   ElTooltip,
-  vLoading
+  vLoading,
 } from 'element-plus';
-import { ArrowDown, QuestionFilled, Rank, Refresh, RefreshLeft, Search, Setting } from '@element-plus/icons-vue';
+import {
+  ArrowDown,
+  QuestionFilled,
+  Rank,
+  Refresh,
+  RefreshLeft,
+  Search,
+  Setting,
+} from '@element-plus/icons-vue';
 import { prefixCls, classNames } from '@aura/shared';
 import {
   proTableProps,
@@ -242,7 +257,7 @@ import {
   type ProTableInstance,
   type ProTablePagination,
   type ProTableRequestParams,
-  type ProTableSize
+  type ProTableSize,
 } from './types';
 import { clonePlain, omitEmpty, pickSearchItems, renderCell } from './utils';
 import './style/index.less';
@@ -264,7 +279,7 @@ const selectedRows = ref<Record<string, unknown>[]>([]);
 const paginationState = reactive({
   current: 1,
   pageSize: 10,
-  total: 0
+  total: 0,
 });
 
 const paginationConfig = computed<ProTablePagination | null>(() => {
@@ -273,38 +288,44 @@ const paginationConfig = computed<ProTablePagination | null>(() => {
 });
 
 /** columns 中参与查询的项 */
-const searchColumns = computed(() => pickSearchItems(props.columns as ProTableColumn[]));
+const searchColumns = computed(() =>
+  pickSearchItems(props.columns as ProTableColumn[]),
+);
 
 /** 折叠时只显示前 searchSpan 项 */
 const visibleSearchColumns = computed(() =>
   searchCollapsed.value
     ? searchColumns.value.slice(0, props.searchSpan)
-    : searchColumns.value
+    : searchColumns.value,
 );
 
-const showSearch = computed(() => props.search && searchColumns.value.length > 0);
+const showSearch = computed(
+  () => props.search && searchColumns.value.length > 0,
+);
 
 const showToolbar = computed(() => {
   const t = props.toolbar ?? {};
-  const hasButton = t.reload !== false || t.density !== false || t.columnSetting !== false;
+  const hasButton =
+    t.reload !== false || t.density !== false || t.columnSetting !== false;
   return Boolean(props.title) || hasButton || Boolean(useSlots().toolbar);
 });
 
 /** 列设置面板里的候选项：隐藏列也应可选，故用全部列 */
 const settingColumns = computed(() =>
-  (props.columns as ProTableColumn[]).filter((col) => !col.hideInTable)
+  (props.columns as ProTableColumn[]).filter((col) => !col.hideInTable),
 );
 
 /** 实际渲染的列：排除 hideInTable 与用户手动隐藏的列 */
 const visibleColumns = computed(() =>
   (props.columns as ProTableColumn[]).filter(
-    (col) => !col.hideInTable && !hiddenColumnKeys.value.includes(col.key)
-  )
+    (col) => !col.hideInTable && !hiddenColumnKeys.value.includes(col.key),
+  ),
 );
 
 /** 查询表单：以 columns 中参与查询的 key 初始化。
  *  这里刻意用宽松类型——查询控件的 model 值域横跨 string/number/Date/array，
  *  用 unknown 会让 EP 控件的 v-model 类型校验失败，闭包内是运行时校验的边界。 */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- 见上方说明：EP 控件 v-model 值域无法用单一类型表达
 const searchForm = reactive<Record<string, any>>({});
 function initSearchForm() {
   for (const col of searchColumns.value) {
@@ -313,22 +334,38 @@ function initSearchForm() {
 }
 
 /** 供模板使用的渲染节点：包一层函数组件，把 renderCell 结果变成真正的 VNode */
-function renderCellNode(col: ProTableColumn, scope: { row: Record<string, unknown>; $index: number }) {
-  return () => renderCell(col, { row: scope.row, value: scope.row[col.key], index: scope.$index });
+function renderCellNode(
+  col: ProTableColumn,
+  scope: { row: Record<string, unknown>; $index: number },
+) {
+  return () =>
+    renderCell(col, {
+      row: scope.row,
+      value: scope.row[col.key],
+      index: scope.$index,
+    });
 }
 
 /** 展开箭头：展开状态时旋转 180° */
 const searchArrowClass = computed(() =>
-  classNames(prefixCls('pro-table-search-arrow'), !searchCollapsed.value && 'is-open')
+  classNames(
+    prefixCls('pro-table-search-arrow'),
+    !searchCollapsed.value && 'is-open',
+  ),
 );
 
 /** 把 valueEnum 转成 select 可用的 options */
 function enumToOptions(valueEnum: NonNullable<ProTableColumn['valueEnum']>) {
-  return Object.entries(valueEnum).map(([value, item]) => ({ label: item.text, value }));
+  return Object.entries(valueEnum).map(([value, item]) => ({
+    label: item.text,
+    value,
+  }));
 }
 
 /** select 的候选项：优先用 searchOptions，其次从 valueEnum 推导 */
-function bindSearchOptions(col: ProTableColumn): Array<{ label: string; value: string | number }> {
+function bindSearchOptions(
+  col: ProTableColumn,
+): Array<{ label: string; value: string | number }> {
   if (col.searchOptions?.length) return col.searchOptions;
   if (col.valueEnum) return enumToOptions(col.valueEnum);
   return [];
@@ -350,11 +387,13 @@ function buildParams(): ProTableRequestParams {
     current: paginationState.current,
     pageSize: paginationState.pageSize,
     search: omitEmpty(clonePlain(searchForm)),
-    sort: sortState.value
+    sort: sortState.value,
   };
 }
 
-const sortState = ref<{ field: string; order: 'asc' | 'desc' } | undefined>(undefined);
+const sortState = ref<{ field: string; order: 'asc' | 'desc' } | undefined>(
+  undefined,
+);
 
 /** 核心取数逻辑：request 模式走网络，data 模式走本地切片 */
 async function load() {
@@ -422,10 +461,16 @@ function handleSelectionChange(rows: Record<string, unknown>[]) {
   emit('selection-change', rows);
 }
 
-function handleSortChange(payload: { prop: string | null; order: string | null }) {
+function handleSortChange(payload: {
+  prop: string | null;
+  order: string | null;
+}) {
   sortState.value =
     payload.order && payload.prop
-      ? { field: payload.prop, order: payload.order === 'ascending' ? 'asc' : 'desc' }
+      ? {
+          field: payload.prop,
+          order: payload.order === 'ascending' ? 'asc' : 'desc',
+        }
       : undefined;
   reloadAndReset();
 }
@@ -476,14 +521,14 @@ defineExpose<ProTableInstance>({
   setSearchValues,
   getData,
   getSelectedRows,
-  setHiddenColumns
+  setHiddenColumns,
 });
 
 // columns 变化时补齐查询表单字段（动态列场景）
 watch(
   () => props.columns,
   () => initSearchForm(),
-  { deep: true }
+  { deep: true },
 );
 
 // 外部传入 pagination 时同步内部状态
@@ -496,7 +541,7 @@ watch(
       if (val.total !== undefined) paginationState.total = val.total;
     }
   },
-  { immediate: true, deep: true }
+  { immediate: true, deep: true },
 );
 
 // 受控数据变化时同步到表格
@@ -508,12 +553,12 @@ watch(
       paginationState.total = val?.length ?? 0;
     }
   },
-  { immediate: true }
+  { immediate: true },
 );
 
 watch(
   () => props.size,
-  (val) => (tableSize.value = val)
+  (val) => (tableSize.value = val),
 );
 
 onMounted(() => {

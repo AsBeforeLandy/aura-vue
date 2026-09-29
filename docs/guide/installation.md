@@ -28,11 +28,11 @@ npm install @aura/components
 
 :::
 
-| 包名 | 描述 | 依赖 | 状态 |
-| --- | --- | --- | --- |
-| `@aura/components` | 组件库主体，含 6 个组件 | `@aura/shared` | 可用 |
-| `@aura/shared` | 工具函数集（`prefixCls`、`classNames`） | - | 可用 |
-| `@aura/icons` | 图标资源包 | - | 占位 |
+| 包名               | 描述                                    | 依赖           | 状态 |
+| ------------------ | --------------------------------------- | -------------- | ---- |
+| `@aura/components` | 组件库主体，含 6 个组件                 | `@aura/shared` | 可用 |
+| `@aura/shared`     | 工具函数集（`prefixCls`、`classNames`） | -              | 可用 |
+| `@aura/icons`      | 图标资源包                              | -              | 占位 |
 
 ## 本地开发（仓库贡献者）
 
@@ -51,14 +51,14 @@ pnpm docs:dev
 
 根目录可用脚本一览：
 
-| 脚本 | 说明 |
-| --- | --- |
-| `pnpm build` | 构建 `@aura/components` 产物到 `dist/` |
-| `pnpm test` | 运行组件库单元测试（vitest） |
-| `pnpm docs:dev` | 启动 VitePress 文档站开发服务 |
-| `pnpm docs:build` | 构建文档站静态产物 |
-| `pnpm changeset` | 生成一条变更记录 |
-| `pnpm release` | 构建并发布到 npm |
+| 脚本              | 说明                                   |
+| ----------------- | -------------------------------------- |
+| `pnpm build`      | 构建 `@aura/components` 产物到 `dist/` |
+| `pnpm test`       | 运行组件库单元测试（vitest）           |
+| `pnpm docs:dev`   | 启动 VitePress 文档站开发服务          |
+| `pnpm docs:build` | 构建文档站静态产物                     |
+| `pnpm changeset`  | 生成一条变更记录                       |
+| `pnpm release`    | 构建并发布到 npm                       |
 
 ## 引入样式
 
@@ -68,35 +68,57 @@ pnpm docs:dev
 import '@aura/components/src/style/base.less';
 ```
 
-| 引入路径 | 说明 |
-| --- | --- |
-| `@aura/components/src/style/base.less` | 设计令牌（CSS 变量）定义，**必须引入** |
-| `@aura/components/src/{组件}/style/index.less` | 单个组件的样式，按需引入 |
+| 引入路径                                       | 说明                                   |
+| ---------------------------------------------- | -------------------------------------- |
+| `@aura/components/src/style/base.less`         | 设计令牌（CSS 变量）定义，**必须引入** |
+| `@aura/components/src/{组件}/style/index.less` | 单个组件的样式，按需引入               |
 
-## 构建产物体积
+## 构建产物
 
 组件库产物采用 ES Module + `preserveModules` 模式，保留目录结构以支持 tree-shaking：
 
-| 产物 | 路径 | 说明 |
-| --- | --- | --- |
-| JS 入口 | `dist/index.js` | ES Module |
-| 类型声明 | `dist/index.d.ts` | TypeScript 类型 |
-| 样式 | `dist/style.css` | 聚合样式（可选） |
+| 产物     | 包内路径          | 对外引入路径                 | 说明             |
+| -------- | ----------------- | ---------------------------- | ---------------- |
+| JS 入口  | `dist/index.js`   | `@aura/components`           | ES Module        |
+| 类型声明 | `dist/index.d.ts` | —（由 types 字段自动关联）   | TypeScript 类型  |
+| 聚合样式 | `dist/style.css`  | `@aura/components/style.css` | 聚合样式（可选） |
+
+:::tip 为什么引入路径里没有 `dist`
+包的 `exports` 字段只对外暴露 `./style.css`，`dist/` 目录并不在导出映射内。
+
+❌ `import '@aura/components/dist/style.css'` —— 打包时直接报 Module not found。
+:::
 
 ```ts
 // 使用构建产物（发布后）
 import { Button } from '@aura/components';
-import '@aura/components/dist/style.css';
+import '@aura/components/style.css';
 ```
+
+## 全量注册
+
+两个包都提供 install 插件，可一次性注册全部组件：
+
+```ts
+import { createApp } from 'vue';
+import AuraComponents from '@aura/components';
+import AuraBusiness from '@aura/business';
+
+const app = createApp(App);
+app.use(AuraComponents); // 注册 Button / Input / Form / FormItem / Switch / Select / Modal
+app.use(AuraBusiness); // 注册 ProTable / ProForm / ProModalForm / Description / PageContainer
+```
+
+若只需少数组件，仍然推荐按需具名导入，以保留 tree-shaking 效果。
 
 ## 浏览器兼容性
 
-| 浏览器 | 版本 |
-| --- | --- |
-| Chrome | 80+ |
-| Firefox | 80+ |
-| Safari | 14+ |
-| Edge | 80+ |
+| 浏览器  | 版本 |
+| ------- | ---- |
+| Chrome  | 80+  |
+| Firefox | 80+  |
+| Safari  | 14+  |
+| Edge    | 80+  |
 
 > 低于上述版本时需自行引入 CSS Variables 的 polyfill。
 

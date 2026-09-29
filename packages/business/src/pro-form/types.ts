@@ -37,7 +37,7 @@ export interface ProFormRule {
   /** 自定义校验器，返回 true 通过，返回字符串作为错误文案 */
   validator?: (
     value: unknown,
-    rule: ProFormRule
+    rule: ProFormRule,
   ) => boolean | string | Promise<boolean | string>;
   /** 值类型，用于 min/max 的长度或数值校验 */
   type?: 'string' | 'number' | 'array' | 'email' | 'url';
@@ -119,7 +119,10 @@ export type ProFormProps = {
 
 export type ProFormEmits = {
   (e: 'update:modelValue', value: Record<string, unknown>): void;
-  (e: 'change', payload: { name: string; value: unknown; model: Record<string, unknown> }): void;
+  (
+    e: 'change',
+    payload: { name: string; value: unknown; model: Record<string, unknown> },
+  ): void;
   (e: 'submit', value: Record<string, unknown>): void;
   (e: 'reset'): void;
   /** 校验失败 */
@@ -147,17 +150,32 @@ export interface ProFormInstance {
 /** 内部使用的 props 定义 */
 export const proFormProps = {
   items: { type: Array as PropType<ProFormItem[]>, required: true },
-  modelValue: { type: Object as PropType<Record<string, unknown>>, default: undefined },
-  defaultValue: { type: Object as PropType<Record<string, unknown>>, default: () => ({}) },
+  modelValue: {
+    type: Object as PropType<Record<string, unknown>>,
+    default: undefined,
+  },
+  defaultValue: {
+    type: Object as PropType<Record<string, unknown>>,
+    default: () => ({}),
+  },
   columns: { type: Number, default: 2 },
-  labelPosition: { type: String as PropType<ProFormLabelPosition>, default: 'right' },
-  labelWidth: { type: [Number, String] as PropType<number | string>, default: 96 },
+  labelPosition: {
+    type: String as PropType<ProFormLabelPosition>,
+    default: 'right',
+  },
+  labelWidth: {
+    type: [Number, String] as PropType<number | string>,
+    default: 96,
+  },
   readonly: { type: Boolean, default: false },
   disabled: { type: Boolean, default: false },
-  size: { type: String as PropType<'large' | 'default' | 'small'>, default: 'default' },
+  size: {
+    type: String as PropType<'large' | 'default' | 'small'>,
+    default: 'default',
+  },
   showActions: { type: Boolean, default: false },
   submitText: { type: String, default: '提交' },
   resetText: { type: String, default: '重置' },
   submitting: { type: Boolean, default: false },
-  gutter: { type: Number, default: 20 }
+  gutter: { type: Number, default: 20 },
 } as const;

@@ -13,7 +13,10 @@ export interface DescriptionItem {
   /** tag 类型的值到颜色/文案的映射 */
   valueEnum?: Record<
     string,
-    { text: string; color?: 'success' | 'warning' | 'danger' | 'info' | 'primary' }
+    {
+      text: string;
+      color?: 'success' | 'warning' | 'danger' | 'info' | 'primary';
+    }
   >;
   /** 日期格式化模板 */
   dateFormat?: string;
@@ -63,15 +66,24 @@ export const descriptionProps = {
   groups: { type: Array as PropType<DescriptionGroup[]>, default: undefined },
   data: {
     type: Object as PropType<Record<string, unknown>>,
-    default: () => ({})
+    default: () => ({}),
   },
   columns: { type: Number, default: 2 },
-  direction: { type: String as PropType<DescriptionDirection>, default: 'horizontal' },
+  direction: {
+    type: String as PropType<DescriptionDirection>,
+    default: 'horizontal',
+  },
   bordered: { type: Boolean, default: false },
-  labelWidth: { type: [Number, String] as PropType<number | string>, default: 110 },
+  labelWidth: {
+    type: [Number, String] as PropType<number | string>,
+    default: 110,
+  },
   emptyText: { type: String, default: '-' },
   title: { type: String, default: '' },
-  size: { type: String as PropType<'large' | 'default' | 'small'>, default: 'default' }
+  size: {
+    type: String as PropType<'large' | 'default' | 'small'>,
+    default: 'default',
+  },
 } as const;
 
 export const descriptionEmits = {} as const;

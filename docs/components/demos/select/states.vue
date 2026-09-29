@@ -8,13 +8,13 @@ const assigned = ref('design');
 const options = [
   { label: '杭州', value: 'hangzhou' },
   { label: '上海', value: 'shanghai' },
-  { label: '深圳（暂不可选）', value: 'shenzhen', disabled: true }
+  { label: '深圳（暂不可选）', value: 'shenzhen', disabled: true },
 ];
 
 const roles = [
   { label: '产品设计', value: 'design' },
   { label: '前端开发', value: 'frontend' },
-  { label: '后端开发', value: 'backend' }
+  { label: '后端开发', value: 'backend' },
 ];
 
 function onChange(v: string) {
@@ -26,7 +26,12 @@ function onChange(v: string) {
   <div class="aura-select-demo">
     <div class="aura-field">
       <span class="aura-field-label">受控 + 禁用项</span>
-      <Select v-model="city" placeholder="请选择城市" :options="options" @change="onChange" />
+      <Select
+        v-model="city"
+        placeholder="请选择城市"
+        :options="options"
+        @change="onChange"
+      />
     </div>
     <div class="aura-field">
       <span class="aura-field-label">非受控（初始值 design）</span>

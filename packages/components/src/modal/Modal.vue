@@ -14,7 +14,8 @@
                 role="button"
                 aria-label="关闭"
                 @click="close"
-              >×</span>
+                >×</span
+              >
             </div>
             <div :class="prefixCls('modal-body')">
               <slot />
@@ -45,7 +46,7 @@ const props = defineProps(modalProps);
 const emit = defineEmits<ModalEmits>();
 
 const panelStyle = computed(() => ({
-  width: typeof props.width === 'number' ? `${props.width}px` : props.width
+  width: typeof props.width === 'number' ? `${props.width}px` : props.width,
 }));
 
 function close() {

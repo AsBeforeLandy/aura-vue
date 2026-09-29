@@ -5,6 +5,6 @@ export type {
   DescriptionProps,
   DescriptionItem,
   DescriptionGroup,
-  DescriptionDirection
+  DescriptionDirection,
 } from './types';
 export { descriptionProps } from './types';

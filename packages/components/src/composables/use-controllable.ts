@@ -7,7 +7,10 @@ export interface ControllableProps<T> {
   defaultValue?: T;
 }
 
-export type ControllableEmit<T> = (event: 'update:modelValue', value: T) => void;
+export type ControllableEmit<T> = (
+  event: 'update:modelValue',
+  value: T,
+) => void;
 
 /**
  * 受控 / 非受控双轨 hook：
@@ -16,7 +19,7 @@ export type ControllableEmit<T> = (event: 'update:modelValue', value: T) => void
  */
 export function useControllable<T>(
   props: ControllableProps<T>,
-  emit: ControllableEmit<T>
+  emit: ControllableEmit<T>,
 ): Ref<T | undefined> {
   const innerValue = ref(props.defaultValue) as Ref<T | undefined>;
   const isControlled = computed(() => props.modelValue !== undefined);
@@ -28,7 +31,7 @@ export function useControllable<T>(
         innerValue.value = val;
       }
       emit('update:modelValue', val as T);
-    }
+    },
   });
 
   return value;

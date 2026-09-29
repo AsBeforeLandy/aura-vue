@@ -10,12 +10,12 @@
 
 ## 何时不用
 
-| 场景 | 应该用 |
-| --- | --- |
-| 只有 2 个选项 | Switch（互斥状态）或单选组 |
-| 选项超过 10 个且需搜索 | 带搜索的 Select（待提供） |
-| 需要多选 | 多选 Select / 复选框组（待提供） |
-| 选项需要分组或自定义渲染 | 待提供 |
+| 场景                     | 应该用                           |
+| ------------------------ | -------------------------------- |
+| 只有 2 个选项            | Switch（互斥状态）或单选组       |
+| 选项超过 10 个且需搜索   | 带搜索的 Select（待提供）        |
+| 需要多选                 | 多选 Select / 复选框组（待提供） |
+| 选项需要分组或自定义渲染 | 待提供                           |
 
 ## 基础用法
 
@@ -32,7 +32,7 @@ const simple = ['待处理', '进行中', '已完成'];
 // 对象数组：可单独指定 label / value / disabled
 const full = [
   { label: '杭州', value: 'hangzhou' },
-  { label: '深圳（暂不可选）', value: 'shenzhen', disabled: true }
+  { label: '深圳（暂不可选）', value: 'shenzhen', disabled: true },
 ];
 ```
 
@@ -46,12 +46,12 @@ const full = [
 
 组件提供完整的键盘操作能力，无需鼠标即可完成选择：
 
-| 按键 | 行为 |
-| --- | --- |
-| `↑` / `↓` | 移动高亮项（自动跳过禁用项，循环滚动） |
-| `Enter` | 选中当前高亮项 |
-| `Esc` | 关闭面板 |
-| `Space` / `Enter`（关闭态） | 打开面板 |
+| 按键                        | 行为                                   |
+| --------------------------- | -------------------------------------- |
+| `↑` / `↓`                   | 移动高亮项（自动跳过禁用项，循环滚动） |
+| `Enter`                     | 选中当前高亮项                         |
+| `Esc`                       | 关闭面板                               |
+| `Space` / `Enter`（关闭态） | 打开面板                               |
 
 打开面板时，若有已选项则高亮该项，否则默认高亮第一个可选项。
 
@@ -68,10 +68,10 @@ const full = [
 
 面板颜色通过 CSS 变量配置：
 
-| 变量 | 说明 | 默认值 |
-| --- | --- | --- |
-| `--aura-select-popup-bg` | 面板背景色 | `--aura-bg` |
-| `--aura-select-color-scheme` | 面板色彩方案 | `light` |
+| 变量                          | 说明         | 默认值       |
+| ----------------------------- | ------------ | ------------ |
+| `--aura-select-popup-bg`      | 面板背景色   | `--aura-bg`  |
+| `--aura-select-color-scheme`  | 面板色彩方案 | `light`      |
 | `--aura-color-primary-shadow` | 选项高亮底色 | 主色低透明度 |
 
 ```css
@@ -83,31 +83,31 @@ const full = [
 
 ## 设计规范
 
-| 项 | 规范 |
-| --- | --- |
-| 占位文案 | "请选择 + 名词"，如"请选择城市" |
-| 宽度 | 不宜小于 120px，选项过长时截断并保留 tooltip |
-| 禁用选项 | 需在文案上说明原因，如"深圳（暂不可选）" |
-| 默认值 | 除非业务明确有默认项，否则保持空占位，避免误选 |
+| 项       | 规范                                           |
+| -------- | ---------------------------------------------- |
+| 占位文案 | "请选择 + 名词"，如"请选择城市"                |
+| 宽度     | 不宜小于 120px，选项过长时截断并保留 tooltip   |
+| 禁用选项 | 需在文案上说明原因，如"深圳（暂不可选）"       |
+| 默认值   | 除非业务明确有默认项，否则保持空占位，避免误选 |
 
 ## API
 
 ### Props
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| modelValue | 受控值（传入即视为受控模式） | `string` | - |
-| defaultValue | 非受控模式初始值 | `string` | - |
-| options | 选项，支持对象或字符串 | `Array<{ label, value, disabled? } \| string>` | `[]` |
-| placeholder | 占位文案 | `string` | `''` |
-| disabled | 是否禁用 | `boolean` | `false` |
+| 属性         | 说明                         | 类型                                           | 默认值  |
+| ------------ | ---------------------------- | ---------------------------------------------- | ------- |
+| modelValue   | 受控值（传入即视为受控模式） | `string`                                       | -       |
+| defaultValue | 非受控模式初始值             | `string`                                       | -       |
+| options      | 选项，支持对象或字符串       | `Array<{ label, value, disabled? } \| string>` | `[]`    |
+| placeholder  | 占位文案                     | `string`                                       | `''`    |
+| disabled     | 是否禁用                     | `boolean`                                      | `false` |
 
 ### Events
 
-| 事件 | 说明 | 回调参数 |
-| --- | --- | --- |
-| update:modelValue | 选中变化时触发 | `(value: string)` |
-| change | 选中变化时触发（与上一个同时触发） | `(value: string)` |
+| 事件              | 说明                               | 回调参数          |
+| ----------------- | ---------------------------------- | ----------------- |
+| update:modelValue | 选中变化时触发                     | `(value: string)` |
+| change            | 选中变化时触发（与上一个同时触发） | `(value: string)` |
 
 ### 类型导出
 
@@ -117,17 +117,17 @@ import type { SelectProps, SelectEmits, SelectOption } from '@aura/components';
 
 ### CSS 类名
 
-| 类名 | 说明 |
-| --- | --- |
-| `.aura-select` | 容器 |
-| `.aura-select--disabled` | 禁用态 |
-| `.aura-select-trigger` | 触发按钮 |
-| `.aura-select-trigger--open` | 面板展开中 |
-| `.aura-select-label` | 已选值文本 |
-| `.aura-select-placeholder` | 占位文本 |
-| `.aura-select-arrow` | 下拉箭头（`--open` 时旋转） |
-| `.aura-select-dropdown` | 面板（Teleport 到 body） |
-| `.aura-select-option` | 选项（`--active` / `--selected` / `--disabled`） |
+| 类名                         | 说明                                             |
+| ---------------------------- | ------------------------------------------------ |
+| `.aura-select`               | 容器                                             |
+| `.aura-select--disabled`     | 禁用态                                           |
+| `.aura-select-trigger`       | 触发按钮                                         |
+| `.aura-select-trigger--open` | 面板展开中                                       |
+| `.aura-select-label`         | 已选值文本                                       |
+| `.aura-select-placeholder`   | 占位文本                                         |
+| `.aura-select-arrow`         | 下拉箭头（`--open` 时旋转）                      |
+| `.aura-select-dropdown`      | 面板（Teleport 到 body）                         |
+| `.aura-select-option`        | 选项（`--active` / `--selected` / `--disabled`） |
 
 ## 常见问题
 

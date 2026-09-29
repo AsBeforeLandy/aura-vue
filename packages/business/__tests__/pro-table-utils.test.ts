@@ -4,7 +4,7 @@ import {
   formatMoney,
   getByPath,
   omitEmpty,
-  pickSearchItems
+  pickSearchItems,
 } from '../src/pro-table/utils';
 import type { ProTableColumn } from '../src/pro-table/types';
 
@@ -79,7 +79,7 @@ describe('ProTable utils', () => {
         e: [],
         f: 'ok',
         g: 0,
-        h: false
+        h: false,
       });
       expect(result).toEqual({ a: 1, f: 'ok', g: 0, h: false });
     });
@@ -93,7 +93,7 @@ describe('ProTable utils', () => {
     it('排除 hideInSearch 的列', () => {
       const columns: ProTableColumn[] = [
         { key: 'name', title: '姓名' },
-        { key: 'id', title: 'ID', hideInSearch: true }
+        { key: 'id', title: 'ID', hideInSearch: true },
       ];
       expect(pickSearchItems(columns).map((c) => c.key)).toEqual(['name']);
     });

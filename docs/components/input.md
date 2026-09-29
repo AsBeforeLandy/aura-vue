@@ -10,12 +10,12 @@
 
 ## 何时不用
 
-| 场景 | 应该用 |
-| --- | --- |
-| 长文本、多行输入 | Textarea（待提供） |
-| 从固定选项中挑一个 | Select 选择器 |
-| 是 / 否的布尔选择 | Switch 开关 |
-| 纯数字且范围固定 | 数字输入框 / 滑块（待提供） |
+| 场景               | 应该用                      |
+| ------------------ | --------------------------- |
+| 长文本、多行输入   | Textarea（待提供）          |
+| 从固定选项中挑一个 | Select 选择器               |
+| 是 / 否的布尔选择  | Switch 开关                 |
+| 纯数字且范围固定   | 数字输入框 / 滑块（待提供） |
 
 ## 基础用法
 
@@ -31,10 +31,10 @@
 
 组件支持两种值管理模式，判定规则很简单：
 
-| 传入 | 模式 | 行为 |
-| --- | --- | --- |
-| `v-model`（即 `modelValue`） | 受控 | 值完全由外部驱动，外部不更新则显示不变 |
-| `defaultValue` | 非受控 | 组件内部自持状态，同时向上 emit 通知 |
+| 传入                         | 模式   | 行为                                   |
+| ---------------------------- | ------ | -------------------------------------- |
+| `v-model`（即 `modelValue`） | 受控   | 值完全由外部驱动，外部不更新则显示不变 |
+| `defaultValue`               | 非受控 | 组件内部自持状态，同时向上 emit 通知   |
 
 <demo src="./demos/input/uncontrolled.vue" />
 
@@ -48,6 +48,7 @@
 <!-- 正确 -->
 <Input v-model="value" />
 ```
+
 :::
 
 ## 禁用
@@ -62,32 +63,32 @@
 
 ## 设计规范
 
-| 项 | 规范 |
-| --- | --- |
-| 单行宽度 | 200 ~ 280px，过宽降低可读性 |
-| 占位文案 | 用「请输入 + 名词」，如"请输入项目名称" |
+| 项       | 规范                                                     |
+| -------- | -------------------------------------------------------- |
+| 单行宽度 | 200 ~ 280px，过宽降低可读性                              |
+| 占位文案 | 用「请输入 + 名词」，如"请输入项目名称"                  |
 | 必填标识 | 交给 FormItem 的 `required`，不要在 placeholder 里加星号 |
-| 高度 | 默认 32px，与 Button `middle` 对齐 |
+| 高度     | 默认 32px，与 Button `middle` 对齐                       |
 
 ## API
 
 ### Props
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| modelValue | 受控值（传入即视为受控模式） | `string` | - |
-| defaultValue | 非受控模式初始值 | `string` | - |
-| placeholder | 占位文案 | `string` | `''` |
-| disabled | 是否禁用 | `boolean` | `false` |
-| clearable | 是否显示清空按钮 | `boolean` | `false` |
+| 属性         | 说明                         | 类型      | 默认值  |
+| ------------ | ---------------------------- | --------- | ------- |
+| modelValue   | 受控值（传入即视为受控模式） | `string`  | -       |
+| defaultValue | 非受控模式初始值             | `string`  | -       |
+| placeholder  | 占位文案                     | `string`  | `''`    |
+| disabled     | 是否禁用                     | `boolean` | `false` |
+| clearable    | 是否显示清空按钮             | `boolean` | `false` |
 
 ### Events
 
-| 事件 | 说明 | 回调参数 |
-| --- | --- | --- |
-| update:modelValue | 输入内容变化时触发 | `(value: string)` |
-| change | 失焦且内容变化时触发 | `(value: string)` |
-| clear | 点击清空按钮时触发 | - |
+| 事件              | 说明                 | 回调参数          |
+| ----------------- | -------------------- | ----------------- |
+| update:modelValue | 输入内容变化时触发   | `(value: string)` |
+| change            | 失焦且内容变化时触发 | `(value: string)` |
+| clear             | 点击清空按钮时触发   | -                 |
 
 ### 类型导出
 
@@ -97,12 +98,12 @@ import type { InputProps, InputEmits } from '@aura/components';
 
 ### CSS 类名
 
-| 类名 | 说明 |
-| --- | --- |
-| `.aura-input` | 容器 |
-| `.aura-input--disabled` | 禁用态 |
-| `.aura-input-inner` | 原生 `input` 元素 |
-| `.aura-input-clear` | 清空按钮 |
+| 类名                    | 说明              |
+| ----------------------- | ----------------- |
+| `.aura-input`           | 容器              |
+| `.aura-input--disabled` | 禁用态            |
+| `.aura-input-inner`     | 原生 `input` 元素 |
+| `.aura-input-clear`     | 清空按钮          |
 
 ### 表单联动
 

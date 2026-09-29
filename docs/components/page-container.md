@@ -10,11 +10,11 @@
 
 ## 何时不用
 
-| 场景 | 应该用 |
-| --- | --- |
-| 登录页、全屏看板等无标准布局的页面 | 不套容器，自行布局 |
-| 嵌入式弹窗内容 | 弹窗自带布局，无需再包一层 |
-| 极简页面（只有一段文字） | 直接写内容即可 |
+| 场景                               | 应该用                     |
+| ---------------------------------- | -------------------------- |
+| 登录页、全屏看板等无标准布局的页面 | 不套容器，自行布局         |
+| 嵌入式弹窗内容                     | 弹窗自带布局，无需再包一层 |
+| 极简页面（只有一段文字）           | 直接写内容即可             |
 
 ## 基础用法
 
@@ -58,38 +58,38 @@
 
 ### Props
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| title | 页面标题 | `string` | `''` |
-| subTitle | 副标题 / 页面说明 | `string` | `''` |
-| breadcrumbs | 面包屑 | `PageBreadcrumb[]` | - |
-| back | 显示返回按钮 | `boolean` | `false` |
-| backLink | 返回跳转地址 | `string` | `''` |
-| card | 内容区包卡片 | `boolean` | `true` |
-| loading | 内容区 loading | `boolean` | `false` |
-| fixedFooter | 底部操作栏吸底 | `boolean` | `false` |
-| padding | 左右内边距 | `number \| string` | `16` |
-| divider | 标题区与内容区之间显示分隔线 | `boolean` | `true` |
+| 属性        | 说明                         | 类型               | 默认值  |
+| ----------- | ---------------------------- | ------------------ | ------- |
+| title       | 页面标题                     | `string`           | `''`    |
+| subTitle    | 副标题 / 页面说明            | `string`           | `''`    |
+| breadcrumbs | 面包屑                       | `PageBreadcrumb[]` | -       |
+| back        | 显示返回按钮                 | `boolean`          | `false` |
+| backLink    | 返回跳转地址                 | `string`           | `''`    |
+| card        | 内容区包卡片                 | `boolean`          | `true`  |
+| loading     | 内容区 loading               | `boolean`          | `false` |
+| fixedFooter | 底部操作栏吸底               | `boolean`          | `false` |
+| padding     | 左右内边距                   | `number \| string` | `16`    |
+| divider     | 标题区与内容区之间显示分隔线 | `boolean`          | `true`  |
 
 ### 事件
 
-| 事件 | 说明 |
-| --- | --- |
+| 事件   | 说明         |
+| ------ | ------------ |
 | `back` | 点击返回按钮 |
 
 ### 插槽
 
-| 插槽 | 说明 |
-| --- | --- |
-| `extra` | 标题右侧（常放操作按钮） |
-| `default` | 页面正文 |
-| `footer` | 底部操作栏 |
+| 插槽      | 说明                     |
+| --------- | ------------------------ |
+| `extra`   | 标题右侧（常放操作按钮） |
+| `default` | 页面正文                 |
+| `footer`  | 底部操作栏               |
 
 ### PageBreadcrumb
 
-| 属性 | 说明 | 类型 |
-| --- | --- | --- |
-| text | 展示文案 | `string` |
+| 属性 | 说明                         | 类型     |
+| ---- | ---------------------------- | -------- |
+| text | 展示文案                     | `string` |
 | link | 跳转链接，缺省则该项不可点击 | `string` |
 
 ### 类型导出
@@ -98,22 +98,22 @@
 import type {
   PageBreadcrumb,
   PageContainerProps,
-  PageContainerSlots
+  PageContainerSlots,
 } from '@aura/business';
 ```
 
 ### CSS 类名
 
-| 类名 | 说明 |
-| --- | --- |
-| `.aura-page-container` | 根节点 |
-| `.aura-page-container-breadcrumb` | 面包屑 |
-| `.aura-page-container-header` | 标题区 |
-| `.aura-page-container-title` | 标题 |
-| `.aura-page-container-subtitle` | 副标题 |
-| `.aura-page-container-extra` | 标题右侧 |
-| `.aura-page-container-body` | 内容区 |
-| `.aura-page-container-footer` | 底部操作栏 |
+| 类名                              | 说明       |
+| --------------------------------- | ---------- |
+| `.aura-page-container`            | 根节点     |
+| `.aura-page-container-breadcrumb` | 面包屑     |
+| `.aura-page-container-header`     | 标题区     |
+| `.aura-page-container-title`      | 标题       |
+| `.aura-page-container-subtitle`   | 副标题     |
+| `.aura-page-container-extra`      | 标题右侧   |
+| `.aura-page-container-body`       | 内容区     |
+| `.aura-page-container-footer`     | 底部操作栏 |
 
 ## 相关文档
 

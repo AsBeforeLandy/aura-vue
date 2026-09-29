@@ -7,7 +7,11 @@
       separator="/"
     >
       <ElBreadcrumbItem v-for="(item, i) in breadcrumbs" :key="i">
-        <a v-if="item.link" :href="item.link" :class="prefixCls('page-container-breadcrumb-link')">
+        <a
+          v-if="item.link"
+          :href="item.link"
+          :class="prefixCls('page-container-breadcrumb-link')"
+        >
           {{ item.text }}
         </a>
         <span v-else>{{ item.text }}</span>
@@ -15,7 +19,10 @@
     </ElBreadcrumb>
 
     <!-- 标题区 -->
-    <div v-if="hasHeader" :class="[prefixCls('page-container-header'), { 'is-divider': divider }]">
+    <div
+      v-if="hasHeader"
+      :class="[prefixCls('page-container-header'), { 'is-divider': divider }]"
+    >
       <div :class="prefixCls('page-container-header-main')">
         <ElButton
           v-if="back"
@@ -27,8 +34,12 @@
           返回
         </ElButton>
         <div :class="prefixCls('page-container-heading')">
-          <div v-if="title" :class="prefixCls('page-container-title')">{{ title }}</div>
-          <div v-if="subTitle" :class="prefixCls('page-container-subtitle')">{{ subTitle }}</div>
+          <div v-if="title" :class="prefixCls('page-container-title')">
+            {{ title }}
+          </div>
+          <div v-if="subTitle" :class="prefixCls('page-container-subtitle')">
+            {{ subTitle }}
+          </div>
         </div>
       </div>
       <div :class="prefixCls('page-container-extra')">
@@ -60,7 +71,7 @@ import {
   ElBreadcrumb,
   ElBreadcrumbItem,
   ElButton,
-  vLoading
+  vLoading,
 } from 'element-plus';
 import { ArrowLeft } from '@element-plus/icons-vue';
 import { prefixCls } from '@aura/shared';
@@ -74,13 +85,16 @@ const emit = defineEmits<PageContainerEmits>();
 const slots = useSlots();
 
 const rootStyle = computed(() => {
-  const p = typeof props.padding === 'number' ? `${props.padding}px` : props.padding;
+  const p =
+    typeof props.padding === 'number' ? `${props.padding}px` : props.padding;
   return { '--aura-page-padding': p };
 });
 
 /** 有标题、副标题、返回按钮或 extra 插槽时才渲染标题区 */
 const hasHeader = computed(
-  () => Boolean(props.title || props.subTitle || props.back) || Boolean(slots.extra)
+  () =>
+    Boolean(props.title || props.subTitle || props.back) ||
+    Boolean(slots.extra),
 );
 
 function handleBack() {

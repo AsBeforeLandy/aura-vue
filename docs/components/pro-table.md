@@ -12,11 +12,11 @@
 
 ## 何时不用
 
-| 场景 | 应该用 |
-| --- | --- |
-| 纯展示、无分页无查询的静态小表 | 直接 `ElTable`，无需引入这层抽象 |
+| 场景                                     | 应该用                                          |
+| ---------------------------------------- | ----------------------------------------------- |
+| 纯展示、无分页无查询的静态小表           | 直接 `ElTable`，无需引入这层抽象                |
 | 需要复杂的单元格合并、树形展开等深度定制 | 直接 `ElTable` + 自定义 `cellRender` 可能更直观 |
-| 数据已在父组件拿好、仅做渲染 | 传 `data` 即可，不必强行包一层 `request` |
+| 数据已在父组件拿好、仅做渲染             | 传 `data` 即可，不必强行包一层 `request`        |
 
 ## 基础用法
 
@@ -26,10 +26,10 @@
 
 ## 两种数据模式
 
-| 模式 | 触发条件 | 适用 |
-| --- | --- | --- |
+| 模式     | 触发条件     | 适用                           |
+| -------- | ------------ | ------------------------------ |
 | 请求模式 | 传 `request` | 标准列表页，组件托管分页与查询 |
-| 受控模式 | 只传 `data` | 本地数据，或外层已完成请求 |
+| 受控模式 | 只传 `data`  | 本地数据，或外层已完成请求     |
 
 受控模式不会发起任何请求，也不会接管分页——`pagination` 通常直接关掉：
 
@@ -39,26 +39,26 @@
 
 `ProTableColumn` 的两个类型字段是**两套独立语义**，这是最容易踩的点：
 
-| 字段 | 作用域 | 取值 |
-| --- | --- | --- |
-| `valueType` | **表格展示**单元格长什么样 | `text` / `tag` / `date` / `datetime` / `money` / `index` |
-| `searchType` | **查询区**用什么控件 | `text` / `select` / `date` / `dateRange` / `number` |
+| 字段         | 作用域                     | 取值                                                     |
+| ------------ | -------------------------- | -------------------------------------------------------- |
+| `valueType`  | **表格展示**单元格长什么样 | `text` / `tag` / `date` / `datetime` / `money` / `index` |
+| `searchType` | **查询区**用什么控件       | `text` / `select` / `date` / `dateRange` / `number`      |
 
 也就是说：状态列可以用 `tag` 展示、用 `select` 查询；创建时间列用 `date` 展示、用 `dateRange` 做区间查询。二者互不干扰。
 
 ### 常用列属性
 
-| 属性 | 说明 | 默认 |
-| --- | --- | --- |
-| `key` / `title` | 字段名 / 列标题 | 必填 |
-| `width` / `minWidth` | 列宽 / 最小列宽 | - |
-| `fixed` | 固定列（`left` / `right`） | - |
-| `sortable` | 是否可排序 | `false` |
-| `align` | 对齐方式 | `left` |
-| `ellipsis` | 超长省略并显示 tooltip | `false` |
-| `hideInTable` | 不显示在表格中（但可作查询项） | `false` |
-| `hideInSearch` | 不出现在查询区 | `false` |
-| `cellRender` | 自定义单元格渲染（逃生舱） | - |
+| 属性                 | 说明                           | 默认    |
+| -------------------- | ------------------------------ | ------- |
+| `key` / `title`      | 字段名 / 列标题                | 必填    |
+| `width` / `minWidth` | 列宽 / 最小列宽                | -       |
+| `fixed`              | 固定列（`left` / `right`）     | -       |
+| `sortable`           | 是否可排序                     | `false` |
+| `align`              | 对齐方式                       | `left`  |
+| `ellipsis`           | 超长省略并显示 tooltip         | `false` |
+| `hideInTable`        | 不显示在表格中（但可作查询项） | `false` |
+| `hideInSearch`       | 不出现在查询区                 | `false` |
+| `cellRender`         | 自定义单元格渲染（逃生舱）     | -       |
 
 ### 枚举与颜色
 
@@ -92,10 +92,10 @@
 toolbar: { reload: true, density: true, columnSetting: true }
 ```
 
-| 按钮 | 作用 |
-| --- | --- |
-| 刷新 | 重新拉取当前页，保留查询条件与页码 |
-| 密度 | 切换 `large` / `default` / `small` 行高 |
+| 按钮   | 作用                                                         |
+| ------ | ------------------------------------------------------------ |
+| 刷新   | 重新拉取当前页，保留查询条件与页码                           |
+| 密度   | 切换 `large` / `default` / `small` 行高                      |
 | 列设置 | 勾选列显隐（勾选结果可通过 `setHiddenColumns` 回填做持久化） |
 
 ## 实例方法
@@ -105,64 +105,64 @@ toolbar: { reload: true, density: true, columnSetting: true }
 ```ts
 const tableRef = ref<ProTableInstance>();
 
-tableRef.value?.reload();            // 刷新当前页
-tableRef.value?.reloadAndReset();    // 回到第一页并刷新（查询场景）
-tableRef.value?.getSelectedRows();   // 获取选中行
-tableRef.value?.getSearchValues();   // 获取当前查询条件
+tableRef.value?.reload(); // 刷新当前页
+tableRef.value?.reloadAndReset(); // 回到第一页并刷新（查询场景）
+tableRef.value?.getSelectedRows(); // 获取选中行
+tableRef.value?.getSearchValues(); // 获取当前查询条件
 tableRef.value?.setSearchValues({ name: 'Landy' }); // 设置查询条件（不触发请求）
 ```
 
-| 方法 | 说明 |
-| --- | --- |
-| `reload()` | 重新加载当前页 |
-| `reloadAndReset()` | 回到第 1 页并重新加载 |
-| `clearSelection()` | 清空行选择 |
-| `getSearchValues()` | 获取当前查询表单值 |
+| 方法                      | 说明                         |
+| ------------------------- | ---------------------------- |
+| `reload()`                | 重新加载当前页               |
+| `reloadAndReset()`        | 回到第 1 页并重新加载        |
+| `clearSelection()`        | 清空行选择                   |
+| `getSearchValues()`       | 获取当前查询表单值           |
 | `setSearchValues(values)` | 设置查询表单值（不触发请求） |
-| `getData()` | 获取当前表格数据 |
-| `getSelectedRows()` | 获取当前选中的行 |
-| `setHiddenColumns(keys)` | 恢复用户列显隐偏好 |
+| `getData()`               | 获取当前表格数据             |
+| `getSelectedRows()`       | 获取当前选中的行             |
+| `setHiddenColumns(keys)`  | 恢复用户列显隐偏好           |
 
 ## 事件
 
-| 事件 | 说明 |
-| --- | --- |
-| `selection-change` | 行选择变化，参数为选中行数组 |
-| `page-change` | 分页变化，参数 `{ current, pageSize }` |
-| `search` | 查询条件变化（点击查询/重置后） |
-| `loaded` | 数据加载完成，参数 `{ data, total }` |
-| `error` | 加载失败（`request` 抛错），参数为错误对象 |
+| 事件               | 说明                                       |
+| ------------------ | ------------------------------------------ |
+| `selection-change` | 行选择变化，参数为选中行数组               |
+| `page-change`      | 分页变化，参数 `{ current, pageSize }`     |
+| `search`           | 查询条件变化（点击查询/重置后）            |
+| `loaded`           | 数据加载完成，参数 `{ data, total }`       |
+| `error`            | 加载失败（`request` 抛错），参数为错误对象 |
 
 ## API
 
 ### Props
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| columns | 列配置 | `ProTableColumn[]` | 必填 |
-| request | 数据请求函数 | `(params) => Promise<{ data, total }>` | - |
-| data | 受控数据（`request` 缺省时生效） | `T[]` | - |
-| rowKey | 行唯一键 | `string` | `'id'` |
-| search | 是否显示查询区 | `boolean` | `true` |
-| searchDefaultCollapsed | 查询区默认折叠 | `boolean` | `true` |
-| searchSpan | 查询区一行几项 | `number` | `3` |
-| pagination | 分页配置，`false` 关闭 | `ProTablePagination \| false` | `{ current: 1, pageSize: 10 }` |
-| toolbar | 工具条配置 | `ProTableToolbarConfig` | 三项全开 |
-| size | 表格密度 | `'large' \| 'default' \| 'small'` | `'default'` |
-| rowSelection | 显示行选择列 | `boolean` | `false` |
-| stripe | 斑马纹 | `boolean` | `false` |
-| border | 显示边框 | `boolean` | `false` |
-| emptyText | 空数据文案 | `string` | `'暂无数据'` |
-| title | 标题（工具条左侧） | `string` | `''` |
-| clearOnReload | 请求前清空旧数据 | `boolean` | `false` |
+| 属性                   | 说明                             | 类型                                   | 默认值                         |
+| ---------------------- | -------------------------------- | -------------------------------------- | ------------------------------ |
+| columns                | 列配置                           | `ProTableColumn[]`                     | 必填                           |
+| request                | 数据请求函数                     | `(params) => Promise<{ data, total }>` | -                              |
+| data                   | 受控数据（`request` 缺省时生效） | `T[]`                                  | -                              |
+| rowKey                 | 行唯一键                         | `string`                               | `'id'`                         |
+| search                 | 是否显示查询区                   | `boolean`                              | `true`                         |
+| searchDefaultCollapsed | 查询区默认折叠                   | `boolean`                              | `true`                         |
+| searchSpan             | 查询区一行几项                   | `number`                               | `3`                            |
+| pagination             | 分页配置，`false` 关闭           | `ProTablePagination \| false`          | `{ current: 1, pageSize: 10 }` |
+| toolbar                | 工具条配置                       | `ProTableToolbarConfig`                | 三项全开                       |
+| size                   | 表格密度                         | `'large' \| 'default' \| 'small'`      | `'default'`                    |
+| rowSelection           | 显示行选择列                     | `boolean`                              | `false`                        |
+| stripe                 | 斑马纹                           | `boolean`                              | `false`                        |
+| border                 | 显示边框                         | `boolean`                              | `false`                        |
+| emptyText              | 空数据文案                       | `string`                               | `'暂无数据'`                   |
+| title                  | 标题（工具条左侧）               | `string`                               | `''`                           |
+| clearOnReload          | 请求前清空旧数据                 | `boolean`                              | `false`                        |
 
 ### request 入参
 
 ```ts
 interface ProTableRequestParams {
-  current: number;     // 当前页，从 1 开始
-  pageSize: number;    // 每页条数
-  search: Record<string, unknown>;  // 查询条件（已剔除空值）
+  current: number; // 当前页，从 1 开始
+  pageSize: number; // 每页条数
+  search: Record<string, unknown>; // 查询条件（已剔除空值）
   sort?: { field: string; order: 'asc' | 'desc' };
 }
 ```
@@ -179,19 +179,19 @@ import type {
   ProTableRequestResult,
   ProTableInstance,
   ProTablePagination,
-  ProTableToolbarConfig
+  ProTableToolbarConfig,
 } from '@aura/business';
 ```
 
 ### CSS 类名
 
-| 类名 | 说明 |
-| --- | --- |
-| `.aura-pro-table` | 组件根节点 |
-| `.aura-pro-table-search` | 查询区 |
+| 类名                           | 说明                |
+| ------------------------------ | ------------------- |
+| `.aura-pro-table`              | 组件根节点          |
+| `.aura-pro-table-search`       | 查询区              |
 | `.aura-pro-table-search-arrow` | 查询区展开/收起箭头 |
-| `.aura-pro-table-toolbar` | 工具条 |
-| `.aura-pro-table-body` | 表格容器 |
+| `.aura-pro-table-toolbar`      | 工具条              |
+| `.aura-pro-table-body`         | 表格容器            |
 
 ## 实现说明
 

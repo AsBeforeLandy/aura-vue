@@ -5,6 +5,6 @@ export type {
   PageContainerProps,
   PageContainerEmits,
   PageContainerSlots,
-  PageBreadcrumb
+  PageBreadcrumb,
 } from './types';
 export { pageContainerProps } from './types';

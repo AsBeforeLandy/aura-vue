@@ -1,25 +1,81 @@
 {
   "name": "aura-vue",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
+  "description": "Aura Vue —— Vue3 基础组件 + 业务组件库（pnpm monorepo）",
+  "packageManager": "pnpm@7.33.7",
   "engines": {
-    "node": ">=18"
+    "node": "^20.19.0 || ^22.13.0 || >=24"
   },
   "scripts": {
-    "build": "pnpm --filter @aura/components build && pnpm --filter @aura/business build",
+    "build": "pnpm build:lib",
+    "build:lib": "pnpm --filter @aura/components build && pnpm --filter @aura/business build",
     "build:components": "pnpm --filter @aura/components build",
     "build:business": "pnpm --filter @aura/business build",
-    "test": "pnpm --filter @aura/components test && pnpm --filter @aura/business test",
+    "typecheck": "vue-tsc --noEmit -p packages/shared/tsconfig.json && vue-tsc --noEmit -p packages/components/tsconfig.json && vue-tsc --noEmit -p packages/business/tsconfig.json",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "pnpm test:components && pnpm test:business",
     "test:components": "pnpm --filter @aura/components test",
     "test:business": "pnpm --filter @aura/business test",
+    "test:coverage": "pnpm --filter @aura/components test:coverage && pnpm --filter @aura/business test:coverage",
+    "size": "size-limit",
+    "smoke": "node scripts/smoke.mjs",
+    "commitlint": "commitlint",
+    "verify": "pnpm lint && pnpm typecheck && pnpm test:coverage && pnpm build:lib && pnpm size && pnpm smoke",
+    "verify:fast": "pnpm lint && pnpm typecheck && pnpm test && pnpm build:lib && pnpm size && pnpm smoke",
+    "prepublishOnly": "pnpm build:lib && pnpm smoke",
     "docs:dev": "pnpm --filter @aura/docs dev",
     "docs:build": "pnpm --filter @aura/docs build",
     "changeset": "changeset",
     "version": "changeset version",
-    "release": "pnpm build && changeset publish"
+    "release": "pnpm build:lib && changeset publish",
+    "clean": "rm -rf packages/*/dist packages/*/coverage coverage",
+    "prepare": "husky"
   },
+  "lint-staged": {
+    "*.{ts,vue}": "eslint --fix",
+    "*.{json,less,css,md,mjs,yml,yaml}": "prettier --write"
+  },
+  "size-limit": [
+    {
+      "name": "components (全量 esm)",
+      "path": "packages/components/dist/**/*.js",
+      "limit": "12 kB"
+    },
+    {
+      "name": "business (全量 esm)",
+      "path": "packages/business/dist/**/*.js",
+      "limit": "19 kB"
+    }
+  ],
+  "keywords": [
+    "vue",
+    "vue3",
+    "component-library",
+    "ui",
+    "monorepo"
+  ],
+  "license": "MIT",
   "devDependencies": {
     "@changesets/cli": "^2.27.9",
-    "typescript": "^5.6.3"
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0",
+    "@eslint/js": "^9.17.0",
+    "@size-limit/file": "^11.1.6",
+    "@types/node": "^20.17.10",
+    "eslint": "^9.17.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-vue": "^9.32.0",
+    "globals": "^15.14.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.11",
+    "prettier": "^3.4.2",
+    "size-limit": "^11.1.6",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.18.2",
+    "vue-tsc": "^2.1.10"
   }
 }

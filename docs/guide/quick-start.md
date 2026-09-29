@@ -4,10 +4,10 @@
 
 ## 环境要求
 
-| 依赖 | 版本 |
-| --- | --- |
-| Node.js | ^18.0.0 |
-| Vue | ^3.4.0 |
+| 依赖     | 版本                                 |
+| -------- | ------------------------------------ |
+| Node.js  | ^18.0.0                              |
+| Vue      | ^3.4.0                               |
 | 包管理器 | pnpm ^7（推荐）/ npm ^9 / yarn ^1.22 |
 
 ## 安装
@@ -74,13 +74,25 @@ const onlyMine = ref(false);
 
 ## 按需引入
 
+从根入口具名导入即可，构建工具会做 tree-shaking，未使用的组件不会进入业务包：
+
 ```vue
 <script setup lang="ts">
-import { Button } from '@aura/components/button';
+import { Button } from '@aura/components';
 </script>
 ```
 
-每个组件的子路径导出与根导出等价，构建工具会做 tree-shaking，未使用的组件不会进入业务包。
+样式则按组件按需引入：
+
+```ts
+import '@aura/components/src/button/style/index.less';
+```
+
+:::warning
+组件库**没有**按组件的子路径导出，它只在包内 `exports` 暴露根入口、`./style.css` 与样式源码路径。
+
+❌ `import { Button } from '@aura/components/button'` —— 打包时会报 Module not found。
+:::
 
 ## 受控 / 非受控
 

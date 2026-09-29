@@ -7,7 +7,12 @@ const keyword = ref('');
 
 <template>
   <div class="aura-toolbar">
-    <Input v-model="keyword" placeholder="搜索任务名称" clearable style="max-width: 280px" />
+    <Input
+      v-model="keyword"
+      placeholder="搜索任务名称"
+      clearable
+      style="max-width: 280px"
+    />
   </div>
 </template>
 

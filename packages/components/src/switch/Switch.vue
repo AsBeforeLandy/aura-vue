@@ -28,8 +28,8 @@ const cls = computed(() =>
   classNames(
     prefixCls('switch'),
     model.value && prefixCls('switch--on'),
-    props.disabled && prefixCls('switch--disabled')
-  )
+    props.disabled && prefixCls('switch--disabled'),
+  ),
 );
 
 function toggle() {

@@ -10,14 +10,24 @@
       @click="toggle"
       @keydown="onKeydown"
     >
-      <span v-if="displayLabel" :class="prefixCls('select-label')">{{ displayLabel }}</span>
-      <span v-else :class="prefixCls('select-placeholder')">{{ placeholder || '请选择' }}</span>
+      <span v-if="displayLabel" :class="prefixCls('select-label')">{{
+        displayLabel
+      }}</span>
+      <span v-else :class="prefixCls('select-placeholder')">{{
+        placeholder || '请选择'
+      }}</span>
       <span :class="arrowCls" aria-hidden="true"></span>
     </button>
 
     <!-- 面板 Teleport 到 body + fixed 定位：不受任何父级 overflow 裁剪 -->
     <Teleport to="body">
-      <ul v-show="open" ref="panelRef" :class="dropdownCls" :style="panelStyle" role="listbox">
+      <ul
+        v-show="open"
+        ref="panelRef"
+        :class="dropdownCls"
+        :style="panelStyle"
+        role="listbox"
+      >
         <li
           v-for="(opt, i) in normalizedOptions"
           :key="opt.value"
@@ -61,8 +71,8 @@ const PANEL_GAP = 4;
 
 const normalizedOptions = computed<SelectOption[]>(() =>
   props.options.map((opt) =>
-    typeof opt === 'string' ? { label: opt, value: opt } : opt
-  )
+    typeof opt === 'string' ? { label: opt, value: opt } : opt,
+  ),
 );
 
 const displayLabel = computed(() => {
@@ -73,22 +83,22 @@ const displayLabel = computed(() => {
 const wrapperCls = computed(() =>
   classNames(
     prefixCls('select'),
-    props.disabled && prefixCls('select--disabled')
-  )
+    props.disabled && prefixCls('select--disabled'),
+  ),
 );
 
 const triggerCls = computed(() =>
   classNames(
     prefixCls('select-trigger'),
-    open.value && prefixCls('select-trigger--open')
-  )
+    open.value && prefixCls('select-trigger--open'),
+  ),
 );
 
 const arrowCls = computed(() =>
   classNames(
     prefixCls('select-arrow'),
-    open.value && prefixCls('select-arrow--open')
-  )
+    open.value && prefixCls('select-arrow--open'),
+  ),
 );
 
 const dropdownCls = computed(() => prefixCls('select-dropdown'));
@@ -98,20 +108,24 @@ function getOptionCls(opt: SelectOption, index: number) {
     prefixCls('select-option'),
     index === activeIndex.value && prefixCls('select-option--active'),
     opt.value === model.value && prefixCls('select-option--selected'),
-    opt.disabled && prefixCls('select-option--disabled')
+    opt.disabled && prefixCls('select-option--disabled'),
   );
 }
 
 function toggle() {
   if (props.disabled) return;
-  open.value ? close() : openPanel();
+  if (open.value) {
+    close();
+  } else {
+    openPanel();
+  }
 }
 
 async function openPanel() {
   open.value = true;
   // 优先高亮当前选中项；无选中值时默认高亮第一个可选项
   const currentIdx = normalizedOptions.value.findIndex(
-    (o) => !o.disabled && o.value === model.value
+    (o) => !o.disabled && o.value === model.value,
   );
   activeIndex.value =
     currentIdx !== -1
@@ -163,7 +177,7 @@ function updatePosition() {
   panelStyle.value = {
     top: `${top}px`,
     left: `${rect.left}px`,
-    width: `${rect.width}px`
+    width: `${rect.width}px`,
   };
 }
 
@@ -192,7 +206,7 @@ function onKeydown(evt: KeyboardEvent) {
       const delta = evt.key === 'ArrowDown' ? 1 : -1;
       if (selectable.length === 0) return;
       const currentIndex = selectable.findIndex(
-        (o) => o.value === normalizedOptions.value[activeIndex.value]?.value
+        (o) => o.value === normalizedOptions.value[activeIndex.value]?.value,
       );
       const next =
         (currentIndex + delta + selectable.length) % selectable.length;

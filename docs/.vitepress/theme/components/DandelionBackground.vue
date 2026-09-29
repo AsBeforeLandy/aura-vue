@@ -87,7 +87,7 @@ onMounted(() => {
       alpha: 0.3 + Math.random() * 0.35,
       swayPhase: Math.random() * Math.PI * 2,
       swayAmp: 0.3 + Math.random() * 0.5,
-      driftPhase: Math.random() * Math.PI * 2
+      driftPhase: Math.random() * Math.PI * 2,
     });
   }
 
@@ -155,7 +155,10 @@ onMounted(() => {
         const forkLen = 2.5 + ((i * 7 + f * 3) % 5) * 0.3;
         ctx.beginPath();
         ctx.moveTo(ex, ey);
-        ctx.lineTo(ex + Math.cos(forkAngle) * forkLen, ey + Math.sin(forkAngle) * forkLen);
+        ctx.lineTo(
+          ex + Math.cos(forkAngle) * forkLen,
+          ey + Math.sin(forkAngle) * forkLen,
+        );
         ctx.strokeStyle = `rgba(${rgb}, 0.12)`;
         ctx.lineWidth = 0.2;
         ctx.stroke();
@@ -321,7 +324,7 @@ onMounted(() => {
   });
   themeObserver.observe(document.documentElement, {
     attributes: true,
-    attributeFilter: ['class']
+    attributeFilter: ['class'],
   });
 
   cleanup = () => {

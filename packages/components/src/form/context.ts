@@ -20,5 +20,8 @@ export interface FormItemHook {
   onControlBlur(): void;
 }
 
-export const formContextKey: InjectionKey<FormContext> = Symbol('aura-form-context');
-export const formItemHookKey: InjectionKey<FormItemHook> = Symbol('aura-form-item-hook');
+export const formContextKey: InjectionKey<FormContext> =
+  Symbol('aura-form-context');
+export const formItemHookKey: InjectionKey<FormItemHook> = Symbol(
+  'aura-form-item-hook',
+);

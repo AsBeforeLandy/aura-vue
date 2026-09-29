@@ -26,28 +26,28 @@ aura-vue/
 └── .github/          # CI / Release / Docs 部署工作流
 ```
 
-| 包名 | 描述 | 依赖 |
-| --- | --- | --- |
+| 包名               | 描述                                                           | 依赖           |
+| ------------------ | -------------------------------------------------------------- | -------------- |
 | `@aura/components` | 组件库主体，含 Button / Input / Form / Select / Switch / Modal | `@aura/shared` |
-| `@aura/shared` | 工具函数集（`prefixCls`、`classNames`） | - |
-| `@aura/icons` | 图标资源（占位，后续迁移） | - |
+| `@aura/shared`     | 工具函数集（`prefixCls`、`classNames`）                        | -              |
+| `@aura/icons`      | 图标资源（占位，后续迁移）                                     | -              |
 
 ## 组件总览
 
-| 分类 | 组件 |
-| --- | --- |
-| 通用 | [Button 按钮](/components/button)、[Input 输入框](/components/input) |
+| 分类 | 组件                                                                                                  |
+| ---- | ----------------------------------------------------------------------------------------------------- |
+| 通用 | [Button 按钮](/components/button)、[Input 输入框](/components/input)                                  |
 | 表单 | [Form 表单](/components/form)、[Select 选择器](/components/select)、[Switch 开关](/components/switch) |
-| 反馈 | [Modal 对话框](/components/modal) |
+| 反馈 | [Modal 对话框](/components/modal)                                                                     |
 
 ## 浏览器兼容性
 
-| 浏览器 | 版本 |
-| --- | --- |
-| Chrome | 80+ |
-| Firefox | 80+ |
-| Safari | 14+ |
-| Edge | 80+ |
+| 浏览器  | 版本 |
+| ------- | ---- |
+| Chrome  | 80+  |
+| Firefox | 80+  |
+| Safari  | 14+  |
+| Edge    | 80+  |
 
 > 组件库依赖 CSS Variables 实现主题能力，请确保运行环境支持原生 CSS 变量。
 

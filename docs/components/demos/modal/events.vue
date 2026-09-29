@@ -13,7 +13,9 @@ function log(name: string) {
 
 <template>
   <div>
-    <Button type="primary" @click="open = true">打开弹窗（监听全部事件）</Button>
+    <Button type="primary" @click="open = true"
+      >打开弹窗（监听全部事件）</Button
+    >
     <Modal
       v-model="open"
       title="事件演示"

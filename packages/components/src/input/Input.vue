@@ -18,7 +18,8 @@
       role="button"
       aria-label="清空"
       @click="onClear"
-    >×</span>
+      >×</span
+    >
   </span>
 </template>
 
@@ -42,8 +43,8 @@ const formItemHook = inject(formItemHookKey, null);
 const cls = computed(() =>
   classNames(
     prefixCls('input'),
-    props.disabled && prefixCls('input--disabled')
-  )
+    props.disabled && prefixCls('input--disabled'),
+  ),
 );
 
 const inputRef = ref<HTMLInputElement>();

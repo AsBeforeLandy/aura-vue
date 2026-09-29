@@ -5,7 +5,6 @@ export default defineConfig({
   plugins: [vue()],
   test: {
     environment: 'happy-dom',
-    globals: true,
     include: ['__tests__/**/*.test.ts'],
     server: {
       deps: {
@@ -17,8 +16,29 @@ export default defineConfig({
         // 表单校验永远"reject 且 reason 为 undefined"。
         // 把 element-plus 及其依赖内联进 Vite 处理，让 Vite 按自己的解析器
         // 顺着 pnpm 软链找到 async-validator。
-        inline: [/element-plus/, /async-validator/]
-      }
-    }
-  }
+        inline: [/element-plus/, /async-validator/],
+      },
+    },
+    coverage: {
+      provider: 'v8',
+      // 统计口径：只覆盖组件源码本体（正向白名单，比逐项排除更可靠）。
+      include: ['src/**/*.{ts,vue}'],
+      exclude: [
+        // barrel 文件只做 re-export，语句覆盖恒为 0，无统计意义。
+        'src/index.ts',
+        'src/**/index.ts',
+        'src/**/*.d.ts',
+      ],
+      reporter: ['text', 'html'],
+      // 阈值取「当前实测值 - 3~4pt」：
+      // 目的是防止覆盖率回退，而不是把还没补齐的用例当成硬性红线。
+      // 提升覆盖率时应同步上调这里的数字。
+      thresholds: {
+        statements: 89,
+        branches: 79,
+        functions: 77,
+        lines: 89,
+      },
+    },
+  },
 });

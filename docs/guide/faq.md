@@ -48,22 +48,31 @@ pnpm add -D less
 module.exports = {
   module: {
     rules: [
-      { test: /\.less$/, use: ['style-loader', 'css-loader', 'less-loader'] }
-    ]
-  }
+      { test: /\.less$/, use: ['style-loader', 'css-loader', 'less-loader'] },
+    ],
+  },
 };
 ```
 
 ### 是否支持按需加载？
 
-支持。组件库使用 ES Module 构建并保留目录结构，现代打包工具（Vite、Webpack 5、Rspack）内置 tree-shaking 能力，会自动移除未使用的组件。
+支持。组件库使用 ES Module 构建并保留目录结构（`preserveModules`），现代打包工具（Vite、Webpack 5、Rspack）内置 tree-shaking 能力，会自动移除未使用的组件。
 
-也可以显式按子路径引入：
+**从根入口具名导入即可**，不需要也不能按组件子路径导入：
 
 ```ts
-import { Button } from '@aura/components/button';
+// ✅ 推荐：具名导入，未用到的组件会被摇掉
+import { Button } from '@aura/components';
+
+// ✅ 样式可按组件按需引入
 import '@aura/components/src/button/style/index.less';
 ```
+
+:::warning 不要写组件子路径
+包的 `exports` 只暴露根入口、`./style.css` 与样式源码路径，**没有**按组件的子路径导出。
+
+❌ `import { Button } from '@aura/components/button'` —— 打包时会报 Module not found。
+:::
 
 ### 样式没有生效怎么办？
 
@@ -98,7 +107,7 @@ document.documentElement.setAttribute('data-theme', 'dark');
 ```css
 :root {
   --aura-color-primary: #2563eb; /* 主色改为蓝色 */
-  --aura-radius: 4px;            /* 调整圆角 */
+  --aura-radius: 4px; /* 调整圆角 */
 }
 ```
 
@@ -170,7 +179,7 @@ watch(open, (val) => {
 ```ts
 const rules = [
   { required: true, message: '请输入用户名' },
-  { min: 3, max: 12, message: '用户名长度为 3-12 个字符' }
+  { min: 3, max: 12, message: '用户名长度为 3-12 个字符' },
 ];
 ```
 
@@ -181,17 +190,17 @@ const rules = [
   validator: async (value) => {
     const ok = await checkNameTaken(value);
     return ok ? true : '该用户名已被占用';
-  }
+  };
 }
 ```
 
 ### 校验规则什么时候触发？
 
-| trigger | 时机 |
-| --- | --- |
-| `'change'` | 控件输入时 |
-| `'blur'` | 控件失焦时 |
-| 不声明 | change / blur / submit 三者都触发 |
+| trigger    | 时机                              |
+| ---------- | --------------------------------- |
+| `'change'` | 控件输入时                        |
+| `'blur'`   | 控件失焦时                        |
+| 不声明     | change / blur / submit 三者都触发 |
 
 > 注意：必填类规则通常不希望一输入就报错，建议声明 `trigger: 'blur'`。
 

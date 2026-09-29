@@ -7,28 +7,28 @@ export const buttonProps = {
   /** 按钮类型 */
   type: {
     type: String as PropType<ButtonType>,
-    default: 'default'
+    default: 'default',
   },
   /** 尺寸 */
   size: {
     type: String as PropType<ButtonSize>,
-    default: 'middle'
+    default: 'middle',
   },
   /** 禁用 */
   disabled: {
     type: Boolean,
-    default: false
+    default: false,
   },
   /** 加载中（同时阻断点击） */
   loading: {
     type: Boolean,
-    default: false
+    default: false,
   },
   /** 撑满整行 */
   block: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 } as const;
 
 export type ButtonProps = ExtractPropTypes<typeof buttonProps>;

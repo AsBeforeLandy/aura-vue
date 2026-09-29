@@ -10,7 +10,7 @@ export type {
   ProFormRule,
   ProFormValueType,
   ProFormLabelPosition,
-  ProFormLayout
+  ProFormLayout,
 } from './types';
 export { proFormProps } from './types';
 export { renderControl, normalizeRules } from './render-control';

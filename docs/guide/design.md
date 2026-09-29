@@ -9,17 +9,17 @@
 ```ts
 import { prefixCls } from '@aura/shared';
 
-prefixCls('button');          // 'aura-button'
+prefixCls('button'); // 'aura-button'
 prefixCls('button--primary'); // 'aura-button--primary'
 ```
 
 命名遵循 BEM 变体：
 
-| 类型 | 写法 | 示例 |
-| --- | --- | --- |
-| Block（块） | `aura-{block}` | `aura-button` |
+| 类型               | 写法                       | 示例                                         |
+| ------------------ | -------------------------- | -------------------------------------------- |
+| Block（块）        | `aura-{block}`             | `aura-button`                                |
 | Modifier（修饰符） | `aura-{block}--{modifier}` | `aura-button--primary`、`aura-button--small` |
-| Element（元素） | `aura-{block}-{element}` | `aura-select-trigger`、`aura-modal-title` |
+| Element（元素）    | `aura-{block}-{element}`   | `aura-select-trigger`、`aura-modal-title`    |
 
 **为什么不用 CSS Modules？** 组件库需要对使用方暴露稳定、可预测的类名，使用方才能在自己的样式表中覆盖或扩展。CSS Modules 会把类名哈希化，破坏这种契约。详见[样式与令牌](/styles/)。
 
@@ -38,10 +38,10 @@ prefixCls('button--primary'); // 'aura-button--primary'
 
 ### 行为差异
 
-| 模式 | 值来源 | 内部状态 | 外部不更新时 |
-| --- | --- | --- | --- |
-| 受控 | `props.modelValue` | 不持有 | **显示不变**（严格受控） |
-| 非受控 | 内部 `ref` | 自持 | 正常响应交互 |
+| 模式   | 值来源             | 内部状态 | 外部不更新时             |
+| ------ | ------------------ | -------- | ------------------------ |
+| 受控   | `props.modelValue` | 不持有   | **显示不变**（严格受控） |
+| 非受控 | 内部 `ref`         | 自持     | 正常响应交互             |
 
 两种模式都会 emit `update:modelValue`，因此非受控组件也能向上同步最新值。
 
@@ -60,7 +60,11 @@ const value = useControllable<string>(props, emit);
 Input 处于 `FormItem` 内时会自动接入校验钩子，无需任何额外配置：
 
 ```vue
-<FormItem label="邮箱" prop="email" :rules="[{ required: true, message: '请输入邮箱' }]">
+<FormItem
+  label="邮箱"
+  prop="email"
+  :rules="[{ required: true, message: '请输入邮箱' }]"
+>
   <Input v-model="model.email" />
 </FormItem>
 ```
@@ -77,24 +81,24 @@ Input 处于 `FormItem` 内时会自动接入校验钩子，无需任何额外�
 
 `Rule` 接口定义在 `packages/components/src/form/validator.ts`：
 
-| 字段 | 类型 | 说明 |
-| --- | --- | --- |
-| `required` | `boolean` | 必填（`undefined` / `null` / `''` 视为空） |
-| `min` / `max` | `number` | 长度范围 |
-| `pattern` | `RegExp` | 正则匹配 |
-| `validator` | `(value) => boolean \| string \| Promise` | 自定义校验器，返回字符串视为错误文案 |
-| `trigger` | `'change' \| 'blur'` | 触发时机，缺省则三种时机都触发 |
-| `message` | `string` | 错误文案 |
+| 字段          | 类型                                      | 说明                                       |
+| ------------- | ----------------------------------------- | ------------------------------------------ |
+| `required`    | `boolean`                                 | 必填（`undefined` / `null` / `''` 视为空） |
+| `min` / `max` | `number`                                  | 长度范围                                   |
+| `pattern`     | `RegExp`                                  | 正则匹配                                   |
+| `validator`   | `(value) => boolean \| string \| Promise` | 自定义校验器，返回字符串视为错误文案       |
+| `trigger`     | `'change' \| 'blur'`                      | 触发时机，缺省则三种时机都触发             |
+| `message`     | `string`                                  | 错误文案                                   |
 
 规则**串行执行，返回第一个错误即停止**——这保证了校验开销最小，且错误提示始终聚焦在最关键的问题上。
 
 ## 事件命名
 
-| 事件 | 语义 | 触发时机 |
-| --- | --- | --- |
-| `update:modelValue` | 值变化请求 | 任意交互导致值改变 |
-| `change` | 值变化确认 | 与 `update:modelValue` 同时，但语义更明确 |
-| `click` / `ok` / `cancel` / `close` | 行为事件 | 由具体组件定义 |
+| 事件                                | 语义       | 触发时机                                  |
+| ----------------------------------- | ---------- | ----------------------------------------- |
+| `update:modelValue`                 | 值变化请求 | 任意交互导致值改变                        |
+| `change`                            | 值变化确认 | 与 `update:modelValue` 同时，但语义更明确 |
+| `click` / `ok` / `cancel` / `close` | 行为事件   | 由具体组件定义                            |
 
 统一使用 `defineEmits<XXXEmits>()` 的**类型式声明**，事件签名集中定义在组件的 `types.ts` 中：
 
@@ -113,7 +117,7 @@ Props 使用 `as const` 对象集中声明，配合 `ExtractPropTypes` 推导类
 ```ts
 export const buttonProps = {
   /** 按钮类型 */
-  type: { type: String as PropType<ButtonType>, default: 'default' }
+  type: { type: String as PropType<ButtonType>, default: 'default' },
 } as const;
 
 export type ButtonProps = ExtractPropTypes<typeof buttonProps>;

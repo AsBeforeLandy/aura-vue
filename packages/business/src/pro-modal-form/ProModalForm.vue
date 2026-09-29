@@ -24,7 +24,12 @@
     />
 
     <template #footer>
-      <slot name="footer" :ok="handleOk" :cancel="handleCancel" :submitting="submitting">
+      <slot
+        name="footer"
+        :ok="handleOk"
+        :cancel="handleCancel"
+        :submitting="submitting"
+      >
         <ElButton @click="handleCancel">{{ cancelText }}</ElButton>
         <ElButton
           v-if="!isViewMode"
@@ -48,7 +53,7 @@ import type { ProFormInstance } from '../pro-form/types';
 import {
   proModalFormProps,
   resolveTitle,
-  type ProModalFormEmits
+  type ProModalFormEmits,
 } from './types';
 import './style/index.less';
 
@@ -63,10 +68,12 @@ const submitting = ref(false);
 
 const isViewMode = computed(() => props.mode === 'view');
 const resolvedTitle = computed(() => resolveTitle(props.mode, props.title));
-const resolvedOkText = computed(() => props.okText || (props.mode === 'edit' ? '保存' : '确定'));
+const resolvedOkText = computed(
+  () => props.okText || (props.mode === 'edit' ? '保存' : '确定'),
+);
 
 const resolvedWidth = computed(() =>
-  typeof props.width === 'number' ? `${props.width}px` : props.width
+  typeof props.width === 'number' ? `${props.width}px` : props.width,
 );
 
 /**
@@ -87,7 +94,7 @@ watch(
   () => {
     if (props.modelValue) syncValues();
   },
-  { deep: true }
+  { deep: true },
 );
 
 // 打开时回填。flush: 'sync' 让赋值在渲染前生效，
@@ -97,7 +104,7 @@ watch(
   (visible) => {
     if (visible && props.resetOnOpen) syncValues();
   },
-  { immediate: true, flush: 'sync' }
+  { immediate: true, flush: 'sync' },
 );
 
 function handleOpen() {
@@ -167,6 +174,6 @@ defineExpose({
   /** 触发校验 */
   validate: () => formRef.value?.validate(),
   /** 当前是否处于提交中 */
-  isSubmitting: () => submitting.value
+  isSubmitting: () => submitting.value,
 });
 </script>

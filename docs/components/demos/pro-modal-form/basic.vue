@@ -5,13 +5,32 @@ import { ProModalForm } from '@aura/business';
 import type { ProFormItem } from '@aura/business';
 
 const items: ProFormItem[] = [
-  { name: 'projectName', label: '项目名称', valueType: 'text', span: 12, rules: [{ required: true, message: '请输入项目名称' }] },
-  { name: 'owner', label: '负责人', valueType: 'text', span: 12, rules: [{ required: true, message: '请输入负责人' }] },
-  { name: 'status', label: '状态', valueType: 'select', span: 12, options: [
-    { label: '进行中', value: 'doing' },
-    { label: '已完成', value: 'done' }
-  ], rules: [{ required: true, message: '请选择状态' }] },
-  { name: 'desc', label: '说明', valueType: 'textarea', fullWidth: true }
+  {
+    name: 'projectName',
+    label: '项目名称',
+    valueType: 'text',
+    span: 12,
+    rules: [{ required: true, message: '请输入项目名称' }],
+  },
+  {
+    name: 'owner',
+    label: '负责人',
+    valueType: 'text',
+    span: 12,
+    rules: [{ required: true, message: '请输入负责人' }],
+  },
+  {
+    name: 'status',
+    label: '状态',
+    valueType: 'select',
+    span: 12,
+    options: [
+      { label: '进行中', value: 'doing' },
+      { label: '已完成', value: 'done' },
+    ],
+    rules: [{ required: true, message: '请选择状态' }],
+  },
+  { name: 'desc', label: '说明', valueType: 'textarea', fullWidth: true },
 ];
 
 const visible = ref(false);
@@ -26,13 +45,23 @@ function openCreate() {
 
 function openEdit() {
   mode.value = 'edit';
-  initialValues.value = { projectName: 'Aura 组件库', owner: '李振虎', status: 'doing', desc: '组件库二期' };
+  initialValues.value = {
+    projectName: 'Aura 组件库',
+    owner: '李振虎',
+    status: 'doing',
+    desc: '组件库二期',
+  };
   visible.value = true;
 }
 
 function openView() {
   mode.value = 'view';
-  initialValues.value = { projectName: 'Aura 组件库', owner: '李振虎', status: 'doing', desc: '组件库二期' };
+  initialValues.value = {
+    projectName: 'Aura 组件库',
+    owner: '李振虎',
+    status: 'doing',
+    desc: '组件库二期',
+  };
   visible.value = true;
 }
 

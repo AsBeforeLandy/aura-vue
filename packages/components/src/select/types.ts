@@ -10,26 +10,26 @@ export const selectProps = {
   /** 受控值（传入即视为受控模式） */
   modelValue: {
     type: String as PropType<string>,
-    default: undefined
+    default: undefined,
   },
   /** 非受控模式初始值 */
   defaultValue: {
     type: String as PropType<string>,
-    default: undefined
+    default: undefined,
   },
   /** 选项，支持 { label, value } 对象或字符串 */
   options: {
     type: Array as PropType<Array<SelectOption | string>>,
-    default: () => []
+    default: () => [],
   },
   placeholder: {
     type: String,
-    default: ''
+    default: '',
   },
   disabled: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 } as const;
 
 export type SelectProps = ExtractPropTypes<typeof selectProps>;

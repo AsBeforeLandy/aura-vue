@@ -37,7 +37,7 @@ export default {
   Layout() {
     return h(DefaultTheme.Layout, null, {
       'home-hero-before': () => (isHome() ? h(DandelionBackground) : null),
-      'home-hero-after': () => h(HomeShowcase)
+      'home-hero-after': () => h(HomeShowcase),
     });
   },
   enhanceApp({ app }) {
@@ -51,5 +51,5 @@ export default {
     // 官方文档：https://element-plus.org/en-US/guide/ssr.html
     app.provide(ID_INJECTION_KEY, { prefix: 1024, current: 0 });
     app.provide(ZINDEX_INJECTION_KEY, { current: 0 });
-  }
+  },
 } satisfies Theme;

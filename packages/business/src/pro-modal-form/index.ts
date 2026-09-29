@@ -4,6 +4,6 @@ export { ProModalForm };
 export type {
   ProModalFormProps,
   ProModalFormEmits,
-  ProModalFormMode
+  ProModalFormMode,
 } from './types';
 export { proModalFormProps, resolveTitle } from './types';

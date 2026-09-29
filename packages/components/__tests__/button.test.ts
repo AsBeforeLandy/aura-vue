@@ -21,7 +21,7 @@ describe('Button - 边界场景', () => {
   it('disabled 时点击不触发 click，且带禁用类', async () => {
     const wrapper = mount(Button, {
       props: { disabled: true },
-      slots: { default: 'X' }
+      slots: { default: 'X' },
     });
 
     await wrapper.trigger('click');
@@ -38,15 +38,15 @@ describe('Button - 边界场景', () => {
 
   it('type / size / block 生成对应修饰类', () => {
     const wrapper = mount(Button, {
-      props: { type: 'primary', size: 'large', block: true }
+      props: { type: 'primary', size: 'large', block: true },
     });
 
     expect(wrapper.classes()).toEqual(
       expect.arrayContaining([
         'aura-button--primary',
         'aura-button--large',
-        'aura-button--block'
-      ])
+        'aura-button--block',
+      ]),
     );
   });
 
@@ -65,7 +65,7 @@ describe('Button - 异常场景', () => {
 
   it('传入非法 type 仅表现为无对应样式类，不抛错', () => {
     const wrapper = mount(Button, {
-      props: { type: 'unknown' as never }
+      props: { type: 'unknown' as never },
     });
     expect(wrapper.classes()).toContain('aura-button');
     expect(wrapper.classes()).not.toContain('aura-button--unknown');

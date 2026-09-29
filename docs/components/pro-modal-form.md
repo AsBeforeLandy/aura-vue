@@ -12,10 +12,10 @@
 
 ## 何时不用
 
-| 场景 | 应该用 |
-| --- | --- |
-| 字段非常多、需要分步填写 | 独立页面 + [ProForm](/components/pro-form) |
-| 只是确认操作（是/否） | 普通确认弹窗即可 |
+| 场景                         | 应该用                                            |
+| ---------------------------- | ------------------------------------------------- |
+| 字段非常多、需要分步填写     | 独立页面 + [ProForm](/components/pro-form)        |
+| 只是确认操作（是/否）        | 普通确认弹窗即可                                  |
 | 需要左右分栏、侧边抽屉式表单 | 手写 `ElDrawer` + [ProForm](/components/pro-form) |
 
 ## 基础用法
@@ -26,11 +26,11 @@
 
 ## 三种模式
 
-| mode | 默认标题 | 提交按钮 | 表单行为 |
-| --- | --- | --- | --- |
-| `create` | 新增 | 确定 | 正常编辑 |
-| `edit` | 编辑 | 保存 | 正常编辑 |
-| `view` | 查看 | 不渲染 | 整体只读（纯文本展示） |
+| mode     | 默认标题 | 提交按钮 | 表单行为               |
+| -------- | -------- | -------- | ---------------------- |
+| `create` | 新增     | 确定     | 正常编辑               |
+| `edit`   | 编辑     | 保存     | 正常编辑               |
+| `view`   | 查看     | 不渲染   | 整体只读（纯文本展示） |
 
 `title` 可以显式覆盖默认标题。
 
@@ -51,15 +51,15 @@
 
 ```ts
 async function submit(values: Record<string, unknown>) {
-  await api.save(values);   // 抛错即视为失败
+  await api.save(values); // 抛错即视为失败
 }
 ```
 
-| submit 的返回 | 组件行为 |
-| --- | --- |
-| 正常返回（含 `Promise` resolve） | `emit('success', values)` + 自动关闭弹窗 |
-| 抛错 / `Promise` reject | `emit('error', error)` + **保持弹窗打开**，让用户修正后重试 |
-| 不传 `submit` | 退化为受控用法：`emit('success', values)` 后关闭，由外部处理提交 |
+| submit 的返回                    | 组件行为                                                         |
+| -------------------------------- | ---------------------------------------------------------------- |
+| 正常返回（含 `Promise` resolve） | `emit('success', values)` + 自动关闭弹窗                         |
+| 抛错 / `Promise` reject          | `emit('error', error)` + **保持弹窗打开**，让用户修正后重试      |
+| 不传 `submit`                    | 退化为受控用法：`emit('success', values)` 后关闭，由外部处理提交 |
 
 提交进行中时按钮进入 loading，且**屏蔽遮罩点击与 ESC 关闭**，避免请求与 UI 状态不一致。
 
@@ -67,54 +67,54 @@ async function submit(values: Record<string, unknown>) {
 
 ### Props
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| modelValue | 是否可见（`v-model`） | `boolean` | `false` |
-| items | 表单字段配置 | `ProFormItem[]` | 必填 |
-| mode | 模式 | `'create' \| 'edit' \| 'view'` | `'create'` |
-| title | 标题（缺省按 mode 推导） | `string` | `''` |
-| submit | 提交函数 | `(values) => Promise \| unknown` | - |
-| initialValues | 打开时的回填数据 | `Record<string, unknown>` | `{}` |
-| resetOnOpen | 打开时重置为 `initialValues` | `boolean` | `true` |
-| width | 弹窗宽度 | `number \| string` | `640` |
-| columns | 表单列数 | `number` | `2` |
-| labelWidth | 标签宽度 | `number \| string` | `96` |
-| labelPosition | 标签位置 | `'left' \| 'right' \| 'top'` | `'right'` |
-| closeOnClickModal | 点击遮罩关闭 | `boolean` | `false` |
-| closeOnPressEscape | 按 ESC 关闭 | `boolean` | `true` |
-| okText / cancelText | 按钮文案 | `string` | 按 mode 推导 / `'取消'` |
-| appendToBody | 挂载到 body | `boolean` | `true` |
+| 属性                | 说明                         | 类型                             | 默认值                  |
+| ------------------- | ---------------------------- | -------------------------------- | ----------------------- |
+| modelValue          | 是否可见（`v-model`）        | `boolean`                        | `false`                 |
+| items               | 表单字段配置                 | `ProFormItem[]`                  | 必填                    |
+| mode                | 模式                         | `'create' \| 'edit' \| 'view'`   | `'create'`              |
+| title               | 标题（缺省按 mode 推导）     | `string`                         | `''`                    |
+| submit              | 提交函数                     | `(values) => Promise \| unknown` | -                       |
+| initialValues       | 打开时的回填数据             | `Record<string, unknown>`        | `{}`                    |
+| resetOnOpen         | 打开时重置为 `initialValues` | `boolean`                        | `true`                  |
+| width               | 弹窗宽度                     | `number \| string`               | `640`                   |
+| columns             | 表单列数                     | `number`                         | `2`                     |
+| labelWidth          | 标签宽度                     | `number \| string`               | `96`                    |
+| labelPosition       | 标签位置                     | `'left' \| 'right' \| 'top'`     | `'right'`               |
+| closeOnClickModal   | 点击遮罩关闭                 | `boolean`                        | `false`                 |
+| closeOnPressEscape  | 按 ESC 关闭                  | `boolean`                        | `true`                  |
+| okText / cancelText | 按钮文案                     | `string`                         | 按 mode 推导 / `'取消'` |
+| appendToBody        | 挂载到 body                  | `boolean`                        | `true`                  |
 
 ### 事件
 
-| 事件 | 说明 |
-| --- | --- |
-| `update:modelValue` | 可见性变化 |
-| `success` | 提交成功，参数为表单值 |
-| `error` | 提交失败，参数为错误对象 |
-| `cancel` | 取消或关闭 |
-| `open` | 弹窗打开 |
-| `closed` | 弹窗关闭（含提交成功后的自动关闭） |
+| 事件                | 说明                               |
+| ------------------- | ---------------------------------- |
+| `update:modelValue` | 可见性变化                         |
+| `success`           | 提交成功，参数为表单值             |
+| `error`             | 提交失败，参数为错误对象           |
+| `cancel`            | 取消或关闭                         |
+| `open`              | 弹窗打开                           |
+| `closed`            | 弹窗关闭（含提交成功后的自动关闭） |
 
 ### 插槽
 
-| 插槽 | 参数 | 说明 |
-| --- | --- | --- |
+| 插槽     | 参数                         | 说明                 |
+| -------- | ---------------------------- | -------------------- |
 | `footer` | `{ ok, cancel, submitting }` | 完全自定义底部按钮区 |
 
 ### 实例方法
 
-| 方法 | 说明 |
-| --- | --- |
-| `getValues()` | 获取当前表单值 |
-| `setValues(values)` | 设置表单值 |
-| `validate()` | 手动触发校验 |
-| `isSubmitting()` | 当前是否处于提交中 |
+| 方法                | 说明               |
+| ------------------- | ------------------ |
+| `getValues()`       | 获取当前表单值     |
+| `setValues(values)` | 设置表单值         |
+| `validate()`        | 手动触发校验       |
+| `isSubmitting()`    | 当前是否处于提交中 |
 
 ### CSS 类名
 
-| 类名 | 说明 |
-| --- | --- |
+| 类名                   | 说明       |
+| ---------------------- | ---------- |
 | `.aura-pro-modal-form` | 弹窗根节点 |
 
 ## 实现说明

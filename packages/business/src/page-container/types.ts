@@ -38,14 +38,17 @@ export type PageContainerEmits = {
 export const pageContainerProps = {
   title: { type: String, default: '' },
   subTitle: { type: String, default: '' },
-  breadcrumbs: { type: Array as PropType<PageBreadcrumb[]>, default: undefined },
+  breadcrumbs: {
+    type: Array as PropType<PageBreadcrumb[]>,
+    default: undefined,
+  },
   back: { type: Boolean, default: false },
   backLink: { type: String, default: '' },
   card: { type: Boolean, default: true },
   loading: { type: Boolean, default: false },
   fixedFooter: { type: Boolean, default: false },
   padding: { type: [Number, String] as PropType<number | string>, default: 16 },
-  divider: { type: Boolean, default: true }
+  divider: { type: Boolean, default: true },
 } as const;
 
 /** 供插槽类型推导使用 */

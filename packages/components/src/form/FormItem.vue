@@ -1,23 +1,37 @@
 <template>
   <div :class="cls">
     <label v-if="label || required" :class="prefixCls('form-item-label')">
-      <span v-if="required" :class="prefixCls('form-item-required')" aria-hidden="true">*</span>
+      <span
+        v-if="required"
+        :class="prefixCls('form-item-required')"
+        aria-hidden="true"
+        >*</span
+      >
       {{ label }}
     </label>
     <div :class="prefixCls('form-item-control')">
       <slot />
-      <div v-if="error" :class="prefixCls('form-item-error')" role="alert">{{ error }}</div>
+      <div v-if="error" :class="prefixCls('form-item-error')" role="alert">
+        {{ error }}
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, inject, onBeforeUnmount, onMounted, provide, ref } from 'vue';
+import {
+  computed,
+  inject,
+  onBeforeUnmount,
+  onMounted,
+  provide,
+  ref,
+} from 'vue';
 import { classNames, prefixCls } from '@aura/shared';
 import {
   formContextKey,
   formItemHookKey,
-  type FormItemContext
+  type FormItemContext,
 } from './context';
 import { validateValue } from './validator';
 import { formItemProps } from './types';
@@ -33,8 +47,8 @@ const error = ref('');
 const cls = computed(() =>
   classNames(
     prefixCls('form-item'),
-    error.value && prefixCls('form-item--error')
-  )
+    error.value && prefixCls('form-item--error'),
+  ),
 );
 
 /**
@@ -42,11 +56,13 @@ const cls = computed(() =>
  * - submit 触发全部规则
  * - change / blur 只触发对应 trigger 或未声明 trigger 的规则
  */
-async function validate(trigger: 'change' | 'blur' | 'submit'): Promise<string | null> {
+async function validate(
+  trigger: 'change' | 'blur' | 'submit',
+): Promise<string | null> {
   if (!form || !props.prop) return null;
 
   const rules = props.rules.filter(
-    (rule) => trigger === 'submit' || !rule.trigger || rule.trigger === trigger
+    (rule) => trigger === 'submit' || !rule.trigger || rule.trigger === trigger,
   );
   if (rules.length === 0) return null;
 
@@ -65,13 +81,13 @@ provide(formItemHookKey, {
   },
   onControlBlur: () => {
     void validate('blur');
-  }
+  },
 });
 
 const context: FormItemContext = {
   prop: props.prop,
   validate,
-  resetValidation
+  resetValidation,
 };
 
 onMounted(() => form?.addItem(context));

@@ -5,10 +5,11 @@ import type { ProTableColumn } from './types';
 /** 默认日期格式化：仅做常见占位符替换，不引入 dayjs 之类的额外依赖 */
 export function formatDate(
   value: unknown,
-  pattern = 'YYYY-MM-DD HH:mm:ss'
+  pattern = 'YYYY-MM-DD HH:mm:ss',
 ): string {
   if (value === null || value === undefined || value === '') return '';
-  const date = value instanceof Date ? value : new Date(value as string | number);
+  const date =
+    value instanceof Date ? value : new Date(value as string | number);
   if (Number.isNaN(date.getTime())) return String(value);
 
   const pad = (n: number, len = 2) => String(n).padStart(len, '0');
@@ -18,9 +19,12 @@ export function formatDate(
     DD: pad(date.getDate()),
     HH: pad(date.getHours()),
     mm: pad(date.getMinutes()),
-    ss: pad(date.getSeconds())
+    ss: pad(date.getSeconds()),
   };
-  return pattern.replace(/YYYY|MM|DD|HH|mm|ss/g, (token) => map[token] ?? token);
+  return pattern.replace(
+    /YYYY|MM|DD|HH|mm|ss/g,
+    (token) => map[token] ?? token,
+  );
 }
 
 /** 金额格式化：千分位 + 可选小数位 */
@@ -39,7 +43,7 @@ export function formatMoney(value: unknown, digits = 2): string {
  */
 export function renderCell(
   column: ProTableColumn,
-  params: { row: Record<string, unknown>; value: unknown; index: number }
+  params: { row: Record<string, unknown>; value: unknown; index: number },
 ): VNodeChild {
   const { row, value, index } = params;
 
@@ -61,7 +65,7 @@ export function renderCell(
     return h(
       ElTag,
       { type: matched.color ?? 'info', size: 'small' },
-      () => matched.text
+      () => matched.text,
     );
   }
 
@@ -88,14 +92,16 @@ export function pickSearchItems(columns: ProTableColumn[]): ProTableColumn[] {
 }
 
 /** 读取嵌套路径的值，支持 'user.name' 形式 */
-export function getByPath(source: Record<string, unknown>, path: string): unknown {
+export function getByPath(
+  source: Record<string, unknown>,
+  path: string,
+): unknown {
   if (!path.includes('.')) return source[path];
-  return path
-    .split('.')
-    .reduce<unknown>((acc, key) => {
-      if (acc && typeof acc === 'object') return (acc as Record<string, unknown>)[key];
-      return undefined;
-    }, source);
+  return path.split('.').reduce<unknown>((acc, key) => {
+    if (acc && typeof acc === 'object')
+      return (acc as Record<string, unknown>)[key];
+    return undefined;
+  }, source);
 }
 
 /** 判断一个渲染结果是否为空（用于空值占位） */
@@ -116,7 +122,9 @@ export function clonePlain<T extends Record<string, unknown>>(obj: T): T {
 }
 
 /** 去除空值，避免把 undefined / '' / [] 拼进请求参数 */
-export function omitEmpty(obj: Record<string, unknown>): Record<string, unknown> {
+export function omitEmpty(
+  obj: Record<string, unknown>,
+): Record<string, unknown> {
   const out: Record<string, unknown> = {};
   for (const [key, value] of Object.entries(obj)) {
     if (value === undefined || value === null || value === '') continue;
@@ -127,6 +135,10 @@ export function omitEmpty(obj: Record<string, unknown>): Record<string, unknown>
 }
 
 /** 提供给组件内部使用的响应式计算：查询项是否超过阈值需要折叠 */
-export function computeCollapsed<T>(items: T[], span: number, collapsed: boolean) {
+export function computeCollapsed<T>(
+  items: T[],
+  span: number,
+  collapsed: boolean,
+) {
   return computed(() => (collapsed ? items.slice(0, span) : items));
 }

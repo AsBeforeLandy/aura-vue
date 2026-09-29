@@ -12,11 +12,11 @@
 
 ## 何时不用
 
-| 场景 | 应该用 |
-| --- | --- |
-| 只有 1~2 个字段的简单表单 | 直接用我们自己的 `Form`，不必引入这层抽象 |
-| 字段之间有强联动的复杂 UI（动态增删、嵌套子表） | 手写模板更可控，配置化反而会变得笨重 |
-| 需要完全自定义每个字段的渲染结构 | 用 `render` 逃生舱，或直接手写 |
+| 场景                                            | 应该用                                    |
+| ----------------------------------------------- | ----------------------------------------- |
+| 只有 1~2 个字段的简单表单                       | 直接用我们自己的 `Form`，不必引入这层抽象 |
+| 字段之间有强联动的复杂 UI（动态增删、嵌套子表） | 手写模板更可控，配置化反而会变得笨重      |
+| 需要完全自定义每个字段的渲染结构                | 用 `render` 逃生舱，或直接手写            |
 
 ## 基础用法
 
@@ -26,21 +26,21 @@
 
 `valueType` 决定渲染哪种控件：
 
-| valueType | 控件 | 说明 |
-| --- | --- | --- |
-| `text` | ElInput | 默认类型 |
-| `textarea` | ElInput (textarea) | 多行文本 |
-| `password` | ElInput (password) | 密码，默认带显示切换 |
-| `number` | ElInputNumber | 数字 |
-| `select` | ElSelect | 需配合 `options` |
-| `radio` | ElRadioGroup | 需配合 `options` |
-| `checkbox` | ElCheckboxGroup | 值为数组，需配合 `options` |
-| `switch` | ElSwitch | 布尔值 |
-| `date` | ElDatePicker | 日期 |
-| `datetime` | ElDatePicker | 日期时间 |
-| `dateRange` | ElDatePicker (range) | 日期区间，值为数组 |
-| `time` | ElTimePicker | 时间 |
-| `slot` | 具名插槽 | 由使用方提供渲染 |
+| valueType   | 控件                 | 说明                       |
+| ----------- | -------------------- | -------------------------- |
+| `text`      | ElInput              | 默认类型                   |
+| `textarea`  | ElInput (textarea)   | 多行文本                   |
+| `password`  | ElInput (password)   | 密码，默认带显示切换       |
+| `number`    | ElInputNumber        | 数字                       |
+| `select`    | ElSelect             | 需配合 `options`           |
+| `radio`     | ElRadioGroup         | 需配合 `options`           |
+| `checkbox`  | ElCheckboxGroup      | 值为数组，需配合 `options` |
+| `switch`    | ElSwitch             | 布尔值                     |
+| `date`      | ElDatePicker         | 日期                       |
+| `datetime`  | ElDatePicker         | 日期时间                   |
+| `dateRange` | ElDatePicker (range) | 日期区间，值为数组         |
+| `time`      | ElTimePicker         | 时间                       |
+| `slot`      | 具名插槽             | 由使用方提供渲染           |
 
 `slot` 类型会以字段 `name` 作为插槽名暴露 `model` 与 `item`：
 
@@ -56,12 +56,12 @@
 
 一行按 24 份划分栅格：
 
-| 属性 | 说明 |
-| --- | --- |
-| `columns` | 一行显示几个字段（未显式指定 `span` 时按此平均分配） |
-| `span` | 该字段占的份数，`span: 12` 即半行 |
-| `fullWidth` | 独占一行（等价于 `span: 24`） |
-| `gutter` | 字段间距，默认 20 |
+| 属性        | 说明                                                 |
+| ----------- | ---------------------------------------------------- |
+| `columns`   | 一行显示几个字段（未显式指定 `span` 时按此平均分配） |
+| `span`      | 该字段占的份数，`span: 12` 即半行                    |
+| `fullWidth` | 独占一行（等价于 `span: 24`）                        |
+| `gutter`    | 字段间距，默认 20                                    |
 
 :::tip
 字段数不能被 `columns` 整除时，最后一个字段会按 `24 / columns` 取整宽度，可能出现换行。需要精确控制时显式写 `span`。
@@ -71,14 +71,14 @@
 
 规则结构对齐 Element Plus，并做了窄化：
 
-| 字段 | 说明 |
-| --- | --- |
-| `required` | 必填 |
-| `min` / `max` | 长度或数值范围（配合 `type`） |
-| `pattern` | 正则 |
-| `validator` | 自定义校验器，**返回字符串时该字符串直接作为错误文案** |
-| `trigger` | `'blur' \| 'change'`，缺省则两者都触发 |
-| `message` | 错误文案 |
+| 字段          | 说明                                                   |
+| ------------- | ------------------------------------------------------ |
+| `required`    | 必填                                                   |
+| `min` / `max` | 长度或数值范围（配合 `type`）                          |
+| `pattern`     | 正则                                                   |
+| `validator`   | 自定义校验器，**返回字符串时该字符串直接作为错误文案** |
+| `trigger`     | `'blur' \| 'change'`，缺省则两者都触发                 |
+| `message`     | 错误文案                                               |
 
 ```ts
 {
@@ -123,43 +123,43 @@ const values = formRef.value?.getValues();
 
 ### Props
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| items | 字段配置 | `ProFormItem[]` | 必填 |
-| modelValue | 表单数据（`v-model`，传入即受控） | `Record<string, unknown>` | - |
-| defaultValue | 非受控初始值 | `Record<string, unknown>` | `{}` |
-| columns | 每行字段数 | `number` | `2` |
-| labelPosition | 标签位置 | `'left' \| 'right' \| 'top'` | `'right'` |
-| labelWidth | 标签宽度 | `number \| string` | `96` |
-| readonly | 整体只读 | `boolean` | `false` |
-| disabled | 整体禁用 | `boolean` | `false` |
-| size | 尺寸 | `'large' \| 'default' \| 'small'` | `'default'` |
-| showActions | 显示底部操作区 | `boolean` | `false` |
-| submitText / resetText | 按钮文案 | `string` | `'提交'` / `'重置'` |
-| submitting | 提交中（阻断重复提交） | `boolean` | `false` |
-| gutter | 字段间距 | `number` | `20` |
+| 属性                   | 说明                              | 类型                              | 默认值              |
+| ---------------------- | --------------------------------- | --------------------------------- | ------------------- |
+| items                  | 字段配置                          | `ProFormItem[]`                   | 必填                |
+| modelValue             | 表单数据（`v-model`，传入即受控） | `Record<string, unknown>`         | -                   |
+| defaultValue           | 非受控初始值                      | `Record<string, unknown>`         | `{}`                |
+| columns                | 每行字段数                        | `number`                          | `2`                 |
+| labelPosition          | 标签位置                          | `'left' \| 'right' \| 'top'`      | `'right'`           |
+| labelWidth             | 标签宽度                          | `number \| string`                | `96`                |
+| readonly               | 整体只读                          | `boolean`                         | `false`             |
+| disabled               | 整体禁用                          | `boolean`                         | `false`             |
+| size                   | 尺寸                              | `'large' \| 'default' \| 'small'` | `'default'`         |
+| showActions            | 显示底部操作区                    | `boolean`                         | `false`             |
+| submitText / resetText | 按钮文案                          | `string`                          | `'提交'` / `'重置'` |
+| submitting             | 提交中（阻断重复提交）            | `boolean`                         | `false`             |
+| gutter                 | 字段间距                          | `number`                          | `20`                |
 
 ### 实例方法
 
-| 方法 | 说明 |
-| --- | --- |
-| `validate()` | 触发校验，返回 `Promise<boolean>` |
-| `clearValidate()` | 清空校验状态 |
-| `reset()` | 重置为初始值并清空校验状态 |
-| `getValues()` | 获取当前全部值 |
-| `setValues(values)` | 批量设置值 |
-| `getValue(name)` | 获取单个字段值 |
-| `setValue(name, value)` | 设置单个字段值 |
+| 方法                    | 说明                              |
+| ----------------------- | --------------------------------- |
+| `validate()`            | 触发校验，返回 `Promise<boolean>` |
+| `clearValidate()`       | 清空校验状态                      |
+| `reset()`               | 重置为初始值并清空校验状态        |
+| `getValues()`           | 获取当前全部值                    |
+| `setValues(values)`     | 批量设置值                        |
+| `getValue(name)`        | 获取单个字段值                    |
+| `setValue(name, value)` | 设置单个字段值                    |
 
 ### 事件
 
-| 事件 | 说明 |
-| --- | --- |
-| `update:modelValue` | 任一字段变化时同步整个 model |
-| `change` | 字段变化，参数 `{ name, value, model }` |
-| `submit` | 校验通过后点击提交，参数为全部值 |
-| `reset` | 重置完成 |
-| `validate-error` | 校验失败 |
+| 事件                | 说明                                    |
+| ------------------- | --------------------------------------- |
+| `update:modelValue` | 任一字段变化时同步整个 model            |
+| `change`            | 字段变化，参数 `{ name, value, model }` |
+| `submit`            | 校验通过后点击提交，参数为全部值        |
+| `reset`             | 重置完成                                |
+| `validate-error`    | 校验失败                                |
 
 ### 类型导出
 
@@ -169,19 +169,19 @@ import type {
   ProFormOption,
   ProFormRule,
   ProFormInstance,
-  ProFormValueType
+  ProFormValueType,
 } from '@aura/business';
 ```
 
 ### CSS 类名
 
-| 类名 | 说明 |
-| --- | --- |
-| `.aura-pro-form` | 表单根节点 |
-| `.aura-pro-form-readonly` | 只读态的文本展示 |
-| `.aura-pro-form-extra` | 字段下方的辅助说明 |
-| `.aura-pro-form-tip` | 标签旁的问号图标 |
-| `.aura-pro-form-actions` | 底部操作区 |
+| 类名                      | 说明               |
+| ------------------------- | ------------------ |
+| `.aura-pro-form`          | 表单根节点         |
+| `.aura-pro-form-readonly` | 只读态的文本展示   |
+| `.aura-pro-form-extra`    | 字段下方的辅助说明 |
+| `.aura-pro-form-tip`      | 标签旁的问号图标   |
+| `.aura-pro-form-actions`  | 底部操作区         |
 
 ## 实现说明
 

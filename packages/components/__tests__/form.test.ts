@@ -11,37 +11,45 @@ function mountForm(model: Record<string, unknown>, rules?: Rule[]) {
     defineComponent({
       setup() {
         return () =>
-          h(Form, { model }, {
-            default: () => [
-              h(
-                FormItem,
-                { label: '姓名', prop: 'name', rules },
-                () =>
+          h(
+            Form,
+            { model },
+            {
+              default: () => [
+                h(FormItem, { label: '姓名', prop: 'name', rules }, () =>
                   h(Input, {
                     placeholder: '请输入姓名',
                     'onUpdate:modelValue': (v: string) => {
                       model.name = v;
-                    }
-                  })
-              ),
-              h(FormItem, { label: '年龄', prop: 'age' })
-            ]
-          });
-      }
-    })
+                    },
+                  }),
+                ),
+                h(FormItem, { label: '年龄', prop: 'age' }),
+              ],
+            },
+          );
+      },
+    }),
   );
 }
 
 function validateOf(wrapper: ReturnType<typeof mount>) {
-  return (wrapper.findComponent(Form).vm as unknown as {
-    validate: () => Promise<{ valid: boolean; errors: Record<string, string> }>;
-  }).validate.bind(wrapper.findComponent(Form).vm);
+  return (
+    wrapper.findComponent(Form).vm as unknown as {
+      validate: () => Promise<{
+        valid: boolean;
+        errors: Record<string, string>;
+      }>;
+    }
+  ).validate.bind(wrapper.findComponent(Form).vm);
 }
 
 describe('Form/FormItem - 正常场景', () => {
   it('渲染 label 与控件，校验通过返回 valid', async () => {
     const model = reactive({ name: 'Landy', age: 30 });
-    const wrapper = mountForm(model, [{ required: true, message: '请输入姓名' }]);
+    const wrapper = mountForm(model, [
+      { required: true, message: '请输入姓名' },
+    ]);
 
     expect(wrapper.text()).toContain('姓名');
     expect(wrapper.text()).toContain('年龄');
@@ -53,7 +61,9 @@ describe('Form/FormItem - 正常场景', () => {
 
   it('输入值同步到 model 后校验通过', async () => {
     const model = reactive({ name: '', age: 1 });
-    const wrapper = mountForm(model, [{ required: true, message: '请输入姓名' }]);
+    const wrapper = mountForm(model, [
+      { required: true, message: '请输入姓名' },
+    ]);
 
     await wrapper.find('input').setValue('Landy');
 
@@ -65,7 +75,9 @@ describe('Form/FormItem - 正常场景', () => {
 describe('Form/FormItem - 边界场景', () => {
   it('必填项为空时校验失败并展示错误信息', async () => {
     const model = reactive({ name: '', age: 1 });
-    const wrapper = mountForm(model, [{ required: true, message: '请输入姓名' }]);
+    const wrapper = mountForm(model, [
+      { required: true, message: '请输入姓名' },
+    ]);
 
     const res = await validateOf(wrapper)();
 
@@ -78,7 +90,9 @@ describe('Form/FormItem - 边界场景', () => {
 
   it('min / max 长度规则生效', async () => {
     const model = reactive({ name: 'a', age: 1 });
-    const wrapper = mountForm(model, [{ min: 2, max: 4, message: '长度需在 2-4 之间' }]);
+    const wrapper = mountForm(model, [
+      { min: 2, max: 4, message: '长度需在 2-4 之间' },
+    ]);
 
     const res = await validateOf(wrapper)();
 
@@ -94,8 +108,8 @@ describe('Form/FormItem - 边界场景', () => {
           await Promise.resolve();
           return v === 'ok';
         },
-        message: '异步校验未通过'
-      }
+        message: '异步校验未通过',
+      },
     ]);
 
     const res = await validateOf(wrapper)();
@@ -107,7 +121,7 @@ describe('Form/FormItem - 边界场景', () => {
   it('blur 触发的规则不参与 change 校验', async () => {
     const model = reactive({ name: '', age: 1 });
     const wrapper = mountForm(model, [
-      { required: true, trigger: 'blur', message: 'blur 校验' }
+      { required: true, trigger: 'blur', message: 'blur 校验' },
     ]);
 
     const item = wrapper.findComponent(FormItem) as unknown as {
@@ -120,7 +134,9 @@ describe('Form/FormItem - 边界场景', () => {
 
   it('resetValidation 清空错误状态', async () => {
     const model = reactive({ name: '', age: 1 });
-    const wrapper = mountForm(model, [{ required: true, message: '请输入姓名' }]);
+    const wrapper = mountForm(model, [
+      { required: true, message: '请输入姓名' },
+    ]);
 
     const formVm = wrapper.findComponent(Form).vm as unknown as {
       validate: () => Promise<unknown>;
@@ -147,10 +163,12 @@ describe('Form/FormItem - 异常场景', () => {
 
   it('FormItem 脱离 Form 使用时不崩溃，validate 返回 null', async () => {
     const wrapper = mount(FormItem, {
-      props: { prop: 'x', rules: [{ required: true }] }
+      props: { prop: 'x', rules: [{ required: true }] },
     });
 
-    const item = wrapper.vm as unknown as { validate: (t: string) => Promise<string | null> };
+    const item = wrapper.vm as unknown as {
+      validate: (t: string) => Promise<string | null>;
+    };
     expect(await item.validate('submit')).toBeNull();
   });
 
@@ -160,11 +178,19 @@ describe('Form/FormItem - 异常场景', () => {
       defineComponent({
         setup() {
           return () =>
-            h(Form, { model }, {
-              default: () => h(FormItem, { prop: 'notExist', rules: [{ required: true }] })
-            });
-        }
-      })
+            h(
+              Form,
+              { model },
+              {
+                default: () =>
+                  h(FormItem, {
+                    prop: 'notExist',
+                    rules: [{ required: true }],
+                  }),
+              },
+            );
+        },
+      }),
     );
 
     const res = await validateOf(wrapper)();

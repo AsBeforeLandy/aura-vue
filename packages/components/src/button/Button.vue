@@ -1,6 +1,10 @@
 <template>
   <button :class="cls" :disabled="disabled || loading" @click="handleClick">
-    <span v-if="loading" :class="prefixCls('button-loading-dot')" aria-hidden="true" />
+    <span
+      v-if="loading"
+      :class="prefixCls('button-loading-dot')"
+      aria-hidden="true"
+    />
     <slot />
   </button>
 </template>
@@ -26,8 +30,8 @@ const cls = computed(() =>
       prefixCls(`button--${props.type}`),
     props.size !== 'middle' && prefixCls(`button--${props.size}`),
     props.block && prefixCls('button--block'),
-    (props.disabled || props.loading) && prefixCls('button--disabled')
-  )
+    (props.disabled || props.loading) && prefixCls('button--disabled'),
+  ),
 );
 
 function handleClick(evt: MouseEvent) {

@@ -24,7 +24,7 @@ provide(formContextKey, {
   },
   removeItem: (item) => {
     items.delete(item);
-  }
+  },
 });
 
 /** 触发全部表单项校验，聚合错误信息 */
@@ -40,7 +40,7 @@ async function validate(): Promise<{
       if (err && item.prop) {
         errors[item.prop] = err;
       }
-    })
+    }),
   );
 
   return { valid: Object.keys(errors).length === 0, errors };

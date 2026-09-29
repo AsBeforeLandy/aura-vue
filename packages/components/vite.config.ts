@@ -9,14 +9,14 @@ export default defineConfig({
     dts({
       tsconfigPath: './tsconfig.json',
       include: ['src'],
-      cleanVueFileName: true
-    })
+      cleanVueFileName: true,
+    }),
   ],
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       formats: ['es'],
-      cssFileName: 'style'
+      cssFileName: 'style',
     },
     cssCodeSplit: false,
     rollupOptions: {
@@ -24,8 +24,8 @@ export default defineConfig({
       output: {
         preserveModules: true,
         preserveModulesRoot: 'src',
-        entryFileNames: '[name].js'
-      }
-    }
-  }
+        entryFileNames: '[name].js',
+      },
+    },
+  },
 });

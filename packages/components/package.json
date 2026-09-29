@@ -2,7 +2,7 @@
   "name": "@aura/components",
   "version": "0.1.0",
   "type": "module",
-  "description": "AUI Vue3 基础组件与表单组件库",
+  "description": "Aura Vue3 基础组件与表单组件库",
   "keywords": [
     "vue",
     "vue3",
@@ -11,6 +11,16 @@
     "form"
   ],
   "license": "MIT",
+  "author": "Aura Team",
+  "homepage": "https://asbeforelandy.github.io/aura-vue/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AsBeforeLandy/aura-vue.git",
+    "directory": "packages/components"
+  },
+  "bugs": {
+    "url": "https://github.com/AsBeforeLandy/aura-vue/issues"
+  },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -27,7 +37,8 @@
     "**/*.css"
   ],
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "scripts": {
     "build": "vite build",
@@ -37,10 +48,9 @@
   "peerDependencies": {
     "vue": "^3.4.0"
   },
-  "dependencies": {
-    "@aura/shared": "workspace:*"
-  },
   "devDependencies": {
+    "@aura/shared": "workspace:*",
+    "@types/node": "^20.17.10",
     "@vitejs/plugin-vue": "^5.2.0",
     "@vitest/coverage-v8": "^3.0.0",
     "@vue/test-utils": "^2.4.6",

@@ -34,7 +34,9 @@ describe('Input - 边界场景', () => {
   });
 
   it('clearable：有值时展示清空按钮，点击后清空并 emit clear', async () => {
-    const wrapper = mount(Input, { props: { modelValue: 'abc', clearable: true } });
+    const wrapper = mount(Input, {
+      props: { modelValue: 'abc', clearable: true },
+    });
     const clearBtn = wrapper.find('.aura-input-clear');
 
     expect(clearBtn.exists()).toBe(true);
@@ -44,7 +46,9 @@ describe('Input - 边界场景', () => {
   });
 
   it('clearable：无值时不展示清空按钮', () => {
-    const wrapper = mount(Input, { props: { modelValue: '', clearable: true } });
+    const wrapper = mount(Input, {
+      props: { modelValue: '', clearable: true },
+    });
     expect(wrapper.find('.aura-input-clear').exists()).toBe(false);
   });
 });
@@ -57,7 +61,7 @@ describe('Input - 异常场景', () => {
 
   it('disabled 时清空按钮不渲染', () => {
     const wrapper = mount(Input, {
-      props: { modelValue: 'abc', clearable: true, disabled: true }
+      props: { modelValue: 'abc', clearable: true, disabled: true },
     });
     expect(wrapper.find('.aura-input-clear').exists()).toBe(false);
   });
@@ -105,6 +109,8 @@ describe('Input - IME 组合输入（中文输入法）', () => {
     await typeRaw(wrapper, '中文');
     await input.trigger('compositionend');
 
-    expect(wrapper.emitted('update:modelValue')?.length).toBeGreaterThanOrEqual(1);
+    expect(wrapper.emitted('update:modelValue')?.length).toBeGreaterThanOrEqual(
+      1,
+    );
   });
 });

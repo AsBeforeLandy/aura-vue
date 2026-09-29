@@ -21,7 +21,9 @@ afterEach(() => {
  * 因此这里通过组件暴露的 getData() 验证「取数 → 落表」链路，
  * DOM 层面的渲染正确性由文档站的 demo 页在真实浏览器中兜底。
  */
-function tableRows(wrapper: ReturnType<typeof mount>): Record<string, unknown>[] {
+function tableRows(
+  wrapper: ReturnType<typeof mount>,
+): Record<string, unknown>[] {
   const instance = wrapper.vm as unknown as {
     getData: () => Record<string, unknown>[];
   };
@@ -31,36 +33,44 @@ function tableRows(wrapper: ReturnType<typeof mount>): Record<string, unknown>[]
 describe('ProTable', () => {
   const columns: ProTableColumn[] = [
     { key: 'name', title: '姓名' },
-    { key: 'status', title: '状态', valueType: 'tag' }
+    { key: 'status', title: '状态', valueType: 'tag' },
   ];
 
   it('正常：request 模式调用 request 并渲染数据', async () => {
     const request = vi.fn<ProTableRequest>().mockResolvedValue({
       data: [{ name: 'Landy', status: 'active' }],
-      total: 1
+      total: 1,
     });
     const wrapper = mount(ProTable, {
-      props: { columns, request, search: false }
+      props: { columns, request, search: false },
     });
     await vi.waitFor(() => expect(request).toHaveBeenCalled());
     await nextTick();
     expect(tableRows(wrapper)).toEqual([{ name: 'Landy', status: 'active' }]);
     expect(request).toHaveBeenCalledWith(
-      expect.objectContaining({ current: 1, pageSize: 10, search: {} })
+      expect.objectContaining({ current: 1, pageSize: 10, search: {} }),
     );
   });
 
   it('正常：data 模式直接渲染受控数据', async () => {
     const wrapper = mount(ProTable, {
-      props: { columns, data: [{ name: '受控行', status: 'x' }], search: false }
+      props: {
+        columns,
+        data: [{ name: '受控行', status: 'x' }],
+        search: false,
+      },
     });
     await nextTick();
     expect(tableRows(wrapper)).toEqual([{ name: '受控行', status: 'x' }]);
   });
 
   it('正常：暴露 reload 方法，调用后重新请求', async () => {
-    const request = vi.fn<ProTableRequest>().mockResolvedValue({ data: [], total: 0 });
-    const wrapper = mount(ProTable, { props: { columns, request, search: false } });
+    const request = vi
+      .fn<ProTableRequest>()
+      .mockResolvedValue({ data: [], total: 0 });
+    const wrapper = mount(ProTable, {
+      props: { columns, request, search: false },
+    });
     await vi.waitFor(() => expect(request).toHaveBeenCalledTimes(1));
     await (wrapper.vm as unknown as { reload: () => Promise<void> }).reload();
     expect(request).toHaveBeenCalledTimes(2);
@@ -69,9 +79,14 @@ describe('ProTable', () => {
   it('边界：request 返回 success:false 时保留原数据', async () => {
     const request = vi
       .fn<ProTableRequest>()
-      .mockResolvedValueOnce({ data: [{ name: '首屏', status: 'a' }], total: 1 })
+      .mockResolvedValueOnce({
+        data: [{ name: '首屏', status: 'a' }],
+        total: 1,
+      })
       .mockResolvedValueOnce({ data: [], total: 0, success: false });
-    const wrapper = mount(ProTable, { props: { columns, request, search: false } });
+    const wrapper = mount(ProTable, {
+      props: { columns, request, search: false },
+    });
     await vi.waitFor(() => expect(tableRows(wrapper)).toHaveLength(1));
     await (wrapper.vm as unknown as { reload: () => Promise<void> }).reload();
     await nextTick();
@@ -83,24 +98,28 @@ describe('ProTable', () => {
     const wrapper = mount(ProTable, {
       props: {
         columns: [{ key: 'name', title: '姓名', hideInSearch: true }],
-        data: []
-      }
+        data: [],
+      },
     });
     expect(wrapper.find('.aura-pro-table-search').exists()).toBe(false);
   });
 
   it('异常：request 抛错时触发 error 事件且不崩溃', async () => {
     const onError = vi.fn();
-    const request = vi.fn<ProTableRequest>().mockRejectedValue(new Error('网络异常'));
+    const request = vi
+      .fn<ProTableRequest>()
+      .mockRejectedValue(new Error('网络异常'));
     const wrapper = mount(ProTable, {
-      props: { columns, request, search: false, onError }
+      props: { columns, request, search: false, onError },
     });
     await vi.waitFor(() => expect(onError).toHaveBeenCalled());
     expect(wrapper.find('.aura-pro-table').exists()).toBe(true);
   });
 
   it('正常：查询后回到第一页并带上查询条件', async () => {
-    const request = vi.fn<ProTableRequest>().mockResolvedValue({ data: [], total: 0 });
+    const request = vi
+      .fn<ProTableRequest>()
+      .mockResolvedValue({ data: [], total: 0 });
     const wrapper = mount(ProTable, { props: { columns, request } });
     await vi.waitFor(() => expect(request).toHaveBeenCalledTimes(1));
 
@@ -111,13 +130,17 @@ describe('ProTable', () => {
     instance.setSearchValues({ name: '张' });
     await instance.reloadAndReset();
     expect(request).toHaveBeenLastCalledWith(
-      expect.objectContaining({ current: 1, search: { name: '张' } })
+      expect.objectContaining({ current: 1, search: { name: '张' } }),
     );
   });
 
   it('边界：列设置不可隐藏最后一列', async () => {
     const wrapper = mount(ProTable, {
-      props: { columns: [{ key: 'name', title: '姓名' }], data: [], search: false }
+      props: {
+        columns: [{ key: 'name', title: '姓名' }],
+        data: [],
+        search: false,
+      },
     });
     const instance = wrapper.vm as unknown as {
       setHiddenColumns: (k: string[]) => void;
@@ -125,7 +148,9 @@ describe('ProTable', () => {
     instance.setHiddenColumns(['name']);
     await nextTick();
     // 至少保留一列，避免表格整体空白
-    expect(wrapper.findAll('.el-table__header col').length).toBeGreaterThanOrEqual(0);
+    expect(
+      wrapper.findAll('.el-table__header col').length,
+    ).toBeGreaterThanOrEqual(0);
   });
 });
 
@@ -136,8 +161,8 @@ describe('ProForm', () => {
       props: {
         items: [{ name: 'username', label: '用户名', valueType: 'text' }],
         defaultValue: { username: 'init' },
-        onChange
-      }
+        onChange,
+      },
     });
     const instance = wrapper.vm as unknown as {
       setValue: (n: string, v: unknown) => void;
@@ -147,7 +172,7 @@ describe('ProForm', () => {
     await nextTick();
     expect(instance.getValues().username).toBe('changed');
     expect(onChange).toHaveBeenCalledWith(
-      expect.objectContaining({ name: 'username', value: 'changed' })
+      expect.objectContaining({ name: 'username', value: 'changed' }),
     );
   });
 
@@ -156,8 +181,8 @@ describe('ProForm', () => {
       props: {
         items: [{ name: 'username', label: '用户名' }],
         modelValue: { username: '查看态' },
-        readonly: true
-      }
+        readonly: true,
+      },
     });
     expect(wrapper.find('.aura-pro-form-readonly').text()).toBe('查看态');
   });
@@ -170,12 +195,12 @@ describe('ProForm', () => {
             name: 'status',
             label: '状态',
             valueType: 'select',
-            options: [{ label: '启用', value: 1 }]
-          }
+            options: [{ label: '启用', value: 1 }],
+          },
         ],
         modelValue: { status: 1 },
-        readonly: true
-      }
+        readonly: true,
+      },
     });
     expect(wrapper.find('.aura-pro-form-readonly').text()).toBe('启用');
   });
@@ -185,10 +210,10 @@ describe('ProForm', () => {
       props: {
         items: [
           { name: 'a', label: 'A' },
-          { name: 'b', label: 'B', hidden: true }
+          { name: 'b', label: 'B', hidden: true },
         ],
-        modelValue: {}
-      }
+        modelValue: {},
+      },
     });
     expect(wrapper.text()).toContain('A');
     expect(wrapper.text()).not.toContain('B');
@@ -198,8 +223,8 @@ describe('ProForm', () => {
     const wrapper = mount(ProForm, {
       props: {
         items: [{ name: 'a', label: 'A', hidden: () => true }],
-        modelValue: {}
-      }
+        modelValue: {},
+      },
     });
     expect(wrapper.text()).not.toContain('A');
   });
@@ -212,24 +237,40 @@ describe('ProForm', () => {
   it('正常：必填字段有值时 validate 通过', async () => {
     const wrapper = mount(ProForm, {
       props: {
-        items: [{ name: 'username', label: '用户名', rules: [{ required: true, message: '请输入' }] }],
-        modelValue: { username: 'ok' }
-      }
+        items: [
+          {
+            name: 'username',
+            label: '用户名',
+            rules: [{ required: true, message: '请输入' }],
+          },
+        ],
+        modelValue: { username: 'ok' },
+      },
     });
     await nextTick();
-    const instance = wrapper.vm as unknown as { validate: () => Promise<boolean> };
+    const instance = wrapper.vm as unknown as {
+      validate: () => Promise<boolean>;
+    };
     await expect(instance.validate()).resolves.toBe(true);
   });
 
   it('异常：必填字段为空时 validate 不通过', async () => {
     const wrapper = mount(ProForm, {
       props: {
-        items: [{ name: 'username', label: '用户名', rules: [{ required: true, message: '请输入' }] }],
-        modelValue: {}
-      }
+        items: [
+          {
+            name: 'username',
+            label: '用户名',
+            rules: [{ required: true, message: '请输入' }],
+          },
+        ],
+        modelValue: {},
+      },
     });
     await nextTick();
-    const instance = wrapper.vm as unknown as { validate: () => Promise<boolean> };
+    const instance = wrapper.vm as unknown as {
+      validate: () => Promise<boolean>;
+    };
     await expect(instance.validate()).resolves.toBe(false);
   });
 
@@ -240,15 +281,26 @@ describe('ProForm', () => {
     const wrapper = mount(ProForm, {
       props: {
         items: [
-          { name: 'username', label: '用户名', rules: [{ required: true, message: '请输入' }] },
+          {
+            name: 'username',
+            label: '用户名',
+            rules: [{ required: true, message: '请输入' }],
+          },
           // 下面这个字段只做展示，没有任何 rules
-          { name: 'role', label: '角色', valueType: 'select', options: [{ label: '管理员', value: 'admin' }] }
+          {
+            name: 'role',
+            label: '角色',
+            valueType: 'select',
+            options: [{ label: '管理员', value: 'admin' }],
+          },
         ],
-        modelValue: { username: 'ok', role: 'admin' }
-      }
+        modelValue: { username: 'ok', role: 'admin' },
+      },
     });
     await nextTick();
-    const instance = wrapper.vm as unknown as { validate: () => Promise<boolean> };
+    const instance = wrapper.vm as unknown as {
+      validate: () => Promise<boolean>;
+    };
     await expect(instance.validate()).resolves.toBe(true);
   });
 });
@@ -261,10 +313,10 @@ describe('Description', () => {
       props: {
         items: [
           { key: 'name', label: '姓名' },
-          { key: 'age', label: '年龄' }
+          { key: 'age', label: '年龄' },
         ],
-        data
-      }
+        data,
+      },
     });
     expect(wrapper.text()).toContain('Landy');
     expect(wrapper.text()).toContain('28');
@@ -277,11 +329,11 @@ describe('Description', () => {
           {
             key: 'role',
             label: '角色',
-            valueEnum: { admin: { text: '管理员', color: 'success' } }
-          }
+            valueEnum: { admin: { text: '管理员', color: 'success' } },
+          },
         ],
-        data
-      }
+        data,
+      },
     });
     expect(wrapper.text()).toContain('管理员');
   });
@@ -289,16 +341,18 @@ describe('Description', () => {
   it('正常：分组模式渲染分组标题', () => {
     const wrapper = mount(Description, {
       props: {
-        groups: [{ title: '基础信息', items: [{ key: 'name', label: '姓名' }] }],
-        data
-      }
+        groups: [
+          { title: '基础信息', items: [{ key: 'name', label: '姓名' }] },
+        ],
+        data,
+      },
     });
     expect(wrapper.text()).toContain('基础信息');
   });
 
   it('边界：空值显示占位符', () => {
     const wrapper = mount(Description, {
-      props: { items: [{ key: 'missing', label: '缺失' }], data }
+      props: { items: [{ key: 'missing', label: '缺失' }], data },
     });
     expect(wrapper.find('.aura-description-value').text()).toBe('-');
   });
@@ -307,8 +361,8 @@ describe('Description', () => {
     const wrapper = mount(Description, {
       props: {
         items: [{ key: 'user.name', label: '归属人' }],
-        data: { user: { name: '嵌套值' } }
-      }
+        data: { user: { name: '嵌套值' } },
+      },
     });
     expect(wrapper.text()).toContain('嵌套值');
   });
@@ -316,9 +370,15 @@ describe('Description', () => {
   it('异常：自定义 render 抛错前的空值分支不崩溃', () => {
     const wrapper = mount(Description, {
       props: {
-        items: [{ key: 'x', label: 'X', render: ({ value }) => `自定义:${value ?? '无'}` }],
-        data: {}
-      }
+        items: [
+          {
+            key: 'x',
+            label: 'X',
+            render: ({ value }) => `自定义:${value ?? '无'}`,
+          },
+        ],
+        data: {},
+      },
     });
     expect(wrapper.text()).toContain('自定义:无');
   });
@@ -327,7 +387,7 @@ describe('Description', () => {
 describe('PageContainer', () => {
   it('正常：渲染标题与副标题', () => {
     const wrapper = mount(PageContainer, {
-      props: { title: '订单管理', subTitle: '共 12 条' }
+      props: { title: '订单管理', subTitle: '共 12 条' },
     });
     expect(wrapper.text()).toContain('订单管理');
     expect(wrapper.text()).toContain('共 12 条');
@@ -335,7 +395,7 @@ describe('PageContainer', () => {
 
   it('正常：渲染面包屑', () => {
     const wrapper = mount(PageContainer, {
-      props: { breadcrumbs: [{ text: '首页' }, { text: '订单' }] }
+      props: { breadcrumbs: [{ text: '首页' }, { text: '订单' }] },
     });
     expect(wrapper.findAll('.el-breadcrumb__item')).toHaveLength(2);
   });
@@ -343,7 +403,7 @@ describe('PageContainer', () => {
   it('正常：footer 插槽渲染底部操作栏', () => {
     const wrapper = mount(PageContainer, {
       props: { title: 'T' },
-      slots: { footer: '<button class="ok-btn">提交</button>' }
+      slots: { footer: '<button class="ok-btn">提交</button>' },
     });
     expect(wrapper.find('.aura-page-container-footer').exists()).toBe(true);
     expect(wrapper.find('.ok-btn').exists()).toBe(true);
@@ -356,13 +416,41 @@ describe('PageContainer', () => {
 
   it('边界：card 为 false 时不加卡片类', () => {
     const wrapper = mount(PageContainer, { props: { card: false } });
-    expect(wrapper.find('.aura-page-container-body').classes()).not.toContain('is-card');
+    expect(wrapper.find('.aura-page-container-body').classes()).not.toContain(
+      'is-card',
+    );
   });
 
   it('异常：点击返回按钮触发 back 事件', async () => {
     const onBack = vi.fn();
-    const wrapper = mount(PageContainer, { props: { title: 'T', back: true, onBack } });
+    const wrapper = mount(PageContainer, {
+      props: { title: 'T', back: true, onBack },
+    });
     await wrapper.find('.aura-page-container-back').trigger('click');
     expect(onBack).toHaveBeenCalled();
+  });
+});
+
+describe('Description 空数据契约', () => {
+  it('边界：未传 data 时回落到空对象且不报错', () => {
+    // 触发 props 里 data 的 default 工厂，同时验证缺省值下的渲染稳定性
+    const wrapper = mount(Description, {
+      props: {
+        items: [
+          { key: 'name', label: '姓名' },
+          { key: 'nested.value', label: '嵌套值' },
+        ],
+      },
+    });
+    expect(wrapper.find('.aura-description').exists()).toBe(true);
+    // 空值统一走占位文案
+    expect(wrapper.text()).toContain('-');
+  });
+
+  it('边界：显式传空对象与缺省行为一致', () => {
+    const wrapper = mount(Description, {
+      props: { items: [{ key: 'name', label: '姓名' }], data: {} },
+    });
+    expect(wrapper.find('.aura-description').exists()).toBe(true);
   });
 });

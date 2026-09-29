@@ -7,7 +7,7 @@ const city = ref('');
 const options = [
   { label: '杭州', value: 'hangzhou' },
   { label: '上海', value: 'shanghai' },
-  { label: '深圳（暂不可选）', value: 'shenzhen', disabled: true }
+  { label: '深圳（暂不可选）', value: 'shenzhen', disabled: true },
 ];
 </script>
 

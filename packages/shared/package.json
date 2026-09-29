@@ -1,11 +1,17 @@
 {
   "name": "@aura/shared",
   "version": "0.1.0",
+  "private": true,
   "type": "module",
-  "description": "AUI 跨组件公共工具（开发期以源码形式被 Vite 转译，发布前改为 tsc 产物）",
+  "description": "Aura 内部公共工具函数（prefixCls / classNames）",
+  "license": "MIT",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "exports": {
-    ".": "./src/index.ts"
-  }
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts"
+    }
+  },
+  "sideEffects": false
 }

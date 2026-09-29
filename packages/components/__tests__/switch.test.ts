@@ -25,7 +25,7 @@ describe('Switch - 正常场景', () => {
 describe('Switch - 边界场景', () => {
   it('disabled 时点击不切换也不 emit', async () => {
     const wrapper = mount(Switch, {
-      props: { modelValue: false, disabled: true }
+      props: { modelValue: false, disabled: true },
     });
 
     await wrapper.trigger('click');

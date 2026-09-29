@@ -12,7 +12,7 @@ const data = ref({
   amount: 12860.5,
   createdAt: '2026-09-10 09:58:02',
   customer: { name: '李振虎', phone: '138****8888' },
-  remark: ''
+  remark: '',
 });
 
 const groups: DescriptionGroup[] = [
@@ -26,12 +26,12 @@ const groups: DescriptionGroup[] = [
         valueType: 'tag',
         valueEnum: {
           paid: { text: '已支付', color: 'success' },
-          unpaid: { text: '待支付', color: 'warning' }
-        }
+          unpaid: { text: '待支付', color: 'warning' },
+        },
       },
       { key: 'amount', label: '金额', valueType: 'money' },
-      { key: 'createdAt', label: '创建时间', valueType: 'datetime' }
-    ]
+      { key: 'createdAt', label: '创建时间', valueType: 'datetime' },
+    ],
   },
   {
     title: '客户信息',
@@ -39,9 +39,9 @@ const groups: DescriptionGroup[] = [
       // key 支持 'a.b' 形式读取嵌套字段
       { key: 'customer.name', label: '客户姓名' },
       { key: 'customer.phone', label: '联系电话' },
-      { key: 'remark', label: '备注', span: 2, emptyText: '无' }
-    ]
-  }
+      { key: 'remark', label: '备注', span: 2, emptyText: '无' },
+    ],
+  },
 ];
 </script>
 

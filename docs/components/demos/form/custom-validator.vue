@@ -19,10 +19,17 @@ async function checkNameTaken(value: unknown): Promise<boolean | string> {
 const rules = {
   username: [
     { required: true, message: '请输入用户名', trigger: 'blur' as const },
-    { min: 3, max: 12, message: '用户名长度为 3-12 个字符', trigger: 'blur' as const },
-    { validator: checkNameTaken }
+    {
+      min: 3,
+      max: 12,
+      message: '用户名长度为 3-12 个字符',
+      trigger: 'blur' as const,
+    },
+    { validator: checkNameTaken },
   ],
-  age: [{ pattern: /^\d+$/, message: '年龄必须为数字', trigger: 'blur' as const }]
+  age: [
+    { pattern: /^\d+$/, message: '年龄必须为数字', trigger: 'blur' as const },
+  ],
 };
 </script>
 

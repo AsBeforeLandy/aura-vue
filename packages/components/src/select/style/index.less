@@ -33,7 +33,9 @@
   text-align: left;
   outline: none;
   cursor: pointer;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 
   &:focus-visible,
   &--open {
@@ -41,7 +43,8 @@
   }
 
   &--open {
-    box-shadow: 0 0 0 2px var(--aura-color-primary-shadow, rgba(124, 58, 237, 0.15));
+    box-shadow: 0 0 0 2px
+      var(--aura-color-primary-shadow, rgba(124, 58, 237, 0.15));
   }
 }
 

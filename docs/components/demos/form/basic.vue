@@ -33,7 +33,11 @@ async function submit() {
         required
         :rules="[
           { required: true, message: '请输入邮箱' },
-          { pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: '邮箱格式不正确', trigger: 'blur' }
+          {
+            pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            message: '邮箱格式不正确',
+            trigger: 'blur',
+          },
         ]"
       >
         <Input v-model="model.email" placeholder="请输入邮箱" />
@@ -41,7 +45,9 @@ async function submit() {
       <Button type="primary" @click="submit">提交</Button>
     </Form>
     <p class="aura-tip">{{ result }}</p>
-    <pre v-if="Object.keys(errors).length" class="aura-errors">{{ JSON.stringify(errors, null, 2) }}</pre>
+    <pre v-if="Object.keys(errors).length" class="aura-errors">{{
+      JSON.stringify(errors, null, 2)
+    }}</pre>
   </div>
 </template>
 

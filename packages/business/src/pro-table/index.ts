@@ -12,7 +12,13 @@ export type {
   ProTableRequestParams,
   ProTableRequestResult,
   ProTableToolbarConfig,
-  ProTableSize
+  ProTableSize,
 } from './types';
 export { proTableProps } from './types';
-export { formatDate, formatMoney, renderCell, omitEmpty, getByPath } from './utils';
+export {
+  formatDate,
+  formatMoney,
+  renderCell,
+  omitEmpty,
+  getByPath,
+} from './utils';

@@ -3,7 +3,6 @@ import { ref } from 'vue';
 import { Switch } from '@aura/components';
 
 const on = ref(true);
-const inner = ref(false);
 const logs = ref<string[]>([]);
 
 function onChange(v: boolean) {
