@@ -9,7 +9,10 @@ export default defineConfig({
     dts({
       tsconfigPath: './tsconfig.json',
       include: ['src'],
-      cleanVueFileName: true,
+      // 与 @aura/components 保持一致：保留 `.vue.d.ts` 文件名，
+      // 使其与 Rollup 产出的 `Button.vue.js` 一一对应，
+      // 否则 node16 / nodenext 解析下类型会失败（详见 components 的同名注释）。
+      cleanVueFileName: false,
     }),
   ],
   build: {

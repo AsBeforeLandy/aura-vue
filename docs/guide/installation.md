@@ -4,13 +4,15 @@
 
 确保你的开发环境满足以下要求：
 
-- **Node.js** ^18.0.0（推荐使用 LTS 版本）
+- **Node.js** `^20.19.0 || ^22.13.0 || >=24`
 - **Vue** ^3.4.0
 - **包管理器** pnpm ^7（推荐）、yarn ^1.22.0 或 npm ^9.0.0
 
 > 本项目使用 pnpm workspace 管理 Monorepo，若需参与组件库开发，请使用 pnpm。
 
 ## 安装组件库
+
+基础组件：
 
 :::code-group
 
@@ -28,11 +30,37 @@ npm install @aura/components
 
 :::
 
-| 包名               | 描述                                    | 依赖           | 状态 |
-| ------------------ | --------------------------------------- | -------------- | ---- |
-| `@aura/components` | 组件库主体，含 6 个组件                 | `@aura/shared` | 可用 |
-| `@aura/shared`     | 工具函数集（`prefixCls`、`classNames`） | -              | 可用 |
-| `@aura/icons`      | 图标资源包                              | -              | 占位 |
+业务组件（基于 Element Plus 二次封装，需自行安装 `element-plus`）：
+
+:::code-group
+
+```bash [pnpm]
+pnpm add @aura/business element-plus
+```
+
+```bash [yarn]
+yarn add @aura/business element-plus
+```
+
+```bash [npm]
+npm install @aura/business element-plus
+```
+
+:::
+
+### 包一览
+
+| 包名               | 描述                                                                        | 运行时依赖            | 状态                                     |
+| ------------------ | --------------------------------------------------------------------------- | --------------------- | ---------------------------------------- |
+| `@aura/components` | 基础组件（Button / Input / Form / Select / Switch / Modal）                 | `vue`                 | 可发布                                   |
+| `@aura/business`   | 业务组件（ProTable / ProForm / ProModalForm / Description / PageContainer） | `vue`、`element-plus` | 可发布                                   |
+| `@aura/shared`     | 内部工具（`prefixCls`、`classNames`）                                       | -                     | **不单独发布**，构建期已内联进上面两个包 |
+| `@aura/icons`      | 图标资源包                                                                  | -                     | 占位，尚未迁移，**未发布**               |
+
+:::tip 你不需要单独安装 `@aura/shared`
+它只有两个纯函数，构建时已被内联进 `@aura/components` 与 `@aura/business` 的产物里，
+所以在 `dependencies` 中看不到它。它是工作区内部的构建期依赖。
+:::
 
 ## 本地开发（仓库贡献者）
 

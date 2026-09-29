@@ -4,10 +4,23 @@
     "baseUrl": ".",
     "outDir": "dist",
     "paths": {
-      // Element Plus 的公开类型里引用了 lodash-unified（其内部依赖），
-      // 在 pnpm 的严格 node_modules 布局下该路径不可达，会导致 dts 生成时报
-      // TS2742（inferred type cannot be named）。这里显式映射一份，
-      // 保证生成的 .d.ts 里能写出稳定的类型引用路径。
+      // ── 这段映射是必要的，删除会导致声明文件缺文件 ──
+      //
+      // Element Plus 的公开类型引用了 lodash-unified（它的内部依赖）。
+      // 在 pnpm 的严格布局下，EP 的类型经 `.pnpm/lodash-unified@x.y.z_.../` 这条
+      // 虚拟路径解析，TypeScript 无法用裸包名给它命名，于是 dts 生成时报：
+      //
+      //   TS2742: The inferred type of 'businessComponents' cannot be named
+      //           without a reference to '.pnpm/lodash-unified@...'
+      //
+      // 实测后果不是「构建失败」而是**静默产物缺失**：vite-plugin-dts 会跳过
+      // 报错的文件，dist/index.d.ts 与 ProTable.vue.d.ts 直接不生成，
+      // 消费方拿不到类型且没有任何提示。
+      //
+      // 映射到这里后 TS 能命名该类型，声明文件完整生成。
+      // 副作用是产物里会写出相对 `.pnpm` 路径（不可移植），
+      // 因此由 scripts/postbuild-dts.mjs 在构建后把这些路径改写回裸包名
+      // `lodash-unified`——它已声明在 dependencies 中，消费方可正常解析。
       "lodash-unified": ["./node_modules/lodash-unified/type.d.ts"]
     }
   },

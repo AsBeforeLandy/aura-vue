@@ -59,6 +59,12 @@ jobs:
       - name: Size budget
         run: pnpm size
 
+      - name: Type resolution (attw)
+        # 校验发布包的类型在 node16 / bundler 下都能解析。
+        # 「声明文件里混进 .pnpm 内部路径」「.vue.d.ts 文件名与 .vue.js 对不上」
+        # 这类问题 lint / test / build 都发现不了，只有它拦得住。
+        run: pnpm attw
+
       - name: Artifact smoke test
         run: pnpm smoke
 

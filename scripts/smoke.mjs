@@ -55,8 +55,15 @@ if (LIB_PACKAGES.length === 0) {
   process.exit(1);
 }
 
-/** 允许出现在产物中但无需在 dependencies 声明的内置模块前缀 */
-const BUILTIN = /^node:/;
+/**
+ * 允许出现在产物中、但无需在 dependencies / peerDependencies 单独声明的说明符：
+ *
+ * - `node:` —— Node 内置模块；
+ * - `@vue/*` —— Vue 的子包（如 `@vue/reactivity`）。
+ *   它们随 `vue` 一起安装，而本项目已把 `vue` 声明为 peerDependency，
+ *   类型里引用到子包属于正常情况，不应要求逐个声明。
+ */
+const BUILTIN = /^(node:|@vue\/)/;
 
 let failures = 0;
 
@@ -87,13 +94,17 @@ function walk(dir, out = []) {
   return out;
 }
 
-/** 从 JS 产物中提取所有 import / export-from 的模块标识符 */
+/** 从 JS / d.ts 产物中提取所有模块标识符 */
 function extractSpecifiers(code) {
   const found = new Set();
   const patterns = [
     /\bfrom\s*['"]([^'"]+)['"]/g, // import x from '...' / export ... from '...'
     /\bimport\s*['"]([^'"]+)['"]/g, // 副作用导入 import '...'
     /\brequire\(\s*['"]([^'"]+)['"]\s*\)/g,
+    // 动态 import 与「导入类型」形式：import('...')
+    // 声明文件里 `import('pkg').Type` 非常常见，漏掉它会放过整类路径问题
+    // （本项目就因此漏检了 tsconfig paths 映射泄漏出的 node_modules 相对路径）
+    /\bimport\s*\(\s*['"]([^'"]+)['"]/g,
   ];
   for (const re of patterns) {
     let m;
@@ -111,6 +122,21 @@ function resolves(importerFile, spec) {
     `${base}.mjs`,
     join(base, 'index.js'),
   ];
+
+  // 声明文件里的引用由 TypeScript 解析，规则与 JS 不同：
+  // 说明符 `./x.js` 会映射到同名的 `./x.d.ts`，**不要求那个 .js 真实存在**。
+  // 本项目大量使用这种写法（`export * from './button/index.js'`），
+  // 因为纯 re-export 模块在 JS 侧被 Rollup 消除、只留下 index.d.ts。
+  // scripts/postbuild-dts.mjs 正是按该规则生成，attw 也确认其在
+  // node16 / bundler 下均可正确解析。
+  if (importerFile.endsWith('.d.ts')) {
+    candidates.push(
+      `${base}.d.ts`,
+      join(base, 'index.d.ts'),
+      base.replace(/\.js$/, '.d.ts'),
+    );
+  }
+
   return candidates.some((c) => existsSync(c) && statSync(c).isFile());
 }
 
@@ -229,9 +255,14 @@ for (const pkg of LIB_PACKAGES) {
     );
   });
 
-  // 4/5/6) 扫描 JS 产物
+  // 4/5/6) 扫描产物中的模块引用。
+  //
+  // 同时扫 `.js` 与 `.d.ts`：声明文件里的引用同样会随包发布，
+  // 一旦混进仓库内路径（如 tsconfig 的 paths 映射把某个依赖解析成
+  // `../node_modules/<pkg>/type.d.ts`），消费方的 TypeScript 就会解析失败。
+  // 只扫 JS 会漏掉这一类——本项目就是先漏了 d.ts，才靠 attw 才发现。
   const jsFiles = existsSync(distDir)
-    ? walk(distDir).filter((f) => f.endsWith('.js'))
+    ? walk(distDir).filter((f) => f.endsWith('.js') || f.endsWith('.d.ts'))
     : [];
   const declared = new Set([
     ...Object.keys(pkgJson.dependencies ?? {}),
@@ -241,12 +272,21 @@ for (const pkg of LIB_PACKAGES) {
   const escaped = [];
   const undeclared = new Set();
   const brokenRelative = [];
+  const intoNodeModules = [];
 
   for (const file of jsFiles) {
     const code = readFileSync(file, 'utf-8');
     for (const spec of extractSpecifiers(code)) {
       if (spec.startsWith('.')) {
         const abs = resolve(dirname(file), spec);
+        // 「穿进 node_modules 的相对路径」是独立的一类缺陷：
+        // 它在本地能解析（node_modules 确实在包目录内），所以 escaped 检查放行；
+        // 但 files 白名单不会把 node_modules 发出去，安装后必然解析失败。
+        // 典型来源是 tsconfig 的 paths 映射（把某个依赖指到 ./node_modules/...）。
+        if (spec.includes('node_modules/')) {
+          intoNodeModules.push(`${relative(ROOT, file)} -> ${spec}`);
+          continue;
+        }
         if (!abs.startsWith(pkgDir + sep)) {
           escaped.push(`${relative(ROOT, file)} -> ${spec}`);
         } else if (!resolves(file, spec)) {
@@ -262,6 +302,16 @@ for (const pkg of LIB_PACKAGES) {
       if (!declared.has(name)) undeclared.add(`${name}  (来自 ${spec})`);
     }
   }
+
+  check('产物中没有穿进 node_modules 的相对路径', () => {
+    assert(
+      intoNodeModules.length === 0,
+      `发现 ${intoNodeModules.length} 处指向 node_modules 的相对路径，` +
+        `本地可解析但不会被发布，安装后必然失败：\n         ${intoNodeModules
+          .slice(0, 5)
+          .join('\n         ')}`,
+    );
+  });
 
   check('产物中没有逃出包目录的相对路径 (alias 泄漏)', () => {
     assert(
@@ -298,6 +348,30 @@ console.log('');
 // 7) 文档中教用户 import 的包内子路径，必须真实存在于该包的 exports 中。
 //    历史缺陷：安装文档写 `import '@aura/components/dist/style.css'`，
 //    但 exports 只暴露了 `./style.css`；使用者照抄必然 Module not found。
+// 8) 反向校验：没有构建产物、却也没标 private 的包，会被 changeset publish 视为待发布项，
+//    发布出一个「入口指向 .ts 源码、使用方加载不了」的坏包。
+//    @aura/shared 与 @aura/icons 都踩过这个坑。私有包必须显式声明，不能靠运气。
+group('工作区发布配置');
+
+check('无构建产物的包必须标记 private', () => {
+  const offenders = readdirSync(join(ROOT, 'packages'), { withFileTypes: true })
+    .filter((e) => e.isDirectory())
+    .map((e) => e.name)
+    .filter((name) => !LIB_PACKAGES.includes(name))
+    .filter((name) => {
+      const p = join(ROOT, 'packages', name, 'package.json');
+      if (!existsSync(p)) return false;
+      return JSON.parse(readFileSync(p, 'utf-8')).private !== true;
+    });
+
+  assert(
+    offenders.length === 0,
+    `以下包既没有构建产物、又未声明 "private": true，会被误发布：\n         ${offenders.join(
+      '\n         ',
+    )}`,
+  );
+});
+
 group('文档引用的包内路径');
 
 /**

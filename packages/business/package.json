@@ -44,7 +44,7 @@
     "src"
   ],
   "scripts": {
-    "build": "vite build",
+    "build": "vite build && node ../../scripts/postbuild-dts.mjs",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage"
   },
@@ -53,7 +53,8 @@
     "vue": "^3.4.0"
   },
   "dependencies": {
-    "@element-plus/icons-vue": "^2.3.1"
+    "@element-plus/icons-vue": "^2.3.1",
+    "lodash-unified": "^1.0.3"
   },
   "devDependencies": {
     "@aura/shared": "workspace:*",
@@ -64,7 +65,6 @@
     "element-plus": "^2.8.8",
     "happy-dom": "^15.7.4",
     "less": "^4.2.0",
-    "lodash-unified": "^1.0.3",
     "typescript": "^5.6.3",
     "vite": "^6.0.0",
     "vite-plugin-dts": "^4.3.0",

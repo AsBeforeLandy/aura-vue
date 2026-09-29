@@ -27,6 +27,14 @@ export default defineConfig({
   },
   vite: {
     plugins: [demoPlugin()],
+    ssr: {
+      // Element Plus 的按需样式入口是 `es/components/<name>/style/css.mjs`，
+      // 它内部 `import 'element-plus/theme-chalk/*.css'`。
+      // SSR 构建默认把 node_modules 外部化交给 Node 原生加载，
+      // 而 Node 无法解析 .css，会报 `ERR_UNKNOWN_FILE_EXTENSION ".css"`。
+      // 放进 noExternal 让 Vite 自己处理这些 CSS 导入（SSR 下会被安全地忽略）。
+      noExternal: [/^element-plus/],
+    },
   },
   themeConfig: {
     logo: '/logo.svg',
