@@ -9,6 +9,7 @@ importers:
       '@commitlint/cli': ^19.6.1
       '@commitlint/config-conventional': ^19.6.0
       '@eslint/js': ^9.17.0
+      '@playwright/test': ^1.63.0
       '@size-limit/file': ^11.1.6
       '@types/node': ^20.17.10
       eslint: ^9.17.0
@@ -28,6 +29,7 @@ importers:
       '@commitlint/cli': 19.8.1_mivmdu67z4dbzsi3xfukybqsku
       '@commitlint/config-conventional': 19.8.1
       '@eslint/js': 9.39.5
+      '@playwright/test': 1.63.0
       '@size-limit/file': 11.2.0_size-limit@11.2.0
       '@types/node': 20.19.43
       eslint: 9.39.5
@@ -1531,6 +1533,14 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@playwright/test/1.63.0:
+    resolution: {integrity: sha512-oxMK4vllB9RK5NQ2l1pq1IfOf2AvnEuj/vYGDj0H2nMtmtZpKtCwt/l00GEO6xjGfpBNAvjovvYdCm50dRQkpQ==}
+    engines: {node: '>=20'}
+    hasBin: true
+    dependencies:
+      playwright: 1.63.0
+    dev: true
 
   /@rollup/pluginutils/5.4.0:
     resolution: {integrity: sha512-MfPp06CjRLfXQ3wY0R8vJDYBy/MvVcc9OulEfR0B8Iv9ko+GCNaRZ+EpJYFl27LhKsZK0o420sYCRHCjfCgeUg==}
@@ -4826,6 +4836,20 @@ packages:
       confbox: 0.2.4
       exsolve: 1.1.1
       pathe: 2.0.3
+    dev: true
+
+  /playwright-core/1.63.0:
+    resolution: {integrity: sha512-rYCsBF/M5HjUch52bbtVONEFjv6Xu8sm8h72dNlR5bzIE1fvC/bxgspzkjSfU+MweEMmPM8KJebG6nnyxo5mCg==}
+    engines: {node: '>=20'}
+    hasBin: true
+    dev: true
+
+  /playwright/1.63.0:
+    resolution: {integrity: sha512-+7ziBLidS4NaNCdt57SUDT+wYmmd5fmiQejUic/kb+YsYSCPyOOE9sebzMjNmQrsnNpDJqd4WHvV/8lfKfUDUg==}
+    engines: {node: '>=20'}
+    hasBin: true
+    dependencies:
+      playwright-core: 1.63.0
     dev: true
 
   /postcss-selector-parser/6.1.4:

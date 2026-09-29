@@ -88,8 +88,8 @@ async function copySource() {
   border-radius: 10px;
   overflow: hidden;
   transition:
-    border-color 0.25s,
-    box-shadow 0.25s;
+    border-color var(--aura-duration-base) var(--aura-easing),
+    box-shadow var(--aura-duration-base) var(--aura-easing);
 }
 .demo:hover {
   border-color: var(--vp-c-brand-3);
@@ -118,7 +118,7 @@ async function copySource() {
   color: var(--vp-c-text-2);
   font-size: 13px;
   cursor: pointer;
-  transition: color 0.2s;
+  transition: color var(--aura-duration-base) var(--aura-easing);
 }
 .demo-toggle:hover {
   color: var(--vp-c-brand-1);
@@ -129,7 +129,7 @@ async function copySource() {
   font-weight: 600;
   line-height: 1;
   color: var(--vp-c-brand-1);
-  transition: transform 0.2s;
+  transition: transform var(--aura-duration-base) var(--aura-easing);
 }
 .demo-toggle-icon.open {
   transform: rotate(90deg);

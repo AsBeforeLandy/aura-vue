@@ -224,9 +224,9 @@
 /* ---------- 首页 feature 卡片 ---------- */
 .VPFeature {
   transition:
-    border-color 0.25s,
-    box-shadow 0.25s,
-    transform 0.25s;
+    border-color var(--aura-duration-base) var(--aura-easing),
+    box-shadow var(--aura-duration-base) var(--aura-easing),
+    transform var(--aura-duration-base) var(--aura-easing);
 }
 
 .VPFeature:hover {

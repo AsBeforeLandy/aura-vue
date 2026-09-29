@@ -162,9 +162,9 @@ const testCount = 53;
   -webkit-backdrop-filter: blur(8px);
   overflow: hidden;
   transition:
-    border-color 0.25s,
-    box-shadow 0.25s,
-    transform 0.25s;
+    border-color var(--aura-duration-base) var(--aura-easing),
+    box-shadow var(--aura-duration-base) var(--aura-easing),
+    transform var(--aura-duration-base) var(--aura-easing);
 }
 
 .aura-card:hover {
@@ -195,7 +195,7 @@ const testCount = 53;
   font-size: 12px;
   color: var(--vp-c-text-2);
   text-decoration: none;
-  transition: color 0.2s;
+  transition: color var(--aura-duration-base) var(--aura-easing);
 }
 
 .aura-card-link:hover {

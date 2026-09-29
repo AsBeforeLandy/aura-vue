@@ -4,6 +4,11 @@ coverage
 *.log
 .DS_Store
 
+# Playwright（E2E 运行产物：trace / 截图 / 报告）
+test-results/
+playwright-report/
+blob-report/
+
 # VitePress（根目录 gitignore 的含斜杠模式会锚定到根，需用 **/ 匹配子目录）
 **/.vitepress/cache/
 **/.vitepress/dist/

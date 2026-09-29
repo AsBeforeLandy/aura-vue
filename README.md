@@ -45,8 +45,10 @@ pnpm docs:build      # 构建文档站
 
 # 构建与测试
 pnpm build           # 构建两个库包的产物（dist/）
-pnpm test            # 运行单元测试
+pnpm test            # 运行单元测试（Vitest + happy-dom）
 pnpm test:coverage   # 运行测试并校验覆盖率阈值
+pnpm test:e2e        # 真浏览器 E2E（会先构建库与文档站）
+pnpm test:e2e:visual # 像素级视觉回归（基线按平台分，仅本地跑，见 e2e/visual.spec.ts）
 
 # 质量门禁
 pnpm lint            # ESLint

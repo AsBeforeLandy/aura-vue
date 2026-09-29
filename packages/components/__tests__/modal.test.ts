@@ -245,6 +245,33 @@ describe('Modal - 焦点管理', () => {
     expect(document.activeElement).toBe(items[items.length - 1]);
   });
 
+  it('边界：焦点在面板本身时，Shift+Tab / Tab 都会被拉回控件序列', async () => {
+    const { show } = mountHost();
+    await openAndSettle(show);
+
+    const panel = $('.aura-modal-panel')!;
+    const items = [
+      ...document.querySelectorAll<HTMLElement>(
+        '.aura-modal-panel button, .aura-modal-panel [tabindex]:not([tabindex="-1"])',
+      ),
+    ];
+
+    // 初始焦点就在面板上（打开时的默认行为）
+    expect(document.activeElement).toBe(panel);
+
+    // Shift+Tab 应跳到最后一项，而不是逃出弹窗
+    //（happy-dom 单测覆盖不到这条，是真浏览器 E2E 抓出来的缺陷）
+    let evt = pressTab(true);
+    expect(evt.defaultPrevented).toBe(true);
+    expect(document.activeElement).toBe(items[items.length - 1]);
+
+    // 回到面板再正向 Tab，应从第一项开始
+    panel.focus();
+    evt = pressTab();
+    expect(evt.defaultPrevented).toBe(true);
+    expect(document.activeElement).toBe(items[0]);
+  });
+
   it('边界：焦点在弹窗之外时按 Tab 会被拉回弹窗内', async () => {
     const outside = focusOutsideButton();
     const { show } = mountHost();

@@ -18,10 +18,10 @@
   cursor: pointer;
   user-select: none;
   transition:
-    color 0.2s,
-    border-color 0.2s,
-    background 0.2s,
-    opacity 0.2s;
+    color var(--aura-duration-base) var(--aura-easing),
+    border-color var(--aura-duration-base) var(--aura-easing),
+    background var(--aura-duration-base) var(--aura-easing),
+    opacity var(--aura-duration-base) var(--aura-easing);
 
   &:hover {
     border-color: var(--aura-color-primary);
@@ -82,7 +82,8 @@
     border: 2px solid currentColor;
     border-top-color: transparent;
     border-radius: 50%;
-    animation: aura-spin 1s linear infinite;
+    // 用令牌而不是固定 1s：开了「减少动态效果」时会被放缓（见 base.less）
+    animation: aura-spin var(--aura-spin-duration) linear infinite;
   }
 }
 

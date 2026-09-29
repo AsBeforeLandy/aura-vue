@@ -9,7 +9,7 @@
   border-radius: 11px;
   background: #bfbfbf;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background var(--aura-duration-base) var(--aura-easing);
 
   &:hover:not(&--disabled) {
     background: #a6a6a6;
@@ -32,7 +32,7 @@
     height: 18px;
     border-radius: 50%;
     background: #fff;
-    transition: left 0.2s;
+    transition: left var(--aura-duration-base) var(--aura-easing);
   }
 
   &--on &-dot {

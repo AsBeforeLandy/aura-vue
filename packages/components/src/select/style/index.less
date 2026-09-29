@@ -34,8 +34,8 @@
   outline: none;
   cursor: pointer;
   transition:
-    border-color 0.2s,
-    box-shadow 0.2s;
+    border-color var(--aura-duration-base) var(--aura-easing),
+    box-shadow var(--aura-duration-base) var(--aura-easing);
 
   &:focus-visible,
   &--open {
@@ -68,7 +68,7 @@
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
   border-top: 5px solid var(--aura-text-secondary);
-  transition: transform 0.2s;
+  transition: transform var(--aura-duration-base) var(--aura-easing);
 
   &--open {
     transform: rotate(180deg);
@@ -99,7 +99,7 @@
   color: var(--aura-text);
   line-height: 20px;
   cursor: pointer;
-  transition: background-color 0.15s;
+  transition: background-color var(--aura-duration-fast) var(--aura-easing);
 
   &--active {
     background: var(--aura-color-primary-shadow, rgba(124, 58, 237, 0.08));

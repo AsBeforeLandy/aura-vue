@@ -152,6 +152,16 @@ function onKeydown(evt: KeyboardEvent) {
     return;
   }
 
+  // 焦点在**面板本身**（tabindex="-1" 的容器）上时，它不在可聚焦列表里，
+  // 下面两个「首尾互换」分支都不会命中——必须单独处理，
+  // 否则打开弹窗后立刻 Shift+Tab 会直接逃出去（这是 E2E 抓到的真实缺陷：
+  // happy-dom 的用例都是先把焦点移到某个控件上，覆盖不到这条路径）。
+  if (active === panel) {
+    evt.preventDefault();
+    (evt.shiftKey ? last : first).focus();
+    return;
+  }
+
   if (evt.shiftKey && active === first) {
     evt.preventDefault();
     last.focus();
