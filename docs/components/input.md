@@ -53,9 +53,9 @@
 
 ## 禁用
 
-<demo src="./demos/input/form-usage.vue" />
+传入 `disabled` 后组件不响应输入；即使同时开启 `clearable`，清空按钮也不会出现。
 
-禁用态下不响应输入，清空按钮也不会出现。
+<demo src="./demos/input/disabled.vue" />
 
 ## 中文输入（IME）
 
