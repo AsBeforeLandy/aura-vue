@@ -1,0 +1,23 @@
+/**
+ * 主题桥接 —— 把 Element Plus 的主色梯度改写到 Aura 设计令牌。
+ *
+ * 业务包基于 EP 二次封装，EP 默认主色是品牌蓝（#409eff）；不做映射时，
+ * 查询按钮、分页高亮、链接按钮、勾选框等都会呈现 EP 蓝，与
+ * @aura/components 的紫罗兰体系割裂。语义对齐 React 版 BusinessProvider：
+ * 引入业务包样式即获得 Aura 视觉。
+ *
+ * - 主色走 var(--aura-color-primary, #7c3aed)，跟随令牌换肤；
+ * - light / dark 梯度按 EP 的 mix 公式从 #7c3aed 预计算为静态色值，
+ *   不用运行时 color-mix（仓库兼容基线 Chrome 80+）；自定义主色时需一并覆盖；
+ * - 放在 :root 而非组件作用域：EP 弹层（下拉 / 对话框）挂在 body，
+ *   组件级作用域罩不住。使用方如需保留 EP 原色，在其后覆盖同名变量即可。
+ */
+:root {
+  --el-color-primary: var(--aura-color-primary, #7c3aed);
+  --el-color-primary-light-3: #a375f2;
+  --el-color-primary-light-5: #be9df6;
+  --el-color-primary-light-7: #d8c4fa;
+  --el-color-primary-light-8: #e5d8fb;
+  --el-color-primary-light-9: #f2ebfd;
+  --el-color-primary-dark-2: #632ebe;
+}

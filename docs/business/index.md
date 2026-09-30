@@ -76,7 +76,8 @@ const request: ProTableRequest<UserRow> = async ({ current, pageSize }) => {
 import '@aura/business/style.css';
 ```
 
-两点注意：
+三点注意：
 
 - 该文件**覆盖了 Element Plus 的内部类**（如 `.el-table th.el-table__cell`、`.el-dialog__body`），必须保证它晚于 Element Plus 自身样式引入，否则会被反覆盖。
-- 本包所有样式消费 `var(--aura-*)` 设计令牌且**不设 fallback**。令牌与 `@aura/components` 共用同一套（主色 `--aura-color-primary: #7c3aed` 紫罗兰），由 `@aura/components` 的 `base.less` 定义；令牌未加载时颜色、圆角、字号会整体失效。
+- 引入的同时会把 **Element Plus 的主色梯度**（`--el-color-primary` 及其 light / dark 变量）桥接到 Aura 紫罗兰，使查询按钮、分页高亮、勾选框等 EP 组件与基础组件同一视觉体系。若你的应用还在其他地方使用 Element Plus 并希望保留原色，在本包样式之后覆盖同名变量即可。
+- 本包所有样式消费 `var(--aura-*)` 设计令牌。令牌与 `@aura/components` 共用同一套（主色 `--aura-color-primary: #7c3aed` 紫罗兰），由 `@aura/components` 的 `base.less` 定义；令牌未加载时颜色、圆角、字号会整体失效。
