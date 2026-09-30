@@ -17,7 +17,8 @@ import { firstDemo, gotoDocs } from './helpers';
  * ⚠️ 两个容易踩的坑（第一版就写错了）：
  *   1. 开了 row-selection，表格会多出**第 0 列勾选列**（th/td 都无文本），
  *      数据列的下标整体 +1；
- *   2. Element Plus 未配置中文 locale，分页文案是「Total 46」而不是「共 46 条」。
+ *   2. 分页文案来自文档站主题配置的 EP 中文 locale（「共 46 条」），
+ *      断言只匹配 /46/ 这类数字部分，避免与 locale 文案耦合。
  */
 
 const TABLE_PAGE = '/business/pro-table';
@@ -114,7 +115,7 @@ test.describe('分页与查询', () => {
   test('分页器显示总数与页数', async ({ page }) => {
     const demo = firstDemo(page);
 
-    // EP 未配置中文 locale，文案是英文的「Total 46」
+    // 中文 locale（文档站主题注入），断言只匹配数字避免与文案耦合
     await expect(demo.locator('.el-pagination__total')).toHaveText(/46/);
     // 46 条 / 每页 8 条 = 6 页
     await expect(demo.locator('.el-pager li')).toHaveCount(6);

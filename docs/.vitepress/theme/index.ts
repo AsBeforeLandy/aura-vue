@@ -13,6 +13,10 @@ import DefaultTheme from 'vitepress/theme';
 // 这样 EP 组件只被 demo 所在的懒加载页面引用，不再进入首屏。
 import { ID_INJECTION_KEY } from 'element-plus/es/hooks/use-id/index.mjs';
 import { ZINDEX_INJECTION_KEY } from 'element-plus/es/hooks/use-z-index/index.mjs';
+// EP 组件默认英文 locale（分页会显示「Total 46 / Go to」而非「共 46 条 / 前往」）。
+// 与上面两个 hook 同理走深路径，避免把 EP 根入口拉进 theme chunk。
+import zhCn from 'element-plus/es/locale/lang/zh-cn.mjs';
+import { ElConfigProvider } from 'element-plus/es/components/config-provider/index.mjs';
 import Demo from './components/Demo.vue';
 import HomeShowcase from './components/HomeShowcase.vue';
 import DandelionBackground from './components/DandelionBackground.vue';
@@ -95,10 +99,20 @@ export default {
   extends: DefaultTheme,
   // 通过 Layout 插槽把实况演示注入首页 hero 下方（比 markdown <template> 更稳）
   Layout() {
-    return h(DefaultTheme.Layout, null, {
-      'home-hero-before': () => (isHome() ? h(DandelionBackground) : null),
-      'home-hero-after': () => h(HomeShowcase),
-    });
+    // 全局中文 locale：demo 里的 EP 组件（分页 / 选择器 / 日期等）
+    // 与组件库自身的中文文案保持同一语言。
+    return h(
+      ElConfigProvider,
+      { locale: zhCn },
+      {
+        default: () =>
+          h(DefaultTheme.Layout, null, {
+            'home-hero-before': () =>
+              isHome() ? h(DandelionBackground) : null,
+            'home-hero-after': () => h(HomeShowcase),
+          }),
+      },
+    );
   },
   enhanceApp({ app }) {
     app.component('Demo', Demo);
