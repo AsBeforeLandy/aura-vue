@@ -101,6 +101,26 @@
   display: flex;
   justify-content: flex-end;
   margin-top: 16px;
+
+  // 空间不足时换行，而不是把分页器挤出卡片（容器是 flex 但子项不可收缩）；
+  // 换行后各行仍保持右对齐（EP 默认 flex-start，第二行会甩到左侧）
+  .el-pagination {
+    flex-wrap: wrap;
+    row-gap: 8px;
+    justify-content: flex-end;
+  }
+
+  // 宿主的全局列表样式（reset 库、文档框架如 VitePress 的 .vp-doc ul/li）
+  // 会命中分页器的 ul.el-pager：padding + list-style 撑宽页码条、
+  // li + li 的 margin-top 把第 2 个起的所有页码压低 8px。
+  // 这里收敛到零；页码间距仍由 EP 自己的 margin: 0 4px 控制。
+  ul.el-pager,
+  ul.el-pager > li {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+    list-style: none;
+  }
 }
 
 /* ---------- 表格微调 ---------- */
