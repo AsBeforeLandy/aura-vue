@@ -84,7 +84,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch, onBeforeUnmount, type CSSProperties } from 'vue';
+import {
+  computed,
+  onBeforeUnmount,
+  ref,
+  shallowRef,
+  watch,
+  type CSSProperties,
+} from 'vue';
 import { ElButton, ElDialog, vLoading } from 'element-plus';
 import * as pdfjsLib from 'pdfjs-dist';
 import type {
@@ -122,8 +129,11 @@ const canvasRef = ref<HTMLCanvasElement>();
 const stageRef = ref<HTMLDivElement>();
 /** 文档刚加载完，待执行一次「适合宽度」 */
 const fitPendingRef = ref(false);
-const loadingTaskRef = ref<PDFDocumentLoadingTask | null>(null);
-const renderTaskRef = ref<RenderTask | null>(null);
+// pdf.js 的类实例大量基于私有字段（#xxx）：被 Vue 的响应式 Proxy 包一层后，
+// 方法内部的私有字段访问会因 receiver 变成代理而抛
+// 「Cannot read from private field」，因此必须用 shallowRef 存原始实例。
+const loadingTaskRef = shallowRef<PDFDocumentLoadingTask | null>(null);
+const renderTaskRef = shallowRef<RenderTask | null>(null);
 
 const isControlled = computed(() => props.open !== undefined);
 const innerOpen = ref(props.defaultOpen);
@@ -131,7 +141,7 @@ const visible = computed(() =>
   isControlled.value ? (props.open as boolean) : innerOpen.value,
 );
 
-const pdfDoc = ref<PDFDocumentProxy | null>(null);
+const pdfDoc = shallowRef<PDFDocumentProxy | null>(null);
 const numPages = ref(0);
 const pageNumber = ref(1);
 const scale = ref(props.initialScale);

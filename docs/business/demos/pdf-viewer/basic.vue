@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { ElMessage } from 'element-plus';
+import { ElButton, ElMessage } from 'element-plus';
 import { PdfViewer } from '@aura/business';
 
 const open = ref(false);

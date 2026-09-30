@@ -125,13 +125,14 @@ packages/<pkg>/src/<kebab-case-name>/
 
 ## Element Plus 已知坑（本仓库实测）
 
-| 坑                                                     | 处理                                                                                        |
-| ------------------------------------------------------ | ------------------------------------------------------------------------------------------- |
-| `formRef.validate()` 对「未声明规则」的字段一律判失败  | 只校验声明了 rules 的字段（参照 ProForm），或无规则组件直接不调 validate（参照 SearchForm） |
-| happy-dom 下点击 submit 按钮不触发 form 的 submit 事件 | 表单组件的提交按钮用 `@click.prevent` 走 click 通道，`@submit` 仅作回车提交兜底             |
-| ElSelect 的选项渲染在 teleport 弹层内且懒挂载          | 单测断言 `findAllComponents({ name: 'ElOption' })`，别查 DOM 文本                           |
-| ElTable 在 happy-dom 无布局引擎，渲染不出 `<td>`       | 通过 `defineExpose` 的方法断言数据链路，DOM 渲染交给文档站 e2e                              |
-| `v-loading` 指令不会随按需引入自动注册                 | `import { vLoading } from 'element-plus'` 后在 setup 中使用（参照 ProTable / PdfViewer）    |
+| 坑                                                                                                                                                | 处理                                                                                                                                      |
+| ------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `formRef.validate()` 对「未声明规则」的字段一律判失败                                                                                             | 只校验声明了 rules 的字段（参照 ProForm），或无规则组件直接不调 validate（参照 SearchForm）                                               |
+| happy-dom 下点击 submit 按钮不触发 form 的 submit 事件                                                                                            | 表单组件的提交按钮用 `@click.prevent` 走 click 通道，`@submit` 仅作回车提交兜底                                                           |
+| ElSelect 的选项渲染在 teleport 弹层内且懒挂载                                                                                                     | 单测断言 `findAllComponents({ name: 'ElOption' })`，别查 DOM 文本                                                                         |
+| ElTable 在 happy-dom 无布局引擎，渲染不出 `<td>`                                                                                                  | 通过 `defineExpose` 的方法断言数据链路，DOM 渲染交给文档站 e2e                                                                            |
+| `v-loading` 指令不会随按需引入自动注册                                                                                                            | `import { vLoading } from 'element-plus'` 后在 setup 中使用（参照 ProTable / PdfViewer）                                                  |
+| Vue `ref()` 持有基于私有字段的类实例（pdf.js 等）会包成响应式 Proxy，方法内部 `#xxx` 访问因 receiver 变代理而抛「Cannot read from private field」 | 此类实例一律 `shallowRef`（参照 PdfViewer 的 pdfDoc / loadingTaskRef / renderTaskRef）；单测 mock 了 pdfjs 测不出，必须在真浏览器里过一遍 |
 
 ## 移植 / 新增组件的另外四个坑
 
