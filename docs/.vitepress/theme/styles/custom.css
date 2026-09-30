@@ -264,3 +264,11 @@
     margin-top: 36px;
   }
 }
+
+/* ---------- Demo 容器：豁免 markdown 表格样式 ---------- */
+/* .vp-doc table 的 margin: 20px 0 会命中 Element Plus 表格的两张内部表
+   （.el-table__header / .el-table__body），把表头与首行撑开约 40px 空带。
+   demo 里渲染的是组件自身的表格，不参与 markdown 排版。 */
+.vp-doc .demo table {
+  margin: 0;
+}
