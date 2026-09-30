@@ -272,3 +272,41 @@
 .vp-doc .demo table {
   margin: 0;
 }
+
+/* ---------- 宽屏布局：提高空间利用率 ---------- */
+/* 默认主题在 1440px 就整页封顶（--vp-layout-max-width），正文列固定 688px，
+   且目录列 flex-grow 抢占剩余空间；宽屏下两侧各留 ~280px 空白，
+   表格 / 代码块被压缩。分三步放宽：
+   1) ≥1920px 才放开整页上限——VPNavBar / VPContent / VPLocalNav 的对齐
+      公式都是 calc((100vw - 上限) / 2 ± …)，上限小于视口时恒为正、
+      大于视口会出现负 padding；用视口断点保证公式永远成立。
+   2) 正文列 688 → 900px，表格 / demo / 代码块受益最直接。
+   3) aside 改为固定 256px 贴右缘、正文列左对齐贴住侧边栏，
+      富余空间集中到正文与目录之间（主流组件库文档的同款布局）。 */
+@media (min-width: 1920px) {
+  :root {
+    --vp-layout-max-width: 1920px;
+  }
+}
+
+@media (min-width: 1440px) {
+  /* VPDoc 的组件样式是 scoped 的（带 [data-v-xxx] 属性选择器，
+     特异性按类级多计一档，(0,4,0)），普通选择器压不过，
+     scoped 哈希又会随版本变化，只能用 !important 做主题级覆盖。 */
+  body .VPDoc.has-aside .content-container {
+    max-width: 900px !important;
+    /* 左对齐贴住侧边栏（默认主题在此断点以上由 margin: auto 居中） */
+    margin: 0 !important;
+  }
+
+  body .VPDoc.has-aside .aside {
+    flex: 0 0 256px;
+    width: 256px;
+  }
+
+  body .VPDoc.has-aside .content {
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
+  }
+}
