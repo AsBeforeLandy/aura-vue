@@ -2,7 +2,7 @@
 
 详情页的字段展示组件。用一份 `items` 配置描述「有哪些字段、怎么展示」，替代手写一堆 `label: value` 的标签结构。
 
-`valueType` 的取值与 [ProTable](/components/pro-table)、[ProForm](/components/pro-form) 保持一致，降低记忆成本。
+`valueType` 的取值与 [ProTable](/business/pro-table)、[ProForm](/business/pro-form) 保持一致，降低记忆成本。
 
 ## 何时使用
 
@@ -12,11 +12,11 @@
 
 ## 何时不用
 
-| 场景                       | 应该用                                     |
-| -------------------------- | ------------------------------------------ |
-| 只有零星两三个字段         | 直接用普通标签结构，不必引入组件           |
-| 需要展示可编辑内容         | [ProForm](/components/pro-form) 的只读模式 |
-| 数据是列表形态而非单条记录 | [ProTable](/components/pro-table)          |
+| 场景                       | 应该用                                   |
+| -------------------------- | ---------------------------------------- |
+| 只有零星两三个字段         | 直接用普通标签结构，不必引入组件         |
+| 需要展示可编辑内容         | [ProForm](/business/pro-form) 的只读模式 |
+| 数据是列表形态而非单条记录 | [ProTable](/business/pro-table)          |
 
 ## 基础用法
 
@@ -129,6 +129,6 @@ import type {
 
 ## 相关文档
 
-- [ProTable 高级表格](/components/pro-table) — 列表数据展示
-- [ProForm 高级表单](/components/pro-form) — 可在只读模式下复用为详情展示
-- [PageContainer 页面容器](/components/page-container) — 把一个 Description 装进标准详情页外壳
+- [ProTable 高级表格](/business/pro-table) — 列表数据展示
+- [ProForm 高级表单](/business/pro-form) — 可在只读模式下复用为详情展示
+- [PageContainer 页面容器](/business/page-container) — 把一个 Description 装进标准详情页外壳

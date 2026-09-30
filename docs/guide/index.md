@@ -51,13 +51,13 @@ aura-vue/
 
 ### 业务组件（`@aura/business`）
 
-| 组件                                                 | 解决的问题                                       |
-| ---------------------------------------------------- | ------------------------------------------------ |
-| [ProTable 高级表格](/components/pro-table)           | 列表页的「查询 + 表格 + 分页」三件套             |
-| [ProForm 高级表单](/components/pro-form)             | 配置驱动的表单，新增/编辑/查看三态复用一份定义   |
-| [ProModalForm 弹窗表单](/components/pro-modal-form)  | 弹窗表单的提交时序（先校验、后请求、失败不关闭） |
-| [Description 描述列表](/components/description)      | 详情页字段展示，支持分组与嵌套取值               |
-| [PageContainer 页面容器](/components/page-container) | 面包屑 + 标题区 + 内容区 + 吸底操作栏的页面外壳  |
+| 组件                                               | 解决的问题                                       |
+| -------------------------------------------------- | ------------------------------------------------ |
+| [ProTable 高级表格](/business/pro-table)           | 列表页的「查询 + 表格 + 分页」三件套             |
+| [ProForm 高级表单](/business/pro-form)             | 配置驱动的表单，新增/编辑/查看三态复用一份定义   |
+| [ProModalForm 弹窗表单](/business/pro-modal-form)  | 弹窗表单的提交时序（先校验、后请求、失败不关闭） |
+| [Description 描述列表](/business/description)      | 详情页字段展示，支持分组与嵌套取值               |
+| [PageContainer 页面容器](/business/page-container) | 面包屑 + 标题区 + 内容区 + 吸底操作栏的页面外壳  |
 
 ## 浏览器兼容性
 

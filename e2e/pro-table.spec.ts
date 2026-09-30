@@ -20,7 +20,7 @@ import { firstDemo, gotoDocs } from './helpers';
  *   2. Element Plus 未配置中文 locale，分页文案是「Total 46」而不是「共 46 条」。
  */
 
-const TABLE_PAGE = '/components/pro-table';
+const TABLE_PAGE = '/business/pro-table';
 
 test.beforeEach(async ({ page }) => {
   await gotoDocs(page, TABLE_PAGE);

@@ -63,7 +63,7 @@ test.describe('视觉回归（opt-in）', () => {
   });
 
   test('ProTable 渲染', async ({ page }) => {
-    await gotoDocs(page, '/components/pro-table');
+    await gotoDocs(page, '/business/pro-table');
     await page.evaluate(() => document.fonts.ready);
 
     const table = page.locator('.demo-render').first().locator('.el-table');

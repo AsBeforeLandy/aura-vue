@@ -208,6 +208,6 @@ Element Plus 的聚合校验（`formRef.validate()`）在「弹窗 + 动态 item
 
 ## 相关文档
 
-- [ProTable 高级表格](/components/pro-table) — 列表页配置驱动
-- [ProModalForm 弹窗表单](/components/pro-modal-form) — 表单在弹窗中的封装
+- [ProTable 高级表格](/business/pro-table) — 列表页配置驱动
+- [ProModalForm 弹窗表单](/business/pro-modal-form) — 表单在弹窗中的封装
 - [Form 表单](/components/form) — 底层表单组件

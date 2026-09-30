@@ -117,6 +117,6 @@ import type {
 
 ## 相关文档
 
-- [ProTable 高级表格](/components/pro-table) — 放进内容区的典型内容
-- [Description 描述列表](/components/description) — 详情页内容
-- [ProForm 高级表单](/components/pro-form) — 配合吸底 footer 的编辑页
+- [ProTable 高级表格](/business/pro-table) — 放进内容区的典型内容
+- [Description 描述列表](/business/description) — 详情页内容
+- [ProForm 高级表单](/business/pro-form) — 配合吸底 footer 的编辑页

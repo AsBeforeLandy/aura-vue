@@ -2,7 +2,7 @@
 
 「弹窗 + 表单」的组合封装。把三件容易写错的事情一次做对：**打开时回填数据、确认时先校验再提交、提交失败保持弹窗打开**。
 
-内部复用 [ProForm](/components/pro-form)，弹窗部分基于 Element Plus 的 `ElDialog`。
+内部复用 [ProForm](/business/pro-form)，弹窗部分基于 Element Plus 的 `ElDialog`。
 
 ## 何时使用
 
@@ -12,11 +12,11 @@
 
 ## 何时不用
 
-| 场景                         | 应该用                                            |
-| ---------------------------- | ------------------------------------------------- |
-| 字段非常多、需要分步填写     | 独立页面 + [ProForm](/components/pro-form)        |
-| 只是确认操作（是/否）        | 普通确认弹窗即可                                  |
-| 需要左右分栏、侧边抽屉式表单 | 手写 `ElDrawer` + [ProForm](/components/pro-form) |
+| 场景                         | 应该用                                          |
+| ---------------------------- | ----------------------------------------------- |
+| 字段非常多、需要分步填写     | 独立页面 + [ProForm](/business/pro-form)        |
+| 只是确认操作（是/否）        | 普通确认弹窗即可                                |
+| 需要左右分栏、侧边抽屉式表单 | 手写 `ElDrawer` + [ProForm](/business/pro-form) |
 
 ## 基础用法
 
@@ -133,6 +133,6 @@ async function submit(values: Record<string, unknown>) {
 
 ## 相关文档
 
-- [ProForm 高级表单](/components/pro-form) — 表单能力本体
-- [ProTable 高级表格](/components/pro-table) — 列表页
+- [ProForm 高级表单](/business/pro-form) — 表单能力本体
+- [ProTable 高级表格](/business/pro-table) — 列表页
 - [Modal 对话框](/components/modal) — 底层基础组件

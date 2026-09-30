@@ -3,7 +3,7 @@ import { demoPlugin } from './demo-plugin.ts';
 
 export default defineConfig({
   title: 'Aura Vue',
-  description: 'Vue3 基础组件 + 表单组件库',
+  description: 'Vue3 基础组件 + 业务组件库',
   // GitHub Pages 项目页部署在 <user>.github.io/<repo>/ 子路径下
   base: '/aura-vue/',
   cleanUrls: true,
@@ -46,6 +46,11 @@ export default defineConfig({
         text: '组件',
         link: '/components/button',
         activeMatch: '^/components/',
+      },
+      {
+        text: '业务组件',
+        link: '/business/',
+        activeMatch: '^/business/',
       },
       { text: '样式', link: '/styles/', activeMatch: '^/styles/' },
       { text: '更新日志', link: '/changelog', activeMatch: '^/changelog' },
@@ -97,19 +102,24 @@ export default defineConfig({
           text: '反馈',
           items: [{ text: 'Modal 对话框', link: '/components/modal' }],
         },
+      ],
+      // 业务组件独立成 tab 后有自己的 URL 分区（/business/），
+      // 与 React 版 @aura/business 的文档结构保持一致。
+      '/business/': [
         {
           text: '业务组件',
           items: [
-            { text: 'ProTable 高级表格', link: '/components/pro-table' },
-            { text: 'ProForm 高级表单', link: '/components/pro-form' },
+            { text: '概览', link: '/business/' },
+            { text: 'ProTable 高级表格', link: '/business/pro-table' },
+            { text: 'ProForm 高级表单', link: '/business/pro-form' },
             {
               text: 'ProModalForm 弹窗表单',
-              link: '/components/pro-modal-form',
+              link: '/business/pro-modal-form',
             },
-            { text: 'Description 描述列表', link: '/components/description' },
+            { text: 'Description 描述列表', link: '/business/description' },
             {
               text: 'PageContainer 页面容器',
-              link: '/components/page-container',
+              link: '/business/page-container',
             },
           ],
         },
