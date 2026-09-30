@@ -121,6 +121,20 @@ export default defineConfig({
               text: 'PageContainer 页面容器',
               link: '/business/page-container',
             },
+            { text: 'SearchForm 查询表单', link: '/business/search-form' },
+            {
+              text: 'CascaderPanel 级联多选面板',
+              link: '/business/cascader-panel',
+            },
+            {
+              text: 'WeekTimeRange 周时间段',
+              link: '/business/week-time-range',
+            },
+            {
+              text: 'YearCalendar 年历选择器',
+              link: '/business/year-calendar',
+            },
+            { text: 'PdfViewer PDF 预览', link: '/business/pdf-viewer' },
           ],
         },
       ],

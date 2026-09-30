@@ -9,6 +9,14 @@
   --aura-text-secondary: rgba(0, 0, 0, 0.55);
   --aura-radius: 6px;
 
+  // ── 表面层令牌 ──
+  // hover / 激活等「次级表面」用色。亮暗两套：暗色由下方 html.dark 覆盖。
+  --aura-bg-soft: #f5f5f5;
+  --aura-primary-soft: #f3edfd;
+  // 拖拽框选遮罩底色：主色的透明派生色收在令牌层，
+  // 避免组件样式中用 color-mix 抬高浏览器的 CSS 特性下限。
+  --aura-selection-bg: rgba(124, 58, 237, 0.2);
+
   // ── 动效令牌 ──
   // 所有过渡时长都从这里取，不要在各组件里写死。
   // 这样「尊重系统偏好」只需覆盖一次（见下方媒体查询），
@@ -38,4 +46,16 @@
     --aura-duration-base: 0s;
     --aura-spin-duration: 2.4s;
   }
+}
+
+/**
+ * 暗色主题下的表面层令牌。
+ *
+ * 颜色 / 文本类令牌由各组件的 html.dark 块带 fallback 自理，
+ * 这里只补「组件自身无法从上下文推导」的表面层派生色。
+ */
+html.dark {
+  --aura-bg-soft: #26232f;
+  --aura-primary-soft: #312a4a;
+  --aura-selection-bg: rgba(124, 58, 237, 0.45);
 }

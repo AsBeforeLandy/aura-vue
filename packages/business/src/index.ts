@@ -4,12 +4,22 @@ import { ProForm } from './pro-form';
 import { ProModalForm } from './pro-modal-form';
 import { Description } from './description';
 import { PageContainer } from './page-container';
+import { SearchForm } from './search-form';
+import { CascaderPanel } from './cascader-panel';
+import { WeekTimeRange } from './week-time-range';
+import { YearCalendar } from './year-calendar';
+import { PdfViewer } from './pdf-viewer';
 
 export * from './pro-table';
 export * from './pro-form';
 export * from './pro-modal-form';
 export * from './description';
 export * from './page-container';
+export * from './search-form';
+export * from './cascader-panel';
+export * from './week-time-range';
+export * from './year-calendar';
+export * from './pdf-viewer';
 
 /** 业务组件清单，供全量注册与文档站枚举复用 */
 export const businessComponents = {
@@ -18,6 +28,11 @@ export const businessComponents = {
   ProModalForm,
   Description,
   PageContainer,
+  SearchForm,
+  CascaderPanel,
+  WeekTimeRange,
+  YearCalendar,
+  PdfViewer,
 } as const;
 
 /**

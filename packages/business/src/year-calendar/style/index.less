@@ -1,0 +1,143 @@
+/**
+ * YearCalendar 年历选择器样式
+ *
+ * 命名遵循组件库 BEM 约定（aura-year-calendar）。颜色全部走 CSS 变量，
+ * 使用方可直接覆盖换肤。
+ */
+
+.aura-year-calendar {
+  /* 可通过覆盖这些变量调整密度 */
+  --aura-yc-cell: 13px;
+  --aura-yc-gap: 2px;
+  /* 月份分组间隔：设为 0 则月份之间紧贴（仅保留基础格间隙） */
+  --aura-yc-month-gap: 0;
+  --aura-yc-weeks-width: 26px;
+  --aura-yc-label-height: 18px;
+  /* 非本年日期（首尾凑整周）的底色 */
+  --aura-yc-outside-bg: var(--aura-bg-soft, #f5f5f5);
+
+  position: relative;
+  user-select: none;
+
+  .aura-year-calendar-title {
+    margin: 0 0 12px;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    color: var(--aura-text, rgba(0, 0, 0, 0.88));
+  }
+
+  /* ---------- 滚动容器 ---------- */
+  .aura-year-calendar-scroll {
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .aura-year-calendar-inner {
+    min-width: max-content;
+  }
+
+  /* ---------- 月份标签 ---------- */
+  .aura-year-calendar-months {
+    position: relative;
+    height: var(--aura-yc-label-height);
+    /* 与主体区左侧的星期标签对齐 */
+    margin-left: var(--aura-yc-weeks-width);
+  }
+
+  .aura-year-calendar-month-label {
+    position: absolute;
+    top: 0;
+    height: var(--aura-yc-label-height);
+    line-height: var(--aura-yc-label-height);
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    color: var(--aura-text-secondary, rgba(0, 0, 0, 0.55));
+    white-space: nowrap;
+  }
+
+  /* ---------- 主体：星期标签 + 连续网格 ---------- */
+  .aura-year-calendar-main {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .aura-year-calendar-weeks {
+    display: flex;
+    flex: 0 0 var(--aura-yc-weeks-width);
+    flex-direction: column;
+    gap: var(--aura-yc-gap);
+  }
+
+  .aura-year-calendar-week-label {
+    height: var(--aura-yc-cell);
+    line-height: var(--aura-yc-cell);
+    font-size: 12px;
+    text-align: right;
+    padding-right: 8px;
+    color: var(--aura-text-secondary, rgba(0, 0, 0, 0.55));
+  }
+
+  /* 连续网格：每列一周，7 格填满，无空白位 */
+  .aura-year-calendar-grid {
+    display: flex;
+    gap: var(--aura-yc-gap);
+    position: relative;
+  }
+
+  .aura-year-calendar-week {
+    display: flex;
+    flex-direction: column;
+    gap: var(--aura-yc-gap);
+  }
+
+  /* ---------- 日期格 ---------- */
+  .aura-year-calendar-day {
+    width: var(--aura-yc-cell);
+    height: var(--aura-yc-cell);
+    border-radius: 2px;
+    cursor: pointer;
+    transition:
+      transform var(--aura-duration-fast) var(--aura-easing),
+      background var(--aura-duration-fast) var(--aura-easing);
+
+    &:hover {
+      transform: scale(1.25);
+    }
+  }
+
+  .aura-year-calendar-day:focus-visible {
+    outline: 2px solid var(--aura-color-primary, #7c3aed);
+    outline-offset: 1px;
+  }
+
+  /* 非本年日期：仅用于凑满首尾整周，不可交互 */
+  .aura-year-calendar-day-outside {
+    background: var(--aura-yc-outside-bg);
+    cursor: default;
+    pointer-events: none;
+
+    &:hover {
+      transform: none;
+      background: var(--aura-yc-outside-bg);
+    }
+  }
+
+  /* 拖拽选区遮罩 */
+  .aura-year-calendar-selection {
+    z-index: 2;
+    // 底色由令牌提供（--aura-selection-bg）：主色的透明派生色收在令牌层，
+    // 避免在组件样式中用 color-mix 抬高浏览器的 CSS 特性下限。
+    background: var(--aura-selection-bg, rgba(124, 58, 237, 0.2));
+    border: 1px solid var(--aura-color-primary, #7c3aed);
+    border-radius: 2px;
+  }
+
+  /* ---------- 底部附加内容 ---------- */
+  .aura-year-calendar-extra {
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--aura-text-secondary, rgba(0, 0, 0, 0.55));
+  }
+}

@@ -3,21 +3,31 @@ import { createApp } from 'vue';
 import AuraBusiness, {
   AuraBusiness as NamedPlugin,
   businessComponents,
+  CascaderPanel,
   Description,
   PageContainer,
+  PdfViewer,
   ProForm,
   ProModalForm,
   ProTable,
+  SearchForm,
+  WeekTimeRange,
+  YearCalendar,
 } from '../src/index';
 
 describe('businessComponents 清单', () => {
-  it('正常：覆盖全部五个业务组件', () => {
+  it('正常：覆盖全部十个业务组件', () => {
     expect(Object.keys(businessComponents).sort()).toEqual([
+      'CascaderPanel',
       'Description',
       'PageContainer',
+      'PdfViewer',
       'ProForm',
       'ProModalForm',
       'ProTable',
+      'SearchForm',
+      'WeekTimeRange',
+      'YearCalendar',
     ]);
   });
 
@@ -27,6 +37,11 @@ describe('businessComponents 清单', () => {
     expect(businessComponents.ProModalForm).toBe(ProModalForm);
     expect(businessComponents.Description).toBe(Description);
     expect(businessComponents.PageContainer).toBe(PageContainer);
+    expect(businessComponents.SearchForm).toBe(SearchForm);
+    expect(businessComponents.CascaderPanel).toBe(CascaderPanel);
+    expect(businessComponents.WeekTimeRange).toBe(WeekTimeRange);
+    expect(businessComponents.YearCalendar).toBe(YearCalendar);
+    expect(businessComponents.PdfViewer).toBe(PdfViewer);
   });
 });
 

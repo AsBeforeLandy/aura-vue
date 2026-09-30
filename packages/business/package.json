@@ -61,7 +61,8 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
-    "lodash-unified": "^1.0.3"
+    "lodash-unified": "^1.0.3",
+    "pdfjs-dist": "6.3.289"
   },
   "devDependencies": {
     "@aura/shared": "workspace:*",

@@ -1,0 +1,51 @@
+/**
+ * SearchForm 查询表单样式
+ *
+ * 命名遵循组件库 BEM 约定（aura-search-form）。颜色全部走 CSS 变量，
+ * 使用方可直接覆盖换肤。不重写 Element Plus 的内部类，只做外壳布局。
+ */
+
+.aura-search-form {
+  padding: 16px 16px 0;
+  background: var(--aura-bg, #fff);
+  border: 1px solid var(--aura-border-color, #d9d9d9);
+  border-radius: var(--aura-radius, 6px);
+
+  // 字段与操作区共用底部间距，保证换行时对齐
+  .aura-search-form-field {
+    margin-bottom: 16px;
+  }
+
+  .el-form-item__label {
+    color: var(--aura-text-secondary, rgba(0, 0, 0, 0.55));
+  }
+}
+
+.aura-search-form-actions {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-bottom: 16px;
+  // 允许按钮组换行，窄屏下不至于溢出
+  flex-wrap: wrap;
+}
+
+.aura-search-form-arrow {
+  margin-left: 2px;
+  transition: transform var(--aura-duration-base) var(--aura-easing);
+  vertical-align: -2px;
+
+  &.is-open {
+    transform: rotate(180deg);
+  }
+}
+
+/* ---------- 暗色主题 ---------- */
+html.dark {
+  .aura-search-form {
+    background: var(--aura-bg, #1b1a22);
+    border-color: var(--aura-border-color, #322e42);
+  }
+}

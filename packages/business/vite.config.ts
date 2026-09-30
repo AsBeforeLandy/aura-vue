@@ -37,6 +37,11 @@ export default defineConfig({
         'element-plus',
         /^element-plus\//,
         '@element-plus/icons-vue',
+        // pdfjs-dist 与 EP 同理是运行时依赖：外部化交由使用方打包器处理，
+        // 否则动态 import 的 worker（1.5MB）会被 Rollup 拆进本包产物，
+        // 既撑爆体积预算，也与「按需加载、绕开打包器」的设计意图相悖。
+        'pdfjs-dist',
+        /^pdfjs-dist\//,
       ],
       output: {
         preserveModules: true,

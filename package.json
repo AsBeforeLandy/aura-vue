@@ -53,7 +53,7 @@
     {
       "name": "business (全量 esm)",
       "path": "packages/business/dist/**/*.js",
-      "limit": "19 kB"
+      "limit": "32 kB"
     }
   ],
   "keywords": [

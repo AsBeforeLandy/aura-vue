@@ -1,0 +1,169 @@
+/**
+ * WeekTimeRange 周时间段选择器样式
+ *
+ * 命名遵循组件库 BEM 约定（aura-week-time-range）。颜色全部走 CSS 变量，
+ * 使用方可直接覆盖换肤。
+ */
+
+.aura-week-time-range {
+  /* 可通过覆盖这些变量调整矩阵密度 */
+  --aura-wtr-label-width: 82px;
+  --aura-wtr-cell-width: 11px;
+  --aura-wtr-cell-height: 26px;
+  /* 单元格上下左右统一间隙（独立块 + 间隙透底） */
+  --aura-wtr-gap: 2px;
+
+  /* 横向滚动容器（矩阵较宽） */
+  .aura-week-time-range-scroll {
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  /* 整体外框：包裹矩阵与摘要 */
+  .aura-week-time-range-frame {
+    display: inline-block;
+    border: 1px solid var(--aura-border-color, #d9d9d9);
+    border-radius: var(--aura-radius, 6px);
+    overflow: hidden;
+  }
+
+  /* 统一网格：表头两行 + 数据行共用行列轨道，间隔天然一致 */
+  .aura-week-time-range-matrix {
+    display: grid;
+    column-gap: var(--aura-wtr-gap);
+    row-gap: var(--aura-wtr-gap);
+    padding: var(--aura-wtr-gap);
+    position: relative;
+    min-width: max-content;
+  }
+
+  /* ---------- 标签块（半天标题 / 小时刻度 / 星期标签） ---------- */
+  .aura-week-time-range-half,
+  .aura-week-time-range-hour,
+  .aura-week-time-range-week {
+    box-sizing: border-box;
+    height: 28px;
+    line-height: 26px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--aura-text-secondary, rgba(0, 0, 0, 0.55));
+    background: var(--aura-bg-soft, #f5f5f5);
+    border: 1px solid var(--aura-border-color, #d9d9d9);
+    border-radius: 2px;
+  }
+
+  .aura-week-time-range-half {
+    color: var(--aura-text, rgba(0, 0, 0, 0.88));
+    font-weight: 600;
+  }
+
+  /* 角标签：跨「半天标题 + 小时刻度」两行合并为一个单元格，文本居中 */
+  .aura-week-time-range-corner {
+    box-sizing: border-box;
+    grid-row: span 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--aura-text, rgba(0, 0, 0, 0.88));
+    background: var(--aura-bg-soft, #f5f5f5);
+    border: 1px solid var(--aura-border-color, #d9d9d9);
+    border-radius: 2px;
+  }
+
+  .aura-week-time-range-week {
+    font-weight: 500;
+  }
+
+  .aura-week-time-range-cell {
+    box-sizing: border-box;
+    height: var(--aura-wtr-cell-height);
+    /* 白底 + 浅描边：轮廓清晰，与选中态的实心色块形成干净对比 */
+    background: var(--aura-bg, #fff);
+    border: 1px solid var(--aura-border-color, #d9d9d9);
+    border-radius: 2px;
+    cursor: pointer;
+    transition:
+      background var(--aura-duration-fast) var(--aura-easing),
+      opacity var(--aura-duration-fast) var(--aura-easing);
+
+    &:hover {
+      background: var(--aura-primary-soft, #f3edfd);
+    }
+  }
+
+  /* 选中态背景色由内联 style 提供（便于 color 属性覆盖），此处只做 hover 反馈 */
+  .aura-week-time-range-cell-selected {
+    border-color: var(--aura-color-primary, #7c3aed);
+
+    &:hover {
+      opacity: 0.85;
+    }
+  }
+
+  /* 拖拽选区遮罩 */
+  .aura-week-time-range-selection {
+    z-index: 2;
+    // 底色由令牌提供（--aura-selection-bg）：主色的透明派生色收在令牌层，
+    // 避免在组件样式中用 color-mix 抬高浏览器的 CSS 特性下限。
+    background: var(--aura-selection-bg, rgba(124, 58, 237, 0.2));
+    border: 1px solid var(--aura-color-primary, #7c3aed);
+    border-radius: 2px;
+  }
+
+  /* ---------- 底部摘要（位于外框内，宽度随矩阵） ---------- */
+  .aura-week-time-range-summary {
+    padding: 12px;
+    font-size: 13px;
+    color: var(--aura-text-secondary, rgba(0, 0, 0, 0.55));
+    background: var(--aura-bg-soft, #f5f5f5);
+    border-top: 1px solid var(--aura-border-color, #d9d9d9);
+  }
+
+  .aura-week-time-range-summary-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .aura-week-time-range-summary-row {
+    display: flex;
+    margin-top: 4px;
+    color: var(--aura-text, rgba(0, 0, 0, 0.88));
+  }
+
+  .aura-week-time-range-summary-label {
+    flex: 0 0 56px;
+    color: var(--aura-text-secondary, rgba(0, 0, 0, 0.55));
+  }
+
+  .aura-week-time-range-clear {
+    padding: 0;
+    color: var(--aura-color-primary, #7c3aed);
+    font-size: 13px;
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    &:disabled {
+      color: var(--aura-text-secondary, rgba(0, 0, 0, 0.55));
+      cursor: not-allowed;
+    }
+  }
+
+  /* ---------- 只读 ---------- */
+  &.aura-week-time-range--disabled {
+    .aura-week-time-range-cell {
+      cursor: not-allowed;
+
+      &:hover {
+        background: var(--aura-bg-soft, #f5f5f5);
+      }
+    }
+
+    .aura-week-time-range-cell-selected:hover {
+      opacity: 1;
+    }
+  }
+}

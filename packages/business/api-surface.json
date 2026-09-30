@@ -1,26 +1,54 @@
 {
   "exports": [
     "AuraBusiness",
+    "CascaderPanel",
+    "DEFAULT_SCALE_RANGE",
     "Description",
     "PageContainer",
+    "PdfViewer",
     "ProForm",
     "ProModalForm",
     "ProTable",
+    "ROTATION_STEP",
+    "SCALE_STEP",
+    "SearchForm",
+    "WeekTimeRange",
+    "YearCalendar",
+    "buildSlots",
+    "buildYearWeeks",
     "businessComponents",
+    "cascaderPanelProps",
+    "clamp",
+    "clampPage",
+    "createEmptyValue",
     "default",
     "descriptionProps",
+    "expandWithDescendants",
     "formatDate",
+    "formatMinutes",
     "formatMoney",
     "getByPath",
+    "isCovered",
+    "isRenderCancelled",
+    "mergeRanges",
+    "normalizeRotation",
     "normalizeRules",
     "omitEmpty",
     "pageContainerProps",
+    "parseTime",
+    "pdfViewerProps",
+    "pickTopSelected",
     "proFormProps",
     "proModalFormProps",
     "proTableProps",
     "renderCell",
     "renderControl",
-    "resolveTitle"
+    "resolveTitle",
+    "searchFormProps",
+    "stepScale",
+    "subtractRange",
+    "weekTimeRangeProps",
+    "yearCalendarProps"
   ],
   "componentMap": "businessComponents",
   "components": {
@@ -318,6 +346,188 @@
         }
       },
       "emits": ["back"]
+    },
+    "SearchForm": {
+      "props": {
+        "collapseAfter": {
+          "type": ["Number"],
+          "default": 3
+        },
+        "defaultCollapsed": {
+          "type": ["Boolean"],
+          "default": true
+        },
+        "fields": {
+          "type": ["Array"],
+          "required": true
+        },
+        "initialValues": {
+          "type": ["Object"],
+          "default": "[function]"
+        },
+        "loading": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "resetText": {
+          "type": ["String"],
+          "default": "重置"
+        },
+        "submitText": {
+          "type": ["String"],
+          "default": "查询"
+        }
+      },
+      "emits": ["reset", "search"]
+    },
+    "CascaderPanel": {
+      "props": {
+        "modelValue": {
+          "type": ["Array"]
+        },
+        "options": {
+          "type": ["Array"],
+          "required": true
+        },
+        "title": {
+          "type": ["String"],
+          "default": ""
+        }
+      },
+      "emits": ["change", "current-click", "update:modelValue"]
+    },
+    "WeekTimeRange": {
+      "props": {
+        "cellHeight": {
+          "type": ["Number", "String"]
+        },
+        "cellWidth": {
+          "type": ["Number", "String"]
+        },
+        "color": {
+          "type": ["String"],
+          "default": "var(--aura-color-primary)"
+        },
+        "defaultValue": {
+          "type": ["Array"]
+        },
+        "disabled": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "modelValue": {
+          "type": ["Array"]
+        },
+        "selectionStyle": {
+          "type": ["Object"]
+        },
+        "showSummary": {
+          "type": ["Boolean"],
+          "default": true
+        },
+        "stepMinutes": {
+          "type": ["Number"],
+          "default": 30
+        },
+        "weekLabels": {
+          "type": ["Array"]
+        },
+        "weekStartsOn": {
+          "type": ["Number"],
+          "default": 1
+        }
+      },
+      "emits": ["change", "update:modelValue"]
+    },
+    "YearCalendar": {
+      "props": {
+        "cellSize": {
+          "type": ["Number", "String"]
+        },
+        "color": {
+          "type": ["String"],
+          "default": "var(--aura-border-color)"
+        },
+        "defaultValue": {
+          "type": ["Array"]
+        },
+        "hideYearTitle": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "modelValue": {
+          "type": ["Array"]
+        },
+        "monthLabels": {
+          "type": ["Array"]
+        },
+        "outsideColor": {
+          "type": ["String"],
+          "default": "var(--aura-bg-soft)"
+        },
+        "selectedColor": {
+          "type": ["String"],
+          "default": "var(--aura-color-primary)"
+        },
+        "selectionStyle": {
+          "type": ["Object"]
+        },
+        "weekLabels": {
+          "type": ["Array"]
+        },
+        "weekStartsOn": {
+          "type": ["Number"],
+          "default": 1
+        },
+        "year": {
+          "type": ["Number"]
+        }
+      },
+      "emits": ["change", "update:modelValue"]
+    },
+    "PdfViewer": {
+      "props": {
+        "assetBaseUrl": {
+          "type": ["String"]
+        },
+        "autoFitWidth": {
+          "type": ["Boolean"],
+          "default": true
+        },
+        "defaultOpen": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "initialScale": {
+          "type": ["Number"],
+          "default": 1
+        },
+        "open": {
+          "type": ["Boolean"]
+        },
+        "pdfjsSrc": {
+          "type": ["String"]
+        },
+        "scaleRange": {
+          "type": ["Array"],
+          "default": "[function]"
+        },
+        "title": {
+          "type": ["String"],
+          "default": "文档预览"
+        },
+        "url": {
+          "type": ["String"]
+        },
+        "width": {
+          "type": ["Number", "String"],
+          "default": "210mm"
+        },
+        "workerSrc": {
+          "type": ["String"]
+        }
+      },
+      "emits": ["open-change", "page-change", "update:open"]
     }
   }
 }
