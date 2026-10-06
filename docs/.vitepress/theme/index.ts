@@ -80,6 +80,10 @@ import '@aura/components/src/form/style/index.less';
 import '@aura/components/src/switch/style/index.less';
 import '@aura/components/src/select/style/index.less';
 import '@aura/components/src/modal/style/index.less';
+import '@aura/components/src/divider/style/index.less';
+import '@aura/components/src/space/style/index.less';
+import '@aura/components/src/tag/style/index.less';
+import '@aura/components/src/typography/style/index.less';
 import '@aura/business/src/style/index.less';
 
 /**

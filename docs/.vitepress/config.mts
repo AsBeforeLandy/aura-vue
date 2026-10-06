@@ -91,6 +91,20 @@ export default defineConfig({
           ],
         },
         {
+          text: '布局',
+          items: [
+            { text: 'Divider 分割线', link: '/components/divider' },
+            { text: 'Space 间距', link: '/components/space' },
+          ],
+        },
+        {
+          text: '数据展示',
+          items: [
+            { text: 'Tag 标签', link: '/components/tag' },
+            { text: 'Typography 排版', link: '/components/typography' },
+          ],
+        },
+        {
           text: '表单',
           items: [
             { text: 'Form 表单', link: '/components/form' },

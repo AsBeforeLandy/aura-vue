@@ -1,0 +1,62 @@
+@import '../../style/base.less';
+
+.aura-space {
+  display: flex;
+
+  &--horizontal {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &--vertical {
+    // 不用默认的 stretch：垂直堆叠时按钮会被拉成通栏
+    align-items: flex-start;
+  }
+
+  // ── 间距档位（走间距令牌）──
+  &--size-small {
+    gap: var(--aura-space-small);
+  }
+
+  &--size-middle {
+    gap: var(--aura-space-middle);
+  }
+
+  &--size-large {
+    gap: var(--aura-space-large);
+  }
+
+  // 换行时行间距沿用同一个档位，避免出现「列距 ≠ 行距」的错位感
+  &--wrap&--horizontal {
+    flex-wrap: wrap;
+
+    &.aura-space--size-small {
+      row-gap: var(--aura-space-small);
+    }
+
+    &.aura-space--size-middle {
+      row-gap: var(--aura-space-middle);
+    }
+
+    &.aura-space--size-large {
+      row-gap: var(--aura-space-large);
+    }
+  }
+
+  // ── 对齐方式（显式传入时覆盖方向默认值）──
+  &--align-start {
+    align-items: flex-start;
+  }
+
+  &--align-center {
+    align-items: center;
+  }
+
+  &--align-end {
+    align-items: flex-end;
+  }
+
+  &--align-baseline {
+    align-items: baseline;
+  }
+}

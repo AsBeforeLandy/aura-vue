@@ -9,6 +9,12 @@
   --aura-text-secondary: rgba(0, 0, 0, 0.55);
   --aura-radius: 6px;
 
+  // ── 间距令牌 ──
+  // 与设计规范对齐（docs/components/button.md 的「相邻间距 12px」）。
+  --aura-space-small: 8px;
+  --aura-space-middle: 12px;
+  --aura-space-large: 16px;
+
   // ── 表面层令牌 ──
   // hover / 激活等「次级表面」用色。亮暗两套：暗色由下方 html.dark 覆盖。
   --aura-bg-soft: #f5f5f5;
@@ -16,6 +22,18 @@
   // 拖拽框选遮罩底色：主色的透明派生色收在令牌层，
   // 避免组件样式中用 color-mix 抬高浏览器的 CSS 特性下限。
   --aura-selection-bg: rgba(124, 58, 237, 0.2);
+
+  // ── 语义色的柔和表面与文字级变体 ──
+  // 标签 / 徽标这类「浅底深字」组合：
+  //   - 柔和表面：主色的低透明度派生，替代直接铺饱和色；
+  //   - 文字级变体：12px 小字直接用主色对比度不足，加深一档保证可读。
+  // 亮暗两套：暗色由下方 html.dark 覆盖。
+  --aura-success-soft: rgba(34, 197, 94, 0.14);
+  --aura-warning-soft: rgba(245, 158, 11, 0.14);
+  --aura-danger-soft: rgba(239, 68, 68, 0.14);
+  --aura-color-success-strong: #15803d;
+  --aura-color-warning-strong: #b45309;
+  --aura-color-danger-strong: #b91c1c;
 
   // ── 动效令牌 ──
   // 所有过渡时长都从这里取，不要在各组件里写死。
@@ -58,4 +76,12 @@ html.dark {
   --aura-bg-soft: #26232f;
   --aura-primary-soft: #312a4a;
   --aura-selection-bg: rgba(124, 58, 237, 0.45);
+
+  // 暗色下语义色转为亮色文字、柔和表面随之加深一档
+  --aura-success-soft: rgba(34, 197, 94, 0.24);
+  --aura-warning-soft: rgba(245, 158, 11, 0.24);
+  --aura-danger-soft: rgba(239, 68, 68, 0.24);
+  --aura-color-success-strong: #4ade80;
+  --aura-color-warning-strong: #fbbf24;
+  --aura-color-danger-strong: #f87171;
 }

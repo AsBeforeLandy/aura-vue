@@ -1,0 +1,75 @@
+@import '../../style/base.less';
+
+.aura-divider {
+  &--horizontal {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: var(--aura-space-large) 0;
+    border-top: 1px solid var(--aura-border-color);
+  }
+
+  &--vertical {
+    display: inline-block;
+    align-self: stretch;
+    width: 1px;
+    min-height: 1em;
+    margin: 0 var(--aura-space-small);
+    border-left: 1px solid var(--aura-border-color);
+  }
+
+  // 虚线
+  &--dashed&--horizontal {
+    border-top-style: dashed;
+  }
+
+  &--dashed&--vertical {
+    border-left-style: dashed;
+  }
+
+  // ── 带文字的水平分割线 ──
+  // 线条改由伪元素绘制，文字夹在中间；
+  // 这样「左 / 中 / 右」三种文字位置只需要控制伪元素的显隐。
+  &--with-text&--horizontal {
+    border-top: 0;
+
+    &::before,
+    &::after {
+      content: '';
+      flex: 1;
+      border-top: 1px solid var(--aura-border-color);
+    }
+  }
+
+  &--dashed&--with-text&--horizontal {
+    &::before,
+    &::after {
+      border-top-style: dashed;
+    }
+  }
+
+  &-text {
+    padding: 0 var(--aura-space-small);
+    color: var(--aura-text);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  // 文字靠左：只保留右侧线段
+  &--left&--with-text&--horizontal::before {
+    display: none;
+  }
+
+  &--left&--with-text &-text {
+    padding-right: var(--aura-space-middle);
+  }
+
+  // 文字靠右：只保留左侧线段
+  &--right&--with-text&--horizontal::after {
+    display: none;
+  }
+
+  &--right&--with-text &-text {
+    padding-left: var(--aura-space-middle);
+  }
+}

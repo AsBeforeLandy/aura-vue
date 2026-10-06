@@ -1,0 +1,68 @@
+@import '../../style/base.less';
+
+.aura-typography {
+  margin: 0;
+  color: var(--aura-text);
+
+  // ── 标题层级 ──
+  // 字号梯度与文档站的标题观感保持一致；
+  // 未指定 level 时渲染为段落，字号 14px 与正文字号一致。
+  &--h1 {
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 600;
+  }
+
+  &--h2 {
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 600;
+  }
+
+  &--h3 {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 600;
+  }
+
+  &--h4 {
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: 600;
+  }
+
+  // ── 语义色 ──
+  &--secondary {
+    color: var(--aura-text-secondary);
+  }
+
+  &--success {
+    color: var(--aura-color-success);
+  }
+
+  &--warning {
+    color: var(--aura-color-warning);
+  }
+
+  &--danger {
+    color: var(--aura-color-danger);
+  }
+
+  // ── 行内强调 ──
+  &--strong {
+    font-weight: 600;
+  }
+
+  &--underline {
+    text-decoration: underline;
+  }
+
+  &--delete {
+    text-decoration: line-through;
+  }
+
+  // 同时开下划线与删除线时浏览器只会应用后声明的那条，需要显式合并
+  &--underline&--delete {
+    text-decoration: underline line-through;
+  }
+}

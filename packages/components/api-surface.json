@@ -2,15 +2,20 @@
   "exports": [
     "AuraComponents",
     "Button",
+    "Divider",
     "Form",
     "FormItem",
     "Input",
     "Modal",
     "Select",
+    "Space",
     "Switch",
+    "Tag",
+    "Typography",
     "buttonProps",
     "components",
     "default",
+    "dividerProps",
     "formContextKey",
     "formItemHookKey",
     "formItemProps",
@@ -18,7 +23,10 @@
     "inputProps",
     "modalProps",
     "selectProps",
+    "spaceProps",
     "switchProps",
+    "tagProps",
+    "typographyProps",
     "useControllable",
     "validateValue"
   ],
@@ -168,6 +176,86 @@
         }
       },
       "emits": ["cancel", "close", "ok", "update:modelValue"]
+    },
+    "Divider": {
+      "props": {
+        "dashed": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "direction": {
+          "type": ["String"],
+          "default": "horizontal"
+        },
+        "orientation": {
+          "type": ["String"],
+          "default": "center"
+        }
+      },
+      "emits": []
+    },
+    "Space": {
+      "props": {
+        "align": {
+          "type": ["String"]
+        },
+        "direction": {
+          "type": ["String"],
+          "default": "horizontal"
+        },
+        "size": {
+          "type": ["Number", "String"],
+          "default": "middle"
+        },
+        "wrap": {
+          "type": ["Boolean"],
+          "default": false
+        }
+      },
+      "emits": []
+    },
+    "Tag": {
+      "props": {
+        "closable": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "defaultVisible": {
+          "type": ["Boolean"],
+          "default": true
+        },
+        "type": {
+          "type": ["String"],
+          "default": "info"
+        },
+        "visible": {
+          "type": ["Boolean"]
+        }
+      },
+      "emits": ["close", "update:visible"]
+    },
+    "Typography": {
+      "props": {
+        "delete": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "level": {
+          "type": ["Number"]
+        },
+        "strong": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "type": {
+          "type": ["String"]
+        },
+        "underline": {
+          "type": ["Boolean"],
+          "default": false
+        }
+      },
+      "emits": []
     }
   }
 }

@@ -5,6 +5,10 @@ import { Form, FormItem } from './form';
 import { Switch } from './switch';
 import { Select } from './select';
 import { Modal } from './modal';
+import { Divider } from './divider';
+import { Space } from './space';
+import { Tag } from './tag';
+import { Typography } from './typography';
 
 export * from './button';
 export * from './input';
@@ -12,6 +16,10 @@ export * from './form';
 export * from './switch';
 export * from './select';
 export * from './modal';
+export * from './divider';
+export * from './space';
+export * from './tag';
+export * from './typography';
 export * from './composables/use-controllable';
 
 /** 组件清单，供全量注册与文档站枚举复用 */
@@ -23,6 +31,10 @@ export const components = {
   Switch,
   Select,
   Modal,
+  Divider,
+  Space,
+  Tag,
+  Typography,
 } as const;
 
 /**

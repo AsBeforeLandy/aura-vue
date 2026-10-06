@@ -1,0 +1,70 @@
+@import '../../style/base.less';
+
+.aura-tag {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 8px;
+  border: 1px solid var(--aura-border-color);
+  border-radius: var(--aura-radius);
+  font-size: 12px;
+  line-height: 20px;
+  white-space: nowrap;
+  color: var(--aura-text);
+  background: var(--aura-bg-soft);
+
+  // 关闭按钮继承了根的行高，保证点击区不小于字形
+  &-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin-left: 4px;
+    border: 0;
+    background: none;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1;
+    color: inherit;
+    opacity: 0.6;
+    cursor: pointer;
+    transition: opacity var(--aura-duration-fast) var(--aura-easing);
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--aura-color-primary);
+      outline-offset: 1px;
+      border-radius: 2px;
+    }
+  }
+
+  // ── 语义色 ──
+  // 「柔和表面 + 加深文字」的浅底深字组合；不直接铺饱和色，
+  // 避免与周边内容抢视觉。文字用 -strong 变体保证 12px 小字的对比度。
+  &--primary {
+    border-color: transparent;
+    color: var(--aura-color-primary);
+    background: var(--aura-primary-soft);
+  }
+
+  &--success {
+    border-color: transparent;
+    color: var(--aura-color-success-strong);
+    background: var(--aura-success-soft);
+  }
+
+  &--warning {
+    border-color: transparent;
+    color: var(--aura-color-warning-strong);
+    background: var(--aura-warning-soft);
+  }
+
+  &--danger {
+    border-color: transparent;
+    color: var(--aura-color-danger-strong);
+    background: var(--aura-danger-soft);
+  }
+}

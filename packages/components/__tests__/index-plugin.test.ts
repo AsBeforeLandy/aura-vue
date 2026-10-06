@@ -16,12 +16,16 @@ describe('components 清单', () => {
   it('正常：覆盖全部基础组件', () => {
     expect(Object.keys(components).sort()).toEqual([
       'Button',
+      'Divider',
       'Form',
       'FormItem',
       'Input',
       'Modal',
       'Select',
+      'Space',
       'Switch',
+      'Tag',
+      'Typography',
     ]);
   });
 });
