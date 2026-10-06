@@ -47,8 +47,20 @@ jobs:
       # 发布前的校验与 CI 保持一致：不通过就不该发出去。
       # 这里刻意复用单步 verify，而不是再抄一份步骤清单——
       # 同一份链路定义在两处必然漂移。
+      #
+      # 输出落盘 + 失败时上传：verify 链路长（8 个门禁串联），
+      # 而 Actions 的日志接口需要鉴权，注解里只有「exit code 1」——
+      # 没有这份日志，链路里任何一个环节偶发失败都无法定位。
       - name: Verify
-        run: pnpm verify
+        run: pnpm verify 2>&1 | tee verify.log; test ${PIPESTATUS[0]} -eq 0
+
+      - name: Upload verify log
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-verify-log
+          path: verify.log
+          retention-days: 7
 
       - name: Publish to npm
         if: ${{ env.NPM_TOKEN != '' }}
