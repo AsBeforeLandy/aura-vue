@@ -84,6 +84,10 @@ import '@aura/components/src/divider/style/index.less';
 import '@aura/components/src/space/style/index.less';
 import '@aura/components/src/tag/style/index.less';
 import '@aura/components/src/typography/style/index.less';
+import '@aura/components/src/alert/style/index.less';
+import '@aura/components/src/spin/style/index.less';
+import '@aura/components/src/empty/style/index.less';
+import '@aura/components/src/tooltip/style/index.less';
 import '@aura/business/src/style/index.less';
 
 /**

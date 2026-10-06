@@ -1,0 +1,49 @@
+@import '../../style/base.less';
+
+.aura-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--aura-space-large) 0;
+  box-sizing: border-box;
+
+  &-image {
+    margin-bottom: var(--aura-space-middle);
+
+    svg {
+      width: 96px;
+      height: 62px;
+    }
+  }
+
+  &-description {
+    margin: 0;
+    color: var(--aura-text-secondary);
+    font-size: 14px;
+    line-height: 22px;
+    text-align: center;
+  }
+
+  &-footer {
+    margin-top: var(--aura-space-middle);
+  }
+
+  // 占位图的三段配色：地面用柔和表面，箱体走边框色，开口槽用次级文字色。
+  // 内联 SVG 不能直接引用组件外的变量，全部走令牌保证暗色可用。
+  &-svg-ground {
+    fill: var(--aura-bg-soft);
+  }
+
+  &-svg-body {
+    stroke: var(--aura-border-color);
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+    fill: var(--aura-bg);
+  }
+
+  &-svg-slot {
+    stroke: var(--aura-text-secondary);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+  }
+}

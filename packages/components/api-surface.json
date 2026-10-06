@@ -1,21 +1,27 @@
 {
   "exports": [
+    "Alert",
     "AuraComponents",
     "Button",
     "Divider",
+    "Empty",
     "Form",
     "FormItem",
     "Input",
     "Modal",
     "Select",
     "Space",
+    "Spin",
     "Switch",
     "Tag",
+    "Tooltip",
     "Typography",
+    "alertProps",
     "buttonProps",
     "components",
     "default",
     "dividerProps",
+    "emptyProps",
     "formContextKey",
     "formItemHookKey",
     "formItemProps",
@@ -24,8 +30,10 @@
     "modalProps",
     "selectProps",
     "spaceProps",
+    "spinProps",
     "switchProps",
     "tagProps",
+    "tooltipProps",
     "typographyProps",
     "useControllable",
     "validateValue"
@@ -256,6 +264,77 @@
         }
       },
       "emits": []
+    },
+    "Alert": {
+      "props": {
+        "closable": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "defaultVisible": {
+          "type": ["Boolean"],
+          "default": true
+        },
+        "showIcon": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "title": {
+          "type": ["String"],
+          "default": ""
+        },
+        "type": {
+          "type": ["String"],
+          "default": "info"
+        },
+        "visible": {
+          "type": ["Boolean"]
+        }
+      },
+      "emits": ["close", "update:visible"]
+    },
+    "Spin": {
+      "props": {
+        "size": {
+          "type": ["String"],
+          "default": "middle"
+        },
+        "spinning": {
+          "type": ["Boolean"],
+          "default": true
+        },
+        "tip": {
+          "type": ["String"],
+          "default": ""
+        }
+      },
+      "emits": []
+    },
+    "Empty": {
+      "props": {
+        "description": {
+          "type": ["String"],
+          "default": ""
+        }
+      },
+      "emits": []
+    },
+    "Tooltip": {
+      "props": {
+        "content": {
+          "type": ["String"],
+          "default": ""
+        },
+        "disabled": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "placement": {
+          "type": ["String"],
+          "default": "top"
+        }
+      },
+      "emits": ["visible-change"]
     }
   }
 }

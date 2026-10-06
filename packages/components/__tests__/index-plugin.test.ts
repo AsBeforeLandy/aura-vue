@@ -15,16 +15,20 @@ import AuraComponents, {
 describe('components 清单', () => {
   it('正常：覆盖全部基础组件', () => {
     expect(Object.keys(components).sort()).toEqual([
+      'Alert',
       'Button',
       'Divider',
+      'Empty',
       'Form',
       'FormItem',
       'Input',
       'Modal',
       'Select',
       'Space',
+      'Spin',
       'Switch',
       'Tag',
+      'Tooltip',
       'Typography',
     ]);
   });

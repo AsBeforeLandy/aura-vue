@@ -1,0 +1,108 @@
+@import '../../style/base.less';
+
+.aura-alert {
+  display: flex;
+  align-items: flex-start;
+  box-sizing: border-box;
+  padding: var(--aura-space-small) var(--aura-space-middle);
+  border-radius: var(--aura-radius);
+  font-size: 14px;
+  line-height: 22px;
+  color: var(--aura-text);
+  background: var(--aura-bg-soft);
+
+  &-icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    margin-right: var(--aura-space-small);
+    margin-top: 1px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  &-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &-title {
+    font-weight: 600;
+  }
+
+  // 有标题时描述退为次级说明
+  &--with-title &-desc {
+    margin-top: 2px;
+    font-size: 13px;
+    line-height: 20px;
+    color: var(--aura-text-secondary);
+  }
+
+  &-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 0;
+    margin-left: var(--aura-space-small);
+    border: 0;
+    background: none;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1;
+    color: inherit;
+    opacity: 0.6;
+    cursor: pointer;
+    transition: opacity var(--aura-duration-fast) var(--aura-easing);
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--aura-color-primary);
+      outline-offset: 1px;
+      border-radius: 2px;
+    }
+  }
+
+  // ── 语义色 ──
+  // 与 Tag 同一套「柔和表面 + 加深文字」组合：图标 / 标题用加深变体，
+  // 正文保持默认文字色，描述用次级色。
+  &--info {
+    background: var(--aura-bg-soft);
+
+    &.aura-alert--show-icon .aura-alert-icon {
+      color: var(--aura-text-secondary);
+    }
+  }
+
+  &--success {
+    background: var(--aura-success-soft);
+
+    &.aura-alert--show-icon .aura-alert-icon,
+    & .aura-alert-title {
+      color: var(--aura-color-success-strong);
+    }
+  }
+
+  &--warning {
+    background: var(--aura-warning-soft);
+
+    &.aura-alert--show-icon .aura-alert-icon,
+    & .aura-alert-title {
+      color: var(--aura-color-warning-strong);
+    }
+  }
+
+  &--danger {
+    background: var(--aura-danger-soft);
+
+    &.aura-alert--show-icon .aura-alert-icon,
+    & .aura-alert-title {
+      color: var(--aura-color-danger-strong);
+    }
+  }
+}

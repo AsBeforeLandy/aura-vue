@@ -1,0 +1,46 @@
+@import '../../style/base.less';
+
+.aura-spin {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--aura-space-small);
+
+  // 旋转指示器：与 Button 的 loading 圆点同一画法（边框圆 + 透明顶边）。
+  // keyframes 放在本文件而不是共享，避免 Spin 未使用时 Button 样式成为隐式依赖。
+  &-indicator {
+    box-sizing: border-box;
+    border: 2px solid var(--aura-color-primary);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: aura-rotate var(--aura-spin-duration) linear infinite;
+  }
+
+  &--small .aura-spin-indicator {
+    width: 14px;
+    height: 14px;
+  }
+
+  &--middle .aura-spin-indicator {
+    width: 20px;
+    height: 20px;
+  }
+
+  &--large .aura-spin-indicator {
+    width: 28px;
+    height: 28px;
+    border-width: 3px;
+  }
+
+  &-tip {
+    color: var(--aura-text-secondary);
+    font-size: 13px;
+    line-height: 20px;
+  }
+}
+
+@keyframes aura-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -9,6 +9,10 @@ import { Divider } from './divider';
 import { Space } from './space';
 import { Tag } from './tag';
 import { Typography } from './typography';
+import { Alert } from './alert';
+import { Spin } from './spin';
+import { Empty } from './empty';
+import { Tooltip } from './tooltip';
 
 export * from './button';
 export * from './input';
@@ -20,6 +24,10 @@ export * from './divider';
 export * from './space';
 export * from './tag';
 export * from './typography';
+export * from './alert';
+export * from './spin';
+export * from './empty';
+export * from './tooltip';
 export * from './composables/use-controllable';
 
 /** 组件清单，供全量注册与文档站枚举复用 */
@@ -35,6 +43,10 @@ export const components = {
   Space,
   Tag,
   Typography,
+  Alert,
+  Spin,
+  Empty,
+  Tooltip,
 } as const;
 
 /**

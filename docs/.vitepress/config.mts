@@ -102,6 +102,7 @@ export default defineConfig({
           items: [
             { text: 'Tag 标签', link: '/components/tag' },
             { text: 'Typography 排版', link: '/components/typography' },
+            { text: 'Empty 空状态', link: '/components/empty' },
           ],
         },
         {
@@ -114,7 +115,12 @@ export default defineConfig({
         },
         {
           text: '反馈',
-          items: [{ text: 'Modal 对话框', link: '/components/modal' }],
+          items: [
+            { text: 'Modal 对话框', link: '/components/modal' },
+            { text: 'Alert 提醒', link: '/components/alert' },
+            { text: 'Spin 加载中', link: '/components/spin' },
+            { text: 'Tooltip 文字提示', link: '/components/tooltip' },
+          ],
         },
       ],
       // 业务组件独立成 tab 后有自己的 URL 分区（/business/），

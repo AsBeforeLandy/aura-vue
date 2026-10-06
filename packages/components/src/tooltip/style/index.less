@@ -1,0 +1,44 @@
+@import '../../style/base.less';
+
+// 触发元素只是普通行内容器（负责事件与定位参照），不给额外布局样式，
+// 避免影响消费方的行内排版。
+
+.aura-tooltip {
+  position: fixed;
+  z-index: 1030;
+  box-sizing: border-box;
+  max-width: 240px;
+  padding: 4px var(--aura-space-small);
+  border-radius: var(--aura-radius);
+  background: var(--aura-inverse-bg);
+  color: var(--aura-inverse-text);
+  font-size: 12px;
+  line-height: 20px;
+  text-align: center;
+  word-break: break-all;
+  // 浮层不吃指针事件：hover 离开触发元素即关闭，不需要「移入浮层保持」的复杂度
+  pointer-events: none;
+
+  // ── 免测量定位 ──
+  // JS 只给出触发元素顶边中点的视口坐标（top/left），
+  // 剩下的对中与间距全部由 transform 承担——不测量浮层自身尺寸。
+  &--top {
+    transform: translate(-50%, calc(-100% - var(--aura-space-small)));
+  }
+
+  &--bottom {
+    transform: translate(-50%, var(--aura-space-small));
+  }
+}
+
+// 过渡只动 opacity：定位占用了 transform，再动它会互相覆盖。
+// 时长走令牌，prefers-reduced-motion 下自动归零。
+.aura-tooltip-enter-active,
+.aura-tooltip-leave-active {
+  transition: opacity var(--aura-duration-fast) var(--aura-easing);
+}
+
+.aura-tooltip-enter-from,
+.aura-tooltip-leave-to {
+  opacity: 0;
+}
