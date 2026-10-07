@@ -103,6 +103,7 @@ export default defineConfig({
             { text: 'Tag 标签', link: '/components/tag' },
             { text: 'Typography 排版', link: '/components/typography' },
             { text: 'Empty 空状态', link: '/components/empty' },
+            { text: 'Progress 进度条', link: '/components/progress' },
           ],
         },
         {
@@ -118,8 +119,10 @@ export default defineConfig({
           items: [
             { text: 'Modal 对话框', link: '/components/modal' },
             { text: 'Alert 提醒', link: '/components/alert' },
+            { text: 'Message 全局消息', link: '/components/message' },
             { text: 'Spin 加载中', link: '/components/spin' },
             { text: 'Tooltip 文字提示', link: '/components/tooltip' },
+            { text: 'Popover 弹出框', link: '/components/popover' },
           ],
         },
       ],

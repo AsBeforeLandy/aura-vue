@@ -23,6 +23,8 @@ describe('components 清单', () => {
       'FormItem',
       'Input',
       'Modal',
+      'Popover',
+      'Progress',
       'Select',
       'Space',
       'Spin',

@@ -94,9 +94,26 @@ function walk(dir, out = []) {
   return out;
 }
 
+/** 去掉块注释与行首行注释。
+ *
+ *  扫描「模块引用」必须先剥注释：d.ts 里的 JSDoc 会带使用示例
+ *  （如 `import { Message } from '@aura/components'`），不剥注释会把
+ *  文档示例当成未声明的裸依赖误报。
+ *
+ *  简化处理：不解析字符串字面量内部的注释语法——产物是构建器输出，
+ *  该场景可忽略；这里只剥块注释与「行首」行注释，避免把字符串里的
+ *  URL（https://…）误当注释掐断。
+ */
+function stripComments(code) {
+  return code
+    .replace(/\/\*[\s\S]*?\*\//g, ' ')
+    .replace(/^[ \t]*\/\/.*$/gm, ' ');
+}
+
 /** 从 JS / d.ts 产物中提取所有模块标识符 */
 function extractSpecifiers(code) {
   const found = new Set();
+  const stripped = stripComments(code);
   const patterns = [
     /\bfrom\s*['"]([^'"]+)['"]/g, // import x from '...' / export ... from '...'
     /\bimport\s*['"]([^'"]+)['"]/g, // 副作用导入 import '...'
@@ -108,7 +125,7 @@ function extractSpecifiers(code) {
   ];
   for (const re of patterns) {
     let m;
-    while ((m = re.exec(code)) !== null) found.add(m[1]);
+    while ((m = re.exec(stripped)) !== null) found.add(m[1]);
   }
   return [...found];
 }

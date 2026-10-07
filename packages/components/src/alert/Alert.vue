@@ -45,6 +45,10 @@
 import { computed, ref, useSlots } from 'vue';
 import { classNames, pickPresetClass, prefixCls } from '@aura/shared';
 import { alertProps, type AlertEmits } from './types';
+import {
+  semanticIconMark,
+  semanticIconShape,
+} from '../_internal/semantic-icon';
 import './style/index.less';
 
 defineOptions({ name: 'AAlert' });
@@ -63,18 +67,9 @@ const visible = computed(() =>
 const hasTitle = computed(() => Boolean(props.title) || Boolean(slots.title));
 const hasDesc = computed(() => Boolean(slots.default));
 
-/** 各类型图标中间的区分路径（共用底形见模板） */
-const ICON_MARKS: Record<string, string> = {
-  info: 'M12 8h.01M12 11v5',
-  success: 'm8.5 12.5 2.5 2.5 5-5.5',
-  warning: 'M12 9.5v4M12 16.5h.01',
-  danger: 'm9.5 9.5 5 5M14.5 9.5l-5 5',
-};
-
-const iconShape = computed(() =>
-  props.type === 'warning' ? 'triangle' : 'circle',
-);
-const iconMark = computed(() => ICON_MARKS[props.type] ?? ICON_MARKS.info);
+// 图标形状数据来自内部共享模块（Message 同款），不在组件里各写一份
+const iconShape = computed(() => semanticIconShape(props.type));
+const iconMark = computed(() => semanticIconMark(props.type));
 
 const cls = computed(() =>
   classNames(

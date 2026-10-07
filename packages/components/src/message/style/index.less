@@ -1,0 +1,105 @@
+@import '../../style/base.less';
+
+// 顶部消息容器：所有消息共享，随最后一条移除。
+// 容器自身不挡页面（pointer-events: none），只有单条消息可交互。
+.aura-message-container {
+  position: fixed;
+  top: var(--aura-space-large);
+  left: 50%;
+  z-index: 1050;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--aura-space-small);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.aura-message {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--aura-space-small);
+  box-sizing: border-box;
+  padding: 8px var(--aura-space-middle);
+  border: 1px solid var(--aura-border-color);
+  border-radius: var(--aura-radius);
+  background: var(--aura-bg);
+  color: var(--aura-text);
+  font-size: 14px;
+  line-height: 22px;
+  pointer-events: auto;
+  // 入场动效只动 opacity / transform（可合成属性）；
+  // 时长走令牌，prefers-reduced-motion 下自动归零
+  animation: aura-message-in var(--aura-duration-base) var(--aura-easing);
+
+  &-icon {
+    display: inline-flex;
+    flex-shrink: 0;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  &-content {
+    min-width: 0;
+  }
+
+  &-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    background: none;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1;
+    color: inherit;
+    opacity: 0.6;
+    cursor: pointer;
+    transition: opacity var(--aura-duration-fast) var(--aura-easing);
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--aura-color-primary);
+      outline-offset: 1px;
+      border-radius: 2px;
+    }
+  }
+
+  // ── 语义色 ──
+  // 白底消息只给图标着色（与 Alert 的浅底不同，这里的面积小，
+  // 整块染色反而抢眼），正文保持默认文字色。
+  &--info .aura-message-icon {
+    color: var(--aura-text-secondary);
+  }
+
+  &--success .aura-message-icon {
+    color: var(--aura-color-success);
+  }
+
+  &--warning .aura-message-icon {
+    color: var(--aura-color-warning);
+  }
+
+  &--danger .aura-message-icon {
+    color: var(--aura-color-danger);
+  }
+}
+
+@keyframes aura-message-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

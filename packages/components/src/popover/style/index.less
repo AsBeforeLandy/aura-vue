@@ -1,0 +1,55 @@
+@import '../../style/base.less';
+
+// 触发容器：普通行内元素，只负责事件与定位参照
+
+.aura-popover {
+  position: fixed;
+  z-index: 1040;
+  box-sizing: border-box;
+  min-width: 180px;
+  max-width: 360px;
+  padding: var(--aura-space-middle);
+  border: 1px solid var(--aura-border-color);
+  border-radius: var(--aura-radius);
+  background: var(--aura-bg);
+  color: var(--aura-text);
+
+  // 与 Tooltip 同一套免测量定位：JS 只给触发元素顶边中点坐标，
+  // 对中与间距交给 transform
+  &--top {
+    transform: translate(-50%, calc(-100% - var(--aura-space-small)));
+  }
+
+  &--bottom {
+    transform: translate(-50%, var(--aura-space-small));
+  }
+
+  &-title {
+    margin-bottom: var(--aura-space-small);
+    font-weight: 600;
+    line-height: 22px;
+  }
+
+  &-content {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  &-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--aura-space-small);
+    margin-top: var(--aura-space-middle);
+  }
+}
+
+// 过渡只动 opacity：定位占用了 transform，再动它会互相覆盖
+.aura-popover-enter-active,
+.aura-popover-leave-active {
+  transition: opacity var(--aura-duration-fast) var(--aura-easing);
+}
+
+.aura-popover-enter-from,
+.aura-popover-leave-to {
+  opacity: 0;
+}

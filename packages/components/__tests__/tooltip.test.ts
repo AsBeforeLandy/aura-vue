@@ -30,6 +30,21 @@ describe('Tooltip', () => {
     expect(popper!.textContent).toContain('提示文字');
   });
 
+  it('正常：打开后写入定位样式（回归：曾漏绑 ref 导致浮层无定位）', async () => {
+    const wrapper = mount(Tooltip, {
+      props: { content: 'x' },
+      slots: { default: '<button>触发</button>' },
+    });
+
+    await wrapper.find('.aura-tooltip-trigger').trigger('mouseenter');
+
+    const style = findPopper()!.getAttribute('style') ?? '';
+    // happy-dom 的 getBoundingClientRect 全为 0，坐标值不可断言，
+    // 但 top / left 键必须存在——缺失说明定位链路断了（视口左上角裸奔）
+    expect(style).toContain('top:');
+    expect(style).toContain('left:');
+  });
+
   it('正常：mouseleave 后浮层移除并派发 visible-change', async () => {
     const wrapper = mount(Tooltip, {
       props: { content: 'x' },

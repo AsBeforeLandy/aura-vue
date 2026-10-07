@@ -8,7 +8,10 @@
     "Form",
     "FormItem",
     "Input",
+    "Message",
     "Modal",
+    "Popover",
+    "Progress",
     "Select",
     "Space",
     "Spin",
@@ -28,6 +31,8 @@
     "formProps",
     "inputProps",
     "modalProps",
+    "popoverProps",
+    "progressProps",
     "selectProps",
     "spaceProps",
     "spinProps",
@@ -332,6 +337,47 @@
         "placement": {
           "type": ["String"],
           "default": "top"
+        }
+      },
+      "emits": ["visible-change"]
+    },
+    "Progress": {
+      "props": {
+        "label": {
+          "type": ["String"]
+        },
+        "percent": {
+          "type": ["Number"],
+          "default": 0
+        },
+        "showInfo": {
+          "type": ["Boolean"],
+          "default": true
+        },
+        "status": {
+          "type": ["String"],
+          "default": "normal"
+        },
+        "strokeWidth": {
+          "type": ["Number"],
+          "default": 8
+        }
+      },
+      "emits": []
+    },
+    "Popover": {
+      "props": {
+        "disabled": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "placement": {
+          "type": ["String"],
+          "default": "top"
+        },
+        "title": {
+          "type": ["String"],
+          "default": ""
         }
       },
       "emits": ["visible-change"]

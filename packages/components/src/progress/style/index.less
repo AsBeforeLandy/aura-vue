@@ -1,0 +1,54 @@
+@import '../../style/base.less';
+
+.aura-progress {
+  display: flex;
+  align-items: center;
+  gap: var(--aura-space-small);
+
+  &-track {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    border-radius: 999px;
+    background: var(--aura-bg-soft);
+  }
+
+  &-bar {
+    height: 100%;
+    border-radius: inherit;
+    background: var(--aura-color-primary);
+    transition: width var(--aura-duration-base) var(--aura-easing);
+  }
+
+  &-info {
+    flex-shrink: 0;
+    min-width: 34px;
+    color: var(--aura-text-secondary);
+    font-size: 12px;
+    line-height: 20px;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+
+  // ── 状态色 ──
+  // 完成用成功色、失败用危险色；文字与进度条同色，保证信息一致。
+  &--success {
+    .aura-progress-bar {
+      background: var(--aura-color-success);
+    }
+
+    .aura-progress-info {
+      color: var(--aura-color-success-strong);
+    }
+  }
+
+  &--danger {
+    .aura-progress-bar {
+      background: var(--aura-color-danger);
+    }
+
+    .aura-progress-info {
+      color: var(--aura-color-danger-strong);
+    }
+  }
+}

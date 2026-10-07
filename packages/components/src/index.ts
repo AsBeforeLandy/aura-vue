@@ -13,6 +13,11 @@ import { Alert } from './alert';
 import { Spin } from './spin';
 import { Empty } from './empty';
 import { Tooltip } from './tooltip';
+import { Progress } from './progress';
+import { Popover } from './popover';
+
+// 注意：Message 是命令式 API（函数调用），不是组件，
+// 不进 components 全量注册清单，仅通过下方 export * 对外提供。
 
 export * from './button';
 export * from './input';
@@ -28,6 +33,9 @@ export * from './alert';
 export * from './spin';
 export * from './empty';
 export * from './tooltip';
+export * from './progress';
+export * from './popover';
+export * from './message';
 export * from './composables/use-controllable';
 
 /** 组件清单，供全量注册与文档站枚举复用 */
@@ -47,6 +55,8 @@ export const components = {
   Spin,
   Empty,
   Tooltip,
+  Progress,
+  Popover,
 } as const;
 
 /**
