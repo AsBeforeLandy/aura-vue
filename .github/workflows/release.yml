@@ -48,18 +48,27 @@ jobs:
       # 这里刻意复用单步 verify，而不是再抄一份步骤清单——
       # 同一份链路定义在两处必然漂移。
       #
-      # 输出落盘 + 失败时上传：verify 链路长（8 个门禁串联），
-      # 而 Actions 的日志接口需要鉴权，注解里只有「exit code 1」——
-      # 没有这份日志，链路里任何一个环节偶发失败都无法定位。
+      # 失败自动重试一次：verify 在共享 runner 上已观测到两次「CI 全绿、
+      # Release 偶发失败」（相邻 commit、相同命令），重试通过视为环境偶发。
+      # 两次的日志都落盘上传——重试也失败时才有根因定位的材料，
+      # 连续两轮都过不了就是真问题，不该发布。
       - name: Verify
-        run: pnpm verify 2>&1 | tee verify.log; test ${PIPESTATUS[0]} -eq 0
+        run: |
+          pnpm verify 2>&1 | tee verify.log; code=${PIPESTATUS[0]}
+          if [ $code -ne 0 ]; then
+            echo "::warning::verify 第一次失败（可能是 runner 偶发），自动重试一次"
+            pnpm verify 2>&1 | tee verify-retry.log; code=${PIPESTATUS[0]}
+          fi
+          exit $code
 
       - name: Upload verify log
         if: ${{ failure() }}
         uses: actions/upload-artifact@v4
         with:
           name: release-verify-log
-          path: verify.log
+          path: |
+            verify.log
+            verify-retry.log
           retention-days: 7
 
       - name: Publish to npm
