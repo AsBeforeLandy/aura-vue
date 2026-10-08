@@ -1,6 +1,6 @@
 {
   "name": "@aura-vue/business",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "description": "Aura Vue3 业务组件库：基于 Element Plus 二次封装的 B 端场景组件",
   "engines": {
