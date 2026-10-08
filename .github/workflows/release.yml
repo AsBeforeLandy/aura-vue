@@ -44,14 +44,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # 发布前的校验与 CI 保持一致：不通过就不该发出去。
-      # 这里刻意复用单步 verify，而不是再抄一份步骤清单——
-      # 同一份链路定义在两处必然漂移。
-      #
-      # 失败自动重试一次：verify 在共享 runner 上已观测到两次「CI 全绿、
-      # Release 偶发失败」（相邻 commit、相同命令），重试通过视为环境偶发。
-      # 两次的日志都落盘上传——重试也失败时才有根因定位的材料，
-      # 连续两轮都过不了就是真问题，不该发布。
+      # 发布前的校验与 CI 保持同一份门禁：不通过就不该发出去。
+      # 失败自动重试一次（共享 runner 偶发失败已三次观测），两轮日志
+      # 都落盘上传，重试也失败时才有根因定位的材料。
       - name: Verify
         run: |
           pnpm verify 2>&1 | tee verify.log; code=${PIPESTATUS[0]}
@@ -71,16 +66,35 @@ jobs:
             verify-retry.log
           retention-days: 7
 
+      # 发布流程采用 main 直发（无版本 PR）：
+      # changesets/action 的建 PR 路径依赖仓库的「允许 Actions 建 PR」开关，
+      # 单人维护场景下这个环节只有摩擦、没有评审价值——门禁已由上面的
+      # verify 全量把守，版本变更内容可在 CHANGELOG 里审计。
+      # 有 changeset 时：version 消费它们 → 提交回 main → publish 发布；
+      # 无 changeset 时：version 是 no-op，publish 无可发布版本自然退出。
+      - name: Version packages
+        if: ${{ env.NPM_TOKEN != '' }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          pnpm changeset version
+          if git diff --quiet; then
+            echo "没有待消费的 changeset，跳过 version"
+          else
+            git add -A
+            git commit -m "chore(release): version packages [skip ci]"
+            git push
+          fi
+
       - name: Publish to npm
         if: ${{ env.NPM_TOKEN != '' }}
-        id: changesets
-        uses: changesets/action@v1
-        with:
-          publish: pnpm changeset publish
-          version: pnpm changeset version
+        run: pnpm changeset publish
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           # 生成 provenance 声明（供应链可追溯）。放在这里而不是包的 publishConfig，
           # 是为了不影响维护者本地手动发布——provenance 依赖 CI 的 OIDC，本地会直接失败。
           NPM_CONFIG_PROVENANCE: true
+
+      - name: Push release tags
+        if: ${{ env.NPM_TOKEN != '' }}
+        run: git push --follow-tags
