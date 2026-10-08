@@ -1,0 +1,117 @@
+@import '../../style/base.less';
+
+.aura-steps {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  &-item {
+    position: relative;
+    display: flex;
+    flex: 1;
+    align-items: flex-start;
+    gap: var(--aura-space-small);
+
+    // 连接线：从当前圆圈右侧拉到下一个圆圈左侧（最后一项不画）
+    &:not(.aura-steps-item--last)::after {
+      content: '';
+      position: absolute;
+      top: 14px;
+      left: calc(24px + var(--aura-space-middle));
+      right: calc(-1 * var(--aura-space-small));
+      height: 1px;
+      background: var(--aura-border-color);
+    }
+
+    // 已完成段的连接线用主色，表达「走过的路」
+    &--finish:not(.aura-steps-item--last)::after {
+      background: var(--aura-color-primary);
+    }
+
+    &--last {
+      flex: none;
+    }
+  }
+
+  &-marker {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    border: 1px solid var(--aura-border-color);
+    border-radius: 50%;
+    background: var(--aura-bg);
+    color: var(--aura-text-secondary);
+    font-size: 13px;
+    line-height: 1;
+    transition:
+      background-color var(--aura-duration-base) var(--aura-easing),
+      border-color var(--aura-duration-base) var(--aura-easing),
+      color var(--aura-duration-base) var(--aura-easing);
+
+    svg {
+      width: 13px;
+      height: 13px;
+    }
+  }
+
+  &-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  &-title {
+    font-size: 14px;
+    line-height: 24px;
+    color: var(--aura-text-secondary);
+  }
+
+  &-desc {
+    color: var(--aura-text-secondary);
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  // ── 状态 ──
+  .aura-steps-item--finish {
+    .aura-steps-marker {
+      border-color: var(--aura-color-primary);
+      background: var(--aura-color-primary);
+      color: var(--aura-inverse-text);
+    }
+
+    .aura-steps-title {
+      color: var(--aura-text);
+    }
+  }
+
+  .aura-steps-item--process {
+    .aura-steps-marker {
+      border-color: var(--aura-color-primary);
+      color: var(--aura-color-primary);
+    }
+
+    .aura-steps-title {
+      color: var(--aura-color-primary);
+      font-weight: 600;
+    }
+  }
+
+  .aura-steps-item--error {
+    .aura-steps-marker {
+      border-color: var(--aura-color-danger);
+      color: var(--aura-color-danger);
+    }
+
+    .aura-steps-title {
+      color: var(--aura-color-danger-strong);
+      font-weight: 600;
+    }
+  }
+}

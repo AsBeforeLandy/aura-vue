@@ -1,0 +1,43 @@
+@import '../../style/base.less';
+
+.aura-segmented {
+  display: inline-flex;
+  box-sizing: border-box;
+  padding: 2px;
+  border-radius: var(--aura-radius);
+  background: var(--aura-bg-soft);
+
+  &--disabled {
+    opacity: 0.55;
+  }
+
+  &-option {
+    padding: 4px var(--aura-space-middle);
+    border: 0;
+    border-radius: calc(var(--aura-radius) - 2px);
+    background: none;
+    color: var(--aura-text-secondary);
+    font-size: 14px;
+    line-height: 22px;
+    cursor: pointer;
+    transition:
+      background-color var(--aura-duration-fast) var(--aura-easing),
+      color var(--aura-duration-fast) var(--aura-easing);
+
+    &:focus-visible {
+      outline: 2px solid var(--aura-color-primary);
+      outline-offset: -2px;
+    }
+
+    // 选中项：容器是柔和表面，选中块用常规表面浮起，一深一浅形成对比
+    &--active {
+      background: var(--aura-bg);
+      color: var(--aura-text);
+      font-weight: 600;
+    }
+  }
+
+  &--disabled &-option {
+    cursor: not-allowed;
+  }
+}

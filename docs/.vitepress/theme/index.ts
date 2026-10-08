@@ -91,6 +91,9 @@ import '@aura/components/src/tooltip/style/index.less';
 import '@aura/components/src/progress/style/index.less';
 import '@aura/components/src/popover/style/index.less';
 import '@aura/components/src/message/style/index.less';
+import '@aura/components/src/steps/style/index.less';
+import '@aura/components/src/segmented/style/index.less';
+import '@aura/components/src/skeleton/style/index.less';
 import '@aura/business/src/style/index.less';
 
 /**

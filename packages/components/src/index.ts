@@ -15,6 +15,9 @@ import { Empty } from './empty';
 import { Tooltip } from './tooltip';
 import { Progress } from './progress';
 import { Popover } from './popover';
+import { Steps } from './steps';
+import { Segmented } from './segmented';
+import { Skeleton } from './skeleton';
 
 // 注意：Message 是命令式 API（函数调用），不是组件，
 // 不进 components 全量注册清单，仅通过下方 export * 对外提供。
@@ -35,6 +38,9 @@ export * from './empty';
 export * from './tooltip';
 export * from './progress';
 export * from './popover';
+export * from './steps';
+export * from './segmented';
+export * from './skeleton';
 export * from './message';
 export * from './composables/use-controllable';
 
@@ -57,6 +63,9 @@ export const components = {
   Tooltip,
   Progress,
   Popover,
+  Steps,
+  Segmented,
+  Skeleton,
 } as const;
 
 /**

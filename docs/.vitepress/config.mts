@@ -98,12 +98,20 @@ export default defineConfig({
           ],
         },
         {
+          text: '导航',
+          items: [
+            { text: 'Steps 步骤条', link: '/components/steps' },
+            { text: 'Segmented 分段控制器', link: '/components/segmented' },
+          ],
+        },
+        {
           text: '数据展示',
           items: [
             { text: 'Tag 标签', link: '/components/tag' },
             { text: 'Typography 排版', link: '/components/typography' },
             { text: 'Empty 空状态', link: '/components/empty' },
             { text: 'Progress 进度条', link: '/components/progress' },
+            { text: 'Skeleton 骨架屏', link: '/components/skeleton' },
           ],
         },
         {

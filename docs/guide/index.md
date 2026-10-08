@@ -32,12 +32,12 @@ aura-vue/
 
 依赖方向是单向的：`shared` → `components` → `business`。
 
-| 包名               | 描述                                                                                                                                                           | 运行时依赖            | 发布状态   |
-| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- | ---------- |
-| `@aura/components` | 基础组件：Button / Input / Form / Select / Switch / Modal / Divider / Space / Tag / Typography / Alert / Spin / Empty / Tooltip / Progress / Popover / Message | `vue`                 | 可发布     |
-| `@aura/business`   | 业务组件：ProTable / ProForm / ProModalForm / Description / PageContainer / SearchForm 等                                                                      | `vue`、`element-plus` | 可发布     |
-| `@aura/shared`     | 内部工具（`prefixCls`、`classNames`、`pickPresetClass`）                                                                                                       | -                     | 不单独发布 |
-| `@aura/icons`      | 图标资源（占位，后续迁移）                                                                                                                                     | -                     | 未发布     |
+| 包名               | 描述                                                                                                                                                                                          | 运行时依赖            | 发布状态   |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- | ---------- |
+| `@aura/components` | 基础组件：Button / Input / Form / Select / Switch / Modal / Divider / Space / Tag / Typography / Alert / Spin / Empty / Tooltip / Progress / Popover / Message / Steps / Segmented / Skeleton | `vue`                 | 可发布     |
+| `@aura/business`   | 业务组件：ProTable / ProForm / ProModalForm / Description / PageContainer / SearchForm 等                                                                                                     | `vue`、`element-plus` | 可发布     |
+| `@aura/shared`     | 内部工具（`prefixCls`、`classNames`、`pickPresetClass`）                                                                                                                                      | -                     | 不单独发布 |
+| `@aura/icons`      | 图标资源（占位，后续迁移）                                                                                                                                                                    | -                     | 未发布     |
 
 ## 组件总览
 

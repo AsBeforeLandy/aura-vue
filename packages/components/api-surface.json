@@ -12,9 +12,12 @@
     "Modal",
     "Popover",
     "Progress",
+    "Segmented",
     "Select",
+    "Skeleton",
     "Space",
     "Spin",
+    "Steps",
     "Switch",
     "Tag",
     "Tooltip",
@@ -33,9 +36,12 @@
     "modalProps",
     "popoverProps",
     "progressProps",
+    "segmentedProps",
     "selectProps",
+    "skeletonProps",
     "spaceProps",
     "spinProps",
+    "stepsProps",
     "switchProps",
     "tagProps",
     "tooltipProps",
@@ -381,6 +387,63 @@
         }
       },
       "emits": ["visible-change"]
+    },
+    "Steps": {
+      "props": {
+        "current": {
+          "type": ["Number"],
+          "default": 0
+        },
+        "items": {
+          "type": ["Array"],
+          "default": "[function]"
+        },
+        "status": {
+          "type": ["String"],
+          "default": "process"
+        }
+      },
+      "emits": []
+    },
+    "Segmented": {
+      "props": {
+        "defaultValue": {
+          "type": ["String"]
+        },
+        "disabled": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "modelValue": {
+          "type": ["String"]
+        },
+        "options": {
+          "type": ["Array"],
+          "default": "[function]"
+        }
+      },
+      "emits": ["change", "update:modelValue"]
+    },
+    "Skeleton": {
+      "props": {
+        "avatar": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "loading": {
+          "type": ["Boolean"],
+          "default": true
+        },
+        "rows": {
+          "type": ["Number"],
+          "default": 3
+        },
+        "title": {
+          "type": ["Boolean"],
+          "default": true
+        }
+      },
+      "emits": []
     }
   }
 }

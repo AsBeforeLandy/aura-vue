@@ -47,6 +47,7 @@
   // 而不用去 7 个文件里逐个改。
   --aura-duration-fast: 0.15s;
   --aura-duration-base: 0.2s;
+  --aura-duration-slow: 1.5s;
   --aura-easing: cubic-bezier(0.4, 0, 0.2, 1);
   --aura-spin-duration: 1s;
 }
@@ -56,10 +57,9 @@
  *
  * - **过渡直接归零**：进出场、hover、展开收起这类过渡是纯装饰性的，
  *   取消后变化立刻生效，不丢失任何信息。
- * - **加载指示器不归零**：它承载的是「正在处理中」这个状态信息，
- *   停住不动会被理解成界面卡死，比动起来更糟。
- *   处理方式是显著放慢旋转（1s → 2.4s）——避开快速旋转带来的不适，
- *   同时保留「还在转」的语义。
+ * - **循环动画分两类**：加载指示器（spin）承载「正在处理中」的状态信息，
+ *   停住不动会被理解成界面卡死，处理方式是显著放慢旋转（1s → 2.4s）；
+ *   骨架屏脉冲是纯装饰，直接归零即可（slow → 0s，静态占位同样成立）。
  *
  * 注意这里用 `:root` 覆盖自定义属性，而不是写 `* { transition: none !important }`：
  * 后者会连消费方自己的过渡一起干掉，属于越界。
@@ -68,6 +68,7 @@
   :root {
     --aura-duration-fast: 0s;
     --aura-duration-base: 0s;
+    --aura-duration-slow: 0s;
     --aura-spin-duration: 2.4s;
   }
 }
