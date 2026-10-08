@@ -18,6 +18,9 @@ import { Popover } from './popover';
 import { Steps } from './steps';
 import { Segmented } from './segmented';
 import { Skeleton } from './skeleton';
+import { Tabs } from './tabs';
+import { Drawer } from './drawer';
+import { Breadcrumb } from './breadcrumb';
 
 // 注意：Message 是命令式 API（函数调用），不是组件，
 // 不进 components 全量注册清单，仅通过下方 export * 对外提供。
@@ -28,6 +31,7 @@ export * from './form';
 export * from './switch';
 export * from './select';
 export * from './modal';
+export * from './drawer';
 export * from './divider';
 export * from './space';
 export * from './tag';
@@ -41,6 +45,8 @@ export * from './popover';
 export * from './steps';
 export * from './segmented';
 export * from './skeleton';
+export * from './tabs';
+export * from './breadcrumb';
 export * from './message';
 export * from './composables/use-controllable';
 
@@ -53,6 +59,7 @@ export const components = {
   Switch,
   Select,
   Modal,
+  Drawer,
   Divider,
   Space,
   Tag,
@@ -66,6 +73,8 @@ export const components = {
   Steps,
   Segmented,
   Skeleton,
+  Tabs,
+  Breadcrumb,
 } as const;
 
 /**

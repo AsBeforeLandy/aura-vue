@@ -2,8 +2,10 @@
   "exports": [
     "Alert",
     "AuraComponents",
+    "Breadcrumb",
     "Button",
     "Divider",
+    "Drawer",
     "Empty",
     "Form",
     "FormItem",
@@ -19,14 +21,17 @@
     "Spin",
     "Steps",
     "Switch",
+    "Tabs",
     "Tag",
     "Tooltip",
     "Typography",
     "alertProps",
+    "breadcrumbProps",
     "buttonProps",
     "components",
     "default",
     "dividerProps",
+    "drawerProps",
     "emptyProps",
     "formContextKey",
     "formItemHookKey",
@@ -43,6 +48,7 @@
     "spinProps",
     "stepsProps",
     "switchProps",
+    "tabsProps",
     "tagProps",
     "tooltipProps",
     "typographyProps",
@@ -195,6 +201,35 @@
         }
       },
       "emits": ["cancel", "close", "ok", "update:modelValue"]
+    },
+    "Drawer": {
+      "props": {
+        "closeOnClickMask": {
+          "type": ["Boolean"],
+          "default": true
+        },
+        "closeOnEsc": {
+          "type": ["Boolean"],
+          "default": true
+        },
+        "modelValue": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "placement": {
+          "type": ["String"],
+          "default": "right"
+        },
+        "size": {
+          "type": ["Number", "String"],
+          "default": 420
+        },
+        "title": {
+          "type": ["String"],
+          "default": ""
+        }
+      },
+      "emits": ["close", "update:modelValue"]
     },
     "Divider": {
       "props": {
@@ -441,6 +476,30 @@
         "title": {
           "type": ["Boolean"],
           "default": true
+        }
+      },
+      "emits": []
+    },
+    "Tabs": {
+      "props": {
+        "defaultValue": {
+          "type": ["String"]
+        },
+        "items": {
+          "type": ["Array"],
+          "default": "[function]"
+        },
+        "modelValue": {
+          "type": ["String"]
+        }
+      },
+      "emits": ["change", "update:modelValue"]
+    },
+    "Breadcrumb": {
+      "props": {
+        "items": {
+          "type": ["Array"],
+          "default": "[function]"
         }
       },
       "emits": []

@@ -102,6 +102,8 @@ export default defineConfig({
           items: [
             { text: 'Steps 步骤条', link: '/components/steps' },
             { text: 'Segmented 分段控制器', link: '/components/segmented' },
+            { text: 'Tabs 标签页', link: '/components/tabs' },
+            { text: 'Breadcrumb 面包屑', link: '/components/breadcrumb' },
           ],
         },
         {
@@ -126,6 +128,7 @@ export default defineConfig({
           text: '反馈',
           items: [
             { text: 'Modal 对话框', link: '/components/modal' },
+            { text: 'Drawer 抽屉', link: '/components/drawer' },
             { text: 'Alert 提醒', link: '/components/alert' },
             { text: 'Message 全局消息', link: '/components/message' },
             { text: 'Spin 加载中', link: '/components/spin' },

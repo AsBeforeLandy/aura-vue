@@ -48,7 +48,7 @@
     {
       "name": "components (全量 esm)",
       "path": "packages/components/dist/**/*.js",
-      "limit": "28 kB"
+      "limit": "32 kB"
     },
     {
       "name": "business (全量 esm)",

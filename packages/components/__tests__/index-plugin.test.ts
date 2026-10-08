@@ -16,8 +16,10 @@ describe('components 清单', () => {
   it('正常：覆盖全部基础组件', () => {
     expect(Object.keys(components).sort()).toEqual([
       'Alert',
+      'Breadcrumb',
       'Button',
       'Divider',
+      'Drawer',
       'Empty',
       'Form',
       'FormItem',
@@ -32,6 +34,7 @@ describe('components 清单', () => {
       'Spin',
       'Steps',
       'Switch',
+      'Tabs',
       'Tag',
       'Tooltip',
       'Typography',

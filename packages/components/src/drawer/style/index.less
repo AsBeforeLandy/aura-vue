@@ -1,0 +1,123 @@
+@import '../../style/base.less';
+
+.aura-drawer {
+  &-mask {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.45);
+  }
+
+  &-wrap {
+    position: fixed;
+    inset: 0;
+    z-index: 1001;
+    display: flex;
+    box-sizing: border-box;
+  }
+
+  // right：抽屉贴右侧；bottom：贴底部
+  &--right .aura-drawer-wrap {
+    justify-content: flex-end;
+  }
+
+  &--bottom .aura-drawer-wrap {
+    align-items: flex-end;
+  }
+
+  &-panel {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    max-height: 100%;
+    background: var(--aura-bg);
+    overflow: hidden;
+
+    // 面板带 tabindex="-1"，打开时程序化聚焦（理由见 use-dialog.ts）
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--aura-space-middle) var(--aura-space-large);
+    font-size: 16px;
+    font-weight: 500;
+    border-bottom: 1px solid var(--aura-border-color);
+  }
+
+  &-title {
+    min-width: 0;
+  }
+
+  &-close {
+    padding: 0;
+    border: 0;
+    background: none;
+    font-family: inherit;
+    color: var(--aura-text-secondary);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--aura-text);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--aura-color-primary);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+  }
+
+  &-body {
+    flex: 1;
+    min-height: 0;
+    padding: var(--aura-space-large);
+    font-size: 14px;
+    overflow: auto;
+  }
+
+  &-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--aura-space-small);
+    padding: var(--aura-space-middle) var(--aura-space-large);
+    border-top: 1px solid var(--aura-border-color);
+  }
+}
+
+/**
+ * 进出场动画与 Modal 同一套思路：动画类挂在根节点 .aura-drawer 上，
+ * 但根节点是纯逻辑容器，transition 必须写在 mask / panel 子元素上。
+ * 抽屉的进出场是**滑动**（贴边方向决定初始位移），与 Modal 的缩放不同。
+ */
+.aura-drawer-enter-active .aura-drawer-mask,
+.aura-drawer-leave-active .aura-drawer-mask {
+  transition: opacity var(--aura-duration-base) var(--aura-easing);
+}
+
+.aura-drawer-enter-active .aura-drawer-panel,
+.aura-drawer-leave-active .aura-drawer-panel {
+  transition: transform var(--aura-duration-base) var(--aura-easing);
+}
+
+.aura-drawer-enter-from .aura-drawer-mask,
+.aura-drawer-leave-to .aura-drawer-mask {
+  opacity: 0;
+}
+
+// right 从右侧滑入，bottom 从底部滑入
+.aura-drawer-enter-from.aura-drawer--right .aura-drawer-panel,
+.aura-drawer-leave-to.aura-drawer--right .aura-drawer-panel {
+  transform: translateX(100%);
+}
+
+.aura-drawer-enter-from.aura-drawer--bottom .aura-drawer-panel,
+.aura-drawer-leave-to.aura-drawer--bottom .aura-drawer-panel {
+  transform: translateY(100%);
+}

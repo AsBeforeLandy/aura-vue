@@ -1,0 +1,56 @@
+@import '../../style/base.less';
+
+.aura-tabs {
+  &-list {
+    display: flex;
+    gap: var(--aura-space-small);
+    border-bottom: 1px solid var(--aura-border-color);
+  }
+
+  &-tab {
+    position: relative;
+    padding: 8px var(--aura-space-small);
+    margin-bottom: -1px;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    background: none;
+    color: var(--aura-text-secondary);
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 22px;
+    cursor: pointer;
+    transition:
+      color var(--aura-duration-fast) var(--aura-easing),
+      border-color var(--aura-duration-fast) var(--aura-easing);
+
+    &:hover {
+      color: var(--aura-text);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--aura-color-primary);
+      outline-offset: -2px;
+      border-radius: 2px;
+    }
+
+    // 选中态：底边线换主色，与列表底线重叠表达「落在当前页签上」
+    &--active {
+      color: var(--aura-color-primary);
+      font-weight: 600;
+      border-bottom-color: var(--aura-color-primary);
+    }
+
+    &--disabled {
+      color: var(--aura-text-secondary);
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  &-panel {
+    padding: var(--aura-space-middle) 0;
+    font-size: 14px;
+    line-height: 22px;
+    color: var(--aura-text);
+  }
+}
