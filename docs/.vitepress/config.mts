@@ -77,6 +77,7 @@ export default defineConfig({
         {
           text: '其他',
           items: [
+            { text: '版本与发布', link: '/guide/release' },
             { text: '常见问题', link: '/guide/faq' },
             { text: '更新日志', link: '/changelog' },
           ],
