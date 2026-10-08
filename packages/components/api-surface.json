@@ -4,6 +4,8 @@
     "AuraComponents",
     "Breadcrumb",
     "Button",
+    "Collapse",
+    "CollapseItem",
     "Divider",
     "Drawer",
     "Empty",
@@ -24,10 +26,14 @@
     "Tabs",
     "Tag",
     "Tooltip",
+    "Tree",
     "Typography",
+    "Upload",
     "alertProps",
     "breadcrumbProps",
     "buttonProps",
+    "collapseItemProps",
+    "collapseProps",
     "components",
     "default",
     "dividerProps",
@@ -51,7 +57,9 @@
     "tabsProps",
     "tagProps",
     "tooltipProps",
+    "treeProps",
     "typographyProps",
+    "uploadProps",
     "useControllable",
     "validateValue"
   ],
@@ -503,6 +511,100 @@
         }
       },
       "emits": []
+    },
+    "Collapse": {
+      "props": {
+        "accordion": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "defaultValue": {
+          "type": ["Array"]
+        },
+        "modelValue": {
+          "type": ["Array"]
+        }
+      },
+      "emits": ["change", "update:modelValue"]
+    },
+    "CollapseItem": {
+      "props": {
+        "disabled": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "title": {
+          "type": ["String"],
+          "default": ""
+        },
+        "value": {
+          "type": ["String"],
+          "required": true
+        }
+      },
+      "emits": []
+    },
+    "Tree": {
+      "props": {
+        "data": {
+          "type": ["Array"],
+          "default": "[function]"
+        },
+        "defaultExpandedKeys": {
+          "type": ["Array"],
+          "default": "[function]"
+        },
+        "defaultValue": {
+          "type": ["String"]
+        },
+        "expandAll": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "modelValue": {
+          "type": ["String"]
+        }
+      },
+      "emits": ["change", "update:modelValue"]
+    },
+    "Upload": {
+      "props": {
+        "accept": {
+          "type": ["String"]
+        },
+        "action": {
+          "type": ["String"]
+        },
+        "autoUpload": {
+          "type": ["Boolean"],
+          "default": true
+        },
+        "beforeUpload": {
+          "type": ["Function"]
+        },
+        "customRequest": {
+          "type": ["Function"]
+        },
+        "defaultFileList": {
+          "type": ["Array"]
+        },
+        "disabled": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "drag": {
+          "type": ["Boolean"],
+          "default": false
+        },
+        "fileList": {
+          "type": ["Array"]
+        },
+        "multiple": {
+          "type": ["Boolean"],
+          "default": false
+        }
+      },
+      "emits": ["change", "error", "remove", "success", "update:fileList"]
     }
   }
 }

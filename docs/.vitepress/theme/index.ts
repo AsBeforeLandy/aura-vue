@@ -97,6 +97,9 @@ import '@aura/components/src/skeleton/style/index.less';
 import '@aura/components/src/tabs/style/index.less';
 import '@aura/components/src/drawer/style/index.less';
 import '@aura/components/src/breadcrumb/style/index.less';
+import '@aura/components/src/collapse/style/index.less';
+import '@aura/components/src/tree/style/index.less';
+import '@aura/components/src/upload/style/index.less';
 import '@aura/business/src/style/index.less';
 
 /**

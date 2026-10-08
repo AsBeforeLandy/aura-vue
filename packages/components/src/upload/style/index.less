@@ -1,0 +1,134 @@
+@import '../../style/base.less';
+
+.aura-upload {
+  &-input {
+    // 裁剪式隐藏：保持可访问性语义（aria-hidden 不用，见模板注释），
+    // 真正的可访问触发点是「选择文件」按钮
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  &-dropzone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-height: 96px;
+    padding: var(--aura-space-large);
+    border: 1px dashed var(--aura-border-color);
+    border-radius: var(--aura-radius);
+    background: var(--aura-bg-soft);
+    text-align: center;
+    cursor: pointer;
+    transition:
+      border-color var(--aura-duration-fast) var(--aura-easing),
+      background-color var(--aura-duration-fast) var(--aura-easing);
+
+    &:hover,
+    &--active {
+      border-color: var(--aura-color-primary);
+      background: var(--aura-primary-soft);
+    }
+  }
+
+  &-drag-text {
+    color: var(--aura-text-secondary);
+    font-size: 14px;
+
+    em {
+      color: var(--aura-color-primary);
+      font-style: normal;
+    }
+  }
+
+  &-list {
+    margin: var(--aura-space-small) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &-row {
+    display: flex;
+    align-items: center;
+    gap: var(--aura-space-small);
+    padding: 4px var(--aura-space-small);
+    border-radius: var(--aura-radius);
+    font-size: 13px;
+    line-height: 20px;
+
+    // 状态只给状态列着色，文件名保持正文色（大面积染色反而干扰阅读）
+    &--success .aura-upload-status {
+      color: var(--aura-color-success);
+    }
+
+    &--danger .aura-upload-status {
+      color: var(--aura-color-danger-strong);
+    }
+
+    &--uploading .aura-upload-status {
+      color: var(--aura-text-secondary);
+      font-variant-numeric: tabular-nums;
+    }
+  }
+
+  &-name {
+    flex: 1;
+    min-width: 0;
+    color: var(--aura-text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &-size {
+    margin-left: var(--aura-space-small);
+    color: var(--aura-text-secondary);
+    font-size: 12px;
+  }
+
+  &-status {
+    flex-shrink: 0;
+    min-width: 52px;
+    text-align: right;
+    color: var(--aura-text-secondary);
+  }
+
+  &-remove {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    font-family: inherit;
+    font-size: 15px;
+    line-height: 1;
+    color: var(--aura-text-secondary);
+    opacity: 0.6;
+    cursor: pointer;
+    transition: opacity var(--aura-duration-fast) var(--aura-easing);
+
+    &:hover {
+      opacity: 1;
+      color: var(--aura-color-danger);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--aura-color-primary);
+      outline-offset: 1px;
+      border-radius: 2px;
+    }
+  }
+
+  &--disabled {
+    opacity: 0.55;
+  }
+}

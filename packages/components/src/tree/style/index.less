@@ -1,0 +1,83 @@
+@import '../../style/base.less';
+
+.aura-tree {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--aura-text);
+  font-size: 14px;
+  line-height: 22px;
+
+  // 子级分组：缩进对齐到父级文字（箭头占位宽 + 间距）
+  &-group {
+    margin: 0;
+    padding: 0 0 0 var(--aura-space-large);
+    list-style: none;
+  }
+
+  &-row {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: var(--aura-space-small);
+    padding: 4px var(--aura-space-small);
+    border: 0;
+    border-radius: var(--aura-radius);
+    background: none;
+    font-family: inherit;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color var(--aura-duration-fast) var(--aura-easing);
+
+    &:hover {
+      background: var(--aura-bg-soft);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--aura-color-primary);
+      outline-offset: -2px;
+    }
+
+    // 选中：柔和表面 + 主色文字（与 Tag / Alert 同源的选色策略）
+    &--selected {
+      background: var(--aura-primary-soft);
+      color: var(--aura-color-primary);
+      font-weight: 600;
+    }
+
+    &--disabled {
+      color: var(--aura-text-secondary);
+      opacity: 0.55;
+      cursor: not-allowed;
+
+      &:hover {
+        background: none;
+      }
+    }
+  }
+
+  &-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+
+    svg {
+      width: 12px;
+      height: 12px;
+      color: var(--aura-text-secondary);
+      transition: transform var(--aura-duration-fast) var(--aura-easing);
+    }
+
+    &--open svg {
+      transform: rotate(90deg);
+    }
+  }
+
+  &-label {
+    min-width: 0;
+  }
+}

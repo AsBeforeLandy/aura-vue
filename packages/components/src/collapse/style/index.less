@@ -1,0 +1,90 @@
+@import '../../style/base.less';
+
+.aura-collapse {
+  &-item {
+    border-bottom: 1px solid var(--aura-border-color);
+  }
+
+  &-header {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--aura-space-middle) 0;
+    border: 0;
+    background: none;
+    font-family: inherit;
+    color: var(--aura-text);
+    font-size: 14px;
+    line-height: 22px;
+    text-align: left;
+    cursor: pointer;
+
+    &:hover .aura-collapse-title {
+      color: var(--aura-color-primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--aura-color-primary);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+  }
+
+  &-title {
+    min-width: 0;
+  }
+
+  &-arrow {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    color: var(--aura-text-secondary);
+    transition: transform var(--aura-duration-base) var(--aura-easing);
+
+    // 展开时箭头旋转——方向变化比 + / - 文本更不易误读
+    .aura-collapse-item--open & {
+      transform: rotate(180deg);
+    }
+  }
+
+  &-content {
+    display: grid;
+    // 0fr -> 1fr 的网格展开动画：纯 CSS，不测量内容高度，
+    // 与 Teleport 定位（use-overlay-position）的「免测量」思路一致
+    grid-template-rows: 0fr;
+    transition: grid-template-rows var(--aura-duration-base) var(--aura-easing);
+
+    .aura-collapse-item--open & {
+      grid-template-rows: 1fr;
+    }
+  }
+
+  &-content-inner {
+    min-height: 0;
+    overflow: hidden;
+    color: var(--aura-text);
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  // 有内容时给底部呼吸（0fr 折叠时会被 overflow 裁掉，不影响动画）
+  .aura-collapse-item--open &-content-inner {
+    padding-bottom: var(--aura-space-middle);
+  }
+
+  &-item--disabled {
+    .aura-collapse-header {
+      color: var(--aura-text-secondary);
+      cursor: not-allowed;
+
+      &:hover .aura-collapse-title {
+        color: var(--aura-text-secondary);
+      }
+    }
+
+    .aura-collapse-arrow {
+      opacity: 0.5;
+    }
+  }
+}

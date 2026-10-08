@@ -88,6 +88,7 @@ export default defineConfig({
           items: [
             { text: 'Button 按钮', link: '/components/button' },
             { text: 'Input 输入框', link: '/components/input' },
+            { text: 'Collapse 折叠面板', link: '/components/collapse' },
           ],
         },
         {
@@ -104,6 +105,7 @@ export default defineConfig({
             { text: 'Segmented 分段控制器', link: '/components/segmented' },
             { text: 'Tabs 标签页', link: '/components/tabs' },
             { text: 'Breadcrumb 面包屑', link: '/components/breadcrumb' },
+            { text: 'Tree 树形控件', link: '/components/tree' },
           ],
         },
         {
@@ -122,6 +124,7 @@ export default defineConfig({
             { text: 'Form 表单', link: '/components/form' },
             { text: 'Select 选择器', link: '/components/select' },
             { text: 'Switch 开关', link: '/components/switch' },
+            { text: 'Upload 上传', link: '/components/upload' },
           ],
         },
         {

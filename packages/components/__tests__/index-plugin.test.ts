@@ -18,6 +18,8 @@ describe('components 清单', () => {
       'Alert',
       'Breadcrumb',
       'Button',
+      'Collapse',
+      'CollapseItem',
       'Divider',
       'Drawer',
       'Empty',
@@ -37,7 +39,9 @@ describe('components 清单', () => {
       'Tabs',
       'Tag',
       'Tooltip',
+      'Tree',
       'Typography',
+      'Upload',
     ]);
   });
 });
