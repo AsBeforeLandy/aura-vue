@@ -49,10 +49,13 @@ jobs:
       # 输出 tee 落盘：Actions 日志接口需要鉴权、注解里只有「exit code 1」，
       # 没有日志内容就无法定位「同 commit 下 Release 绿 / CI 红」的分叉原因。
       - name: Unit tests (coverage)
+        id: test
         run: pnpm test:coverage 2>&1 | tee test-coverage.log; test ${PIPESTATUS[0]} -eq 0
 
+      # 摘要与日志上传只针对「测试步骤本身失败」——
+      # 否则前面任何步骤（如格式检查）失败都会空跑这两个步骤
       - name: Digest test failures
-        if: ${{ failure() }}
+        if: ${{ failure() && steps.test.outcome == 'failure' }}
         uses: actions/github-script@v7
         with:
           script: |
@@ -75,7 +78,7 @@ jobs:
             for (const l of hits) core.notice(l.slice(0, 200));
 
       - name: Upload test log
-        if: ${{ failure() }}
+        if: ${{ failure() && steps.test.outcome == 'failure' }}
         uses: actions/upload-artifact@v4
         with:
           name: unit-test-log

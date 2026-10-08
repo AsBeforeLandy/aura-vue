@@ -59,7 +59,10 @@ describe('Upload', () => {
 
   it('正常：customRequest 成功——状态流转 uploading → success，进度与响应透传', async () => {
     const wrapper = mountUpload({
-      customRequest: ({ onProgress, onSuccess }: Parameters<UploadRequest>[0]) => {
+      customRequest: ({
+        onProgress,
+        onSuccess,
+      }: Parameters<UploadRequest>[0]) => {
         onProgress(40);
         onSuccess({ url: '/f/1' });
       },
@@ -80,7 +83,8 @@ describe('Upload', () => {
 
   it('正常：customRequest 失败——状态置 danger 并派发 error', async () => {
     const wrapper = mountUpload({
-      customRequest: ({ onError }: Parameters<UploadRequest>[0]) => onError(new Error('boom')),
+      customRequest: ({ onError }: Parameters<UploadRequest>[0]) =>
+        onError(new Error('boom')),
     });
 
     await pickFiles(wrapper, [makeFile('a.txt', 10)]);
