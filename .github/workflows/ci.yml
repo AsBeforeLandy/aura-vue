@@ -45,9 +45,42 @@ jobs:
         # 只有独立跑 vue-tsc 才能拦住类型层面的回归
         run: pnpm typecheck
 
-      # 用覆盖率模式跑测试以强制 vitest 的 coverage.thresholds
+      # 用覆盖率模式跑测试以强制 vitest 的 coverage.thresholds。
+      # 输出 tee 落盘：Actions 日志接口需要鉴权、注解里只有「exit code 1」，
+      # 没有日志内容就无法定位「同 commit 下 Release 绿 / CI 红」的分叉原因。
       - name: Unit tests (coverage)
-        run: pnpm test:coverage
+        run: pnpm test:coverage 2>&1 | tee test-coverage.log; test ${PIPESTATUS[0]} -eq 0
+
+      - name: Digest test failures
+        if: ${{ failure() }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let log = '';
+            try { log = fs.readFileSync('test-coverage.log', 'utf-8'); } catch {}
+            const lines = log.split('\n');
+            const hits = lines
+              .filter((l) =>
+                /×|FAIL |AssertionError|ERROR: Coverage|timed out|Tests\s+\d+ failed|Test Files\s+\d+ failed/i.test(l),
+              )
+              .slice(0, 15);
+            // 摘要写进 step summary（公开仓库可直接访问），
+            // 每行再发一条 notice 注解——注解 API 无需鉴权即可读到
+            const digest = hits.join('\n');
+            await core.summary
+              .addHeading('Unit tests failure digest')
+              .addCodeBlock(digest || '(no digest lines found)')
+              .write();
+            for (const l of hits) core.notice(l.slice(0, 200));
+
+      - name: Upload test log
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-test-log
+          path: test-coverage.log
+          retention-days: 7
 
       # 关键门禁：验证构建产物本身可交付。
       # 「开发态正常、交付态断裂」类问题（exports 指向不存在的文件、
