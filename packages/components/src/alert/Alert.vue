@@ -43,7 +43,7 @@
 
 <script setup lang="ts">
 import { computed, ref, useSlots } from 'vue';
-import { classNames, pickPresetClass, prefixCls } from '@aura/shared';
+import { classNames, pickPresetClass, prefixCls } from '@aura-vue/shared';
 import { alertProps, type AlertEmits } from './types';
 import {
   semanticIconMark,

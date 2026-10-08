@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Tabs } from '@aura/components';
+import { Tabs } from '@aura-vue/components';
 
 const active = ref('base');
 </script>

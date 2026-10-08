@@ -28,7 +28,7 @@ Aura Vue 遵循 [语义化版本](https://semver.org/lang/zh-CN/) 与 [Keep a Ch
 
 **工程**
 
-- pnpm workspace Monorepo（`@aura/components` / `@aura/shared` / `@aura/icons`）
+- pnpm workspace Monorepo（`@aura-vue/components` / `@aura-vue/shared` / `@aura-vue/icons`）
 - Vite + `vite-plugin-dts` 构建，ES Module + `preserveModules` 产物
 - Vitest 单元测试（正常 / 边界 / 异常三类用例）
 - VitePress 文档站，含自定义 Demo 容器、暗色主题与 GitHub Pages 自动部署
@@ -39,7 +39,7 @@ Aura Vue 遵循 [语义化版本](https://semver.org/lang/zh-CN/) 与 [Keep a Ch
 - 尚未适配 SSR（Modal、Select 依赖浏览器 API）
 - Modal 不锁定页面滚动，需要时由使用方自行处理
 - 组件矩阵尚不完整，布局、导航、数据展示类组件在规划中
-- `@aura/icons` 为空占位包
+- `@aura-vue/icons` 为空占位包
 
 ## 版本约定
 

@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { classNames, prefixCls } from '@aura/shared';
+import { classNames, prefixCls } from '@aura-vue/shared';
 import { useControllable } from '../composables/use-controllable';
 import { switchProps, type SwitchEmits } from './types';
 import './style/index.less';

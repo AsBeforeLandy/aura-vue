@@ -1,5 +1,5 @@
 ---
-'@aura/components': minor
+'@aura-vue/components': minor
 ---
 
 新增第四批组件：Steps / Segmented / Skeleton，基础组件扩至 20 个

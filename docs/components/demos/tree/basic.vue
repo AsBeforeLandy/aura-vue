@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Tree } from '@aura/components';
+import { Tree } from '@aura-vue/components';
 
 const selected = ref('ui');
 

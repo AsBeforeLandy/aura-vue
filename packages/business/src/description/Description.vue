@@ -52,7 +52,7 @@
 <script setup lang="ts">
 import { computed, h, type VNodeChild } from 'vue';
 import { ElTag } from 'element-plus';
-import { prefixCls, classNames } from '@aura/shared';
+import { prefixCls, classNames } from '@aura-vue/shared';
 import { formatDate, formatMoney, getByPath } from '../pro-table/utils';
 import { descriptionProps, type DescriptionItem } from './types';
 import './style/index.less';

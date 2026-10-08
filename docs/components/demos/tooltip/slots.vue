@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Tooltip } from '@aura/components';
+import { Tooltip } from '@aura-vue/components';
 
 const tip = ref('内容也可以由插槽自定义，支持换行与强调');
 </script>

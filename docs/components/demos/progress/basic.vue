@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Progress } from '@aura/components';
+import { Progress } from '@aura-vue/components';
 </script>
 
 <template>

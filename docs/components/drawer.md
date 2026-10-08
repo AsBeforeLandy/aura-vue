@@ -75,7 +75,7 @@ import type {
   DrawerProps,
   DrawerPlacement,
   DrawerEmits,
-} from '@aura/components';
+} from '@aura-vue/components';
 ```
 
 ### CSS 类名

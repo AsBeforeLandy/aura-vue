@@ -46,7 +46,7 @@
 
 <script setup lang="ts">
 import { computed, onBeforeUnmount, ref, useSlots, watch } from 'vue';
-import { classNames, pickPresetClass, prefixCls } from '@aura/shared';
+import { classNames, pickPresetClass, prefixCls } from '@aura-vue/shared';
 import { useOverlayPosition } from '../composables/use-overlay-position';
 import { popoverProps, type PopoverEmits } from './types';
 import './style/index.less';

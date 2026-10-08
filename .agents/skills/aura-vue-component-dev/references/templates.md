@@ -79,7 +79,7 @@ export interface XxxInstance {
 </template>
 
 <script setup lang="ts">
-import { prefixCls } from '@aura/shared';
+import { prefixCls } from '@aura-vue/shared';
 import { xxxProps, type XxxItem } from './types';
 import './style/index.less';
 
@@ -88,7 +88,7 @@ defineOptions({ name: 'AXxx' });
 const props = defineProps(xxxProps);
 const emit = defineEmits(xxxEmits);
 
-// 受控 / 非受控双轨的表单控件改用 @aura/components 的 useControllable，
+// 受控 / 非受控双轨的表单控件改用 @aura-vue/components 的 useControllable，
 // 参照 packages/components/src/input/Input.vue。
 </script>
 ```
@@ -248,7 +248,7 @@ describe('Xxx', () => {
 ### 类型导出
 
 ```ts
-import type { XxxProps, XxxItem } from '@aura/business';
+import type { XxxProps, XxxItem } from '@aura-vue/business';
 ```
 ````
 
@@ -269,7 +269,7 @@ demo 文件 `docs/business/demos/xxx/basic.vue`：
 ```vue
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Xxx } from '@aura/business';
+import { Xxx } from '@aura-vue/business';
 
 const value = ref('');
 </script>

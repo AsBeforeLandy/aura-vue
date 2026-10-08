@@ -141,7 +141,7 @@ import type {
   FormItemProps,
   Rule,
   FormRules,
-} from '@aura/components';
+} from '@aura-vue/components';
 ```
 
 ### CSS 类名

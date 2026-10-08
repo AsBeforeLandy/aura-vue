@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Segmented } from '@aura/components';
+import { Segmented } from '@aura-vue/components';
 
 const view = ref('day');
 const sort = ref('hot');

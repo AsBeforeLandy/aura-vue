@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Empty } from '@aura/components';
+import { Empty } from '@aura-vue/components';
 </script>
 
 <template>

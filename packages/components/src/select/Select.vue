@@ -46,7 +46,7 @@
 
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, ref } from 'vue';
-import { classNames, prefixCls } from '@aura/shared';
+import { classNames, prefixCls } from '@aura-vue/shared';
 import { useControllable } from '../composables/use-controllable';
 import { selectProps, type SelectEmits, type SelectOption } from './types';
 import './style/index.less';

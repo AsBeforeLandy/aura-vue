@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { PageContainer, ProTable } from '@aura/business';
-import type { ProTableColumn } from '@aura/business';
+import { PageContainer, ProTable } from '@aura-vue/business';
+import type { ProTableColumn } from '@aura-vue/business';
 
 const loading = ref(false);
 

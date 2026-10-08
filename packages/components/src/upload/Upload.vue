@@ -69,7 +69,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { classNames, prefixCls } from '@aura/shared';
+import { classNames, prefixCls } from '@aura-vue/shared';
 import { Button as AButton } from '../button';
 import { uploadProps, type UploadEmits, type UploadItem } from './types';
 import { formatSize, nextUid, xhrRequest } from './utils';

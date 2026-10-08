@@ -11,7 +11,7 @@ Aura Vue 是一套基于 **Vue 3 + TypeScript** 的轻量组件库，采用 pnpm
 - **Design Token 驱动** — 全部设计变量以 `--aura-` 前缀的 CSS 变量承载，主题切换零成本
 - **Tree-shaking 友好** — ES Module + `preserveModules` 产物，未使用的组件不进业务包
 - **表单校验内建** — Form / FormItem 提供声明式规则校验，控件自动接入校验钩子
-- **配置驱动业务组件** — `@aura/business` 用一份 schema 同时描述表格列、查询区与表单字段，
+- **配置驱动业务组件** — `@aura-vue/business` 用一份 schema 同时描述表格列、查询区与表单字段，
   把后台页面「查询 + 表格 + 分页」「新增/编辑/查看」的模板重复收敛掉
 
 ## 架构
@@ -21,27 +21,27 @@ Aura Vue 使用 pnpm workspaces 管理 Monorepo，按职责拆分为独立包：
 ```
 aura-vue/
 ├── packages/
-│   ├── components/   # @aura/components — 基础组件（零依赖自研）
-│   ├── business/     # @aura/business   — 业务组件（基于 Element Plus 二次封装）
-│   ├── shared/       # @aura/shared     — 内部工具（构建期被内联，不单独发布）
-│   └── icons/        # @aura/icons      — 图标资源包（占位，未发布）
-├── docs/             # @aura/docs — VitePress 文档站
+│   ├── components/   # @aura-vue/components — 基础组件（零依赖自研）
+│   ├── business/     # @aura-vue/business   — 业务组件（基于 Element Plus 二次封装）
+│   ├── shared/       # @aura-vue/shared     — 内部工具（构建期被内联，不单独发布）
+│   └── icons/        # @aura-vue/icons      — 图标资源包（占位，未发布）
+├── docs/             # @aura-vue/docs — VitePress 文档站
 ├── scripts/          # 产物冒烟测试等交付级校验脚本
 └── .github/          # CI / Release / Docs 部署工作流
 ```
 
 依赖方向是单向的：`shared` → `components` → `business`。
 
-| 包名               | 描述                                                                                                                                                                                                                                                  | 运行时依赖            | 发布状态   |
-| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- | ---------- |
-| `@aura/components` | 基础组件：Button / Input / Form / Select / Switch / Modal / Drawer / Divider / Space / Tag / Typography / Alert / Spin / Empty / Tooltip / Progress / Popover / Message / Steps / Segmented / Skeleton / Tabs / Breadcrumb / Collapse / Tree / Upload | `vue`                 | 可发布     |
-| `@aura/business`   | 业务组件：ProTable / ProForm / ProModalForm / Description / PageContainer / SearchForm 等                                                                                                                                                             | `vue`、`element-plus` | 可发布     |
-| `@aura/shared`     | 内部工具（`prefixCls`、`classNames`、`pickPresetClass`）                                                                                                                                                                                              | -                     | 不单独发布 |
-| `@aura/icons`      | 图标资源（占位，后续迁移）                                                                                                                                                                                                                            | -                     | 未发布     |
+| 包名                   | 描述                                                                                                                                                                                                                                                  | 运行时依赖            | 发布状态   |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- | ---------- |
+| `@aura-vue/components` | 基础组件：Button / Input / Form / Select / Switch / Modal / Drawer / Divider / Space / Tag / Typography / Alert / Spin / Empty / Tooltip / Progress / Popover / Message / Steps / Segmented / Skeleton / Tabs / Breadcrumb / Collapse / Tree / Upload | `vue`                 | 可发布     |
+| `@aura-vue/business`   | 业务组件：ProTable / ProForm / ProModalForm / Description / PageContainer / SearchForm 等                                                                                                                                                             | `vue`、`element-plus` | 可发布     |
+| `@aura-vue/shared`     | 内部工具（`prefixCls`、`classNames`、`pickPresetClass`）                                                                                                                                                                                              | -                     | 不单独发布 |
+| `@aura-vue/icons`      | 图标资源（占位，后续迁移）                                                                                                                                                                                                                            | -                     | 未发布     |
 
 ## 组件总览
 
-### 基础组件（`@aura/components`）
+### 基础组件（`@aura-vue/components`）
 
 | 分类 | 组件                                                                                                  |
 | ---- | ----------------------------------------------------------------------------------------------------- |
@@ -49,7 +49,7 @@ aura-vue/
 | 表单 | [Form 表单](/components/form)、[Select 选择器](/components/select)、[Switch 开关](/components/switch) |
 | 反馈 | [Modal 对话框](/components/modal)                                                                     |
 
-### 业务组件（`@aura/business`）
+### 业务组件（`@aura-vue/business`）
 
 | 组件                                               | 解决的问题                                       |
 | -------------------------------------------------- | ------------------------------------------------ |

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Input } from '@aura/components';
+import { Input } from '@aura-vue/components';
 </script>
 
 <template>

@@ -68,7 +68,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 import { ElCheckbox, ElTooltip } from 'element-plus';
-import { classNames, prefixCls } from '@aura/shared';
+import { classNames, prefixCls } from '@aura-vue/shared';
 import {
   collectSubtree,
   expandWithDescendants,

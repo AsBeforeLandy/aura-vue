@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Skeleton } from '@aura/components';
+import { Skeleton } from '@aura-vue/components';
 
 const loading = ref(true);
 

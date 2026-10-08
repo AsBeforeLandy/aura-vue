@@ -8,7 +8,7 @@ import AuraComponents, {
 /**
  * 全量注册插件的契约。
  *
- * 与 @aura/business 的 AuraBusiness 对齐：两个包都应提供
+ * 与 @aura-vue/business 的 AuraBusiness 对齐：两个包都应提供
  * 「具名 components 清单 + 默认导出 install 插件」，
  * 这样使用方的消费方式在包之间保持一致。
  */

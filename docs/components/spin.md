@@ -53,7 +53,7 @@
 ### 类型导出
 
 ```ts
-import type { SpinProps, SpinSize } from '@aura/components';
+import type { SpinProps, SpinSize } from '@aura-vue/components';
 ```
 
 ### CSS 类名

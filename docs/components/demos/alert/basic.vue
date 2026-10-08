@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Alert } from '@aura/components';
+import { Alert } from '@aura-vue/components';
 </script>
 
 <template>

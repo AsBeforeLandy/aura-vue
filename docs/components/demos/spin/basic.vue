@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Spin } from '@aura/components';
+import { Spin } from '@aura-vue/components';
 </script>
 
 <template>

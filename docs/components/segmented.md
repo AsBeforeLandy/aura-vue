@@ -62,7 +62,7 @@ import type {
   SegmentedProps,
   SegmentedOption,
   SegmentedEmits,
-} from '@aura/components';
+} from '@aura-vue/components';
 ```
 
 ### CSS 类名

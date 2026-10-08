@@ -78,7 +78,7 @@ import {
   ElTooltip,
 } from 'element-plus';
 import { QuestionFilled } from '@element-plus/icons-vue';
-import { prefixCls } from '@aura/shared';
+import { prefixCls } from '@aura-vue/shared';
 import {
   proFormProps,
   type ProFormEmits,

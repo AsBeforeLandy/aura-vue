@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Space } from '@aura/components';
+import { Space } from '@aura-vue/components';
 </script>
 
 <template>

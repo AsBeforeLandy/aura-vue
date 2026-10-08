@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import { provide } from 'vue';
-import { prefixCls } from '@aura/shared';
+import { prefixCls } from '@aura-vue/shared';
 import { formContextKey, type FormItemContext } from './context';
 import { formProps } from './types';
 import './style/index.less';

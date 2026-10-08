@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { h } from 'vue';
 import { ElMessage } from 'element-plus';
-import { SearchForm } from '@aura/business';
-import type { SearchField } from '@aura/business';
+import { SearchForm } from '@aura-vue/business';
+import type { SearchField } from '@aura-vue/business';
 
 const fields: SearchField[] = [
   {

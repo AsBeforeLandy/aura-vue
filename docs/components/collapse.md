@@ -87,7 +87,7 @@ import type {
   CollapseProps,
   CollapseItemProps,
   CollapseContext,
-} from '@aura/components';
+} from '@aura-vue/components';
 ```
 
 ### CSS 类名

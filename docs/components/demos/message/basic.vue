@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Message } from '@aura/components';
+import { Message } from '@aura-vue/components';
 
 function demo(type: 'info' | 'success' | 'warning' | 'danger') {
   const texts = {

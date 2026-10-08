@@ -28,7 +28,7 @@
 Message 是**命令式 API**（函数调用），不是组件——不要写 `<Message />`，也不要注册到全局组件：
 
 ```ts
-import { Message } from '@aura/components';
+import { Message } from '@aura-vue/components';
 
 Message.success('已保存');
 Message.danger('同步失败', { duration: 0, closable: true });
@@ -77,7 +77,7 @@ import type {
   MessageOptions,
   MessageType,
   MessageHandle,
-} from '@aura/components';
+} from '@aura-vue/components';
 ```
 
 ### CSS 类名

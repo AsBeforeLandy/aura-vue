@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
-import { Form, FormItem, Input, Button } from '@aura/components';
+import { Form, FormItem, Input, Button } from '@aura-vue/components';
 
 const model = reactive({ name: '', email: '' });
 const formRef = ref();

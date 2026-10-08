@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import { provide, watch } from 'vue';
-import { prefixCls } from '@aura/shared';
+import { prefixCls } from '@aura-vue/shared';
 import { useControllable } from '../composables/use-controllable';
 import {
   collapseProps,

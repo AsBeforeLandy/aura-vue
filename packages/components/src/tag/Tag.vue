@@ -19,7 +19,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { classNames, pickPresetClass, prefixCls } from '@aura/shared';
+import { classNames, pickPresetClass, prefixCls } from '@aura-vue/shared';
 import { tagProps, type TagEmits } from './types';
 import './style/index.less';
 

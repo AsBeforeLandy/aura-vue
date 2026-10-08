@@ -76,7 +76,7 @@
 ### 类型导出
 
 ```ts
-import type { PopoverProps, PopoverPlacement } from '@aura/components';
+import type { PopoverProps, PopoverPlacement } from '@aura-vue/components';
 ```
 
 ### CSS 类名

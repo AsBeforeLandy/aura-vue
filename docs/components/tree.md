@@ -60,7 +60,7 @@
 ### 类型导出
 
 ```ts
-import type { TreeProps, TreeNode, TreeEmits } from '@aura/components';
+import type { TreeProps, TreeNode, TreeEmits } from '@aura-vue/components';
 ```
 
 ### CSS 类名

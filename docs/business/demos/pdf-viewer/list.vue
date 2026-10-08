@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { ElButton, ElMessage } from 'element-plus';
-import { PdfViewer } from '@aura/business';
+import { PdfViewer } from '@aura-vue/business';
 
 interface FileItem {
   name: string;

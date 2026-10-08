@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Description } from '@aura/business';
-import type { DescriptionGroup } from '@aura/business';
+import { Description } from '@aura-vue/business';
+import type { DescriptionGroup } from '@aura-vue/business';
 
 const bordered = ref(true);
 

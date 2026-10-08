@@ -180,7 +180,7 @@ import type {
   ProTableInstance,
   ProTablePagination,
   ProTableToolbarConfig,
-} from '@aura/business';
+} from '@aura-vue/business';
 ```
 
 ### CSS 类名

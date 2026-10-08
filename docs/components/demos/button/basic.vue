@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Button } from '@aura/components';
+import { Button } from '@aura-vue/components';
 </script>
 
 <template>

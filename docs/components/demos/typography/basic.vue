@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Typography } from '@aura/components';
+import { Typography } from '@aura-vue/components';
 </script>
 
 <template>

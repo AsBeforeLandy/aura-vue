@@ -96,7 +96,7 @@ import type {
   ButtonType,
   ButtonSize,
   ButtonEmits,
-} from '@aura/components';
+} from '@aura-vue/components';
 ```
 
 ### CSS 类名

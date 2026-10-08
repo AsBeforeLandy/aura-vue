@@ -49,7 +49,7 @@
 ### 类型导出
 
 ```ts
-import type { EmptyProps } from '@aura/components';
+import type { EmptyProps } from '@aura-vue/components';
 ```
 
 ### CSS 类名

@@ -49,7 +49,7 @@
 ### 类型导出
 
 ```ts
-import type { StepsProps, StepItem } from '@aura/components';
+import type { StepsProps, StepItem } from '@aura-vue/components';
 ```
 
 ### CSS 类名

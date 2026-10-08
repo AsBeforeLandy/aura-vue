@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Tooltip } from '@aura/components';
+import { Tooltip } from '@aura-vue/components';
 </script>
 
 <template>

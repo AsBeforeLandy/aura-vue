@@ -56,7 +56,7 @@ export default defineConfig({
 
   webServer: {
     // 服务的是已构建的产物；构建由 test:e2e 脚本负责（只构建一次）
-    command: `pnpm --filter @aura/docs preview --port ${PORT} --strictPort`,
+    command: `pnpm --filter @aura-vue/docs preview --port ${PORT} --strictPort`,
     url: `${BASE_URL}/`,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,

@@ -93,7 +93,7 @@
 ### 类型导出
 
 ```ts
-import type { InputProps, InputEmits } from '@aura/components';
+import type { InputProps, InputEmits } from '@aura-vue/components';
 ```
 
 ### CSS 类名

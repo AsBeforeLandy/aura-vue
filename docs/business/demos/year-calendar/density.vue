@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { YearCalendar } from '@aura/business';
+import { YearCalendar } from '@aura-vue/business';
 
 const selected = ref<string[]>([]);
 </script>

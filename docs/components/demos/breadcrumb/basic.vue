@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Breadcrumb } from '@aura/components';
+import { Breadcrumb } from '@aura-vue/components';
 </script>
 
 <template>

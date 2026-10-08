@@ -99,7 +99,7 @@ import type {
   PDFDocumentProxy,
   RenderTask,
 } from 'pdfjs-dist';
-import { classNames, prefixCls } from '@aura/shared';
+import { classNames, prefixCls } from '@aura-vue/shared';
 import {
   clamp,
   clampPage,

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Input } from '@aura/components';
+import { Input } from '@aura-vue/components';
 
 const value = ref('可清空的内容');
 const logs = ref<string[]>([]);

@@ -170,7 +170,7 @@ import type {
   ProFormRule,
   ProFormInstance,
   ProFormValueType,
-} from '@aura/business';
+} from '@aura-vue/business';
 ```
 
 ### CSS 类名

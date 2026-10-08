@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Divider } from '@aura/components';
+import { Divider } from '@aura-vue/components';
 </script>
 
 <template>

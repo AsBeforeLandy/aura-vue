@@ -67,7 +67,7 @@
 ### 类型导出
 
 ```ts
-import type { SwitchProps, SwitchEmits } from '@aura/components';
+import type { SwitchProps, SwitchEmits } from '@aura-vue/components';
 ```
 
 ### CSS 类名

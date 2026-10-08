@@ -3,7 +3,7 @@
  * 产物冒烟测试（Artifact Smoke Test）
  *
  * 存在的意义：
- *   本仓库的文档站大量通过源码路径（`@aura/components/src/style/base.less`）
+ *   本仓库的文档站大量通过源码路径（`@aura-vue/components/src/style/base.less`）
  *   消费样式，而组件产物（`dist/`）从不在开发流程中被真正「装机」消费，
  *   因此「开发态正常、交付态断裂」类问题不会被任何现有命令发现：
  *
@@ -20,7 +20,7 @@
  *   4. 产物的 JS 中不存在逃出包目录的相对路径（alias 泄漏）
  *   5. 产物的 JS 中所有裸包名依赖都已在 dependencies / peerDependencies 中声明
  *   6. 产物中相对引用的资源文件真实存在
- *   7. 文档里教用户 import 的 `@aura/*` 子路径，确实被 exports 暴露
+ *   7. 文档里教用户 import 的 `@aura-vue/*` 子路径，确实被 exports 暴露
  *
  * 用法：pnpm smoke（应在 build:lib 之后执行）
  */
@@ -35,7 +35,7 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
  * 需要做交付校验的库包：**自动派生**，不写死清单。
  *
  * 判据是「用 vite build 构建」——即产出 `dist/` 的库包。
- * `@aura/shared`（源码形式被内联）与 `@aura/icons`（占位）不在此列。
+ * `@aura-vue/shared`（源码形式被内联）与 `@aura-vue/icons`（占位）不在此列。
  * 派生而非硬编码，可保证新增包自动纳入校验，不会漏。
  */
 const LIB_PACKAGES = readdirSync(join(ROOT, 'packages'), {
@@ -97,7 +97,7 @@ function walk(dir, out = []) {
 /** 去掉块注释与行首行注释。
  *
  *  扫描「模块引用」必须先剥注释：d.ts 里的 JSDoc 会带使用示例
- *  （如 `import { Message } from '@aura/components'`），不剥注释会把
+ *  （如 `import { Message } from '@aura-vue/components'`），不剥注释会把
  *  文档示例当成未声明的裸依赖误报。
  *
  *  简化处理：不解析字符串字面量内部的注释语法——产物是构建器输出，
@@ -161,7 +161,7 @@ for (const pkg of LIB_PACKAGES) {
   const pkgDir = join(ROOT, 'packages', pkg);
   const pkgJsonPath = join(pkgDir, 'package.json');
 
-  group(`@aura/${pkg}`);
+  group(`@aura-vue/${pkg}`);
 
   if (!existsSync(pkgJsonPath)) {
     check('package.json 存在', () => assert(false, `未找到 ${pkgJsonPath}`));
@@ -363,11 +363,11 @@ for (const pkg of LIB_PACKAGES) {
 console.log('');
 
 // 7) 文档中教用户 import 的包内子路径，必须真实存在于该包的 exports 中。
-//    历史缺陷：安装文档写 `import '@aura/components/dist/style.css'`，
+//    历史缺陷：安装文档写 `import '@aura-vue/components/dist/style.css'`，
 //    但 exports 只暴露了 `./style.css`；使用者照抄必然 Module not found。
 // 8) 反向校验：没有构建产物、却也没标 private 的包，会被 changeset publish 视为待发布项，
 //    发布出一个「入口指向 .ts 源码、使用方加载不了」的坏包。
-//    @aura/shared 与 @aura/icons 都踩过这个坑。私有包必须显式声明，不能靠运气。
+//    @aura-vue/shared 与 @aura-vue/icons 都踩过这个坑。私有包必须显式声明，不能靠运气。
 group('工作区发布配置');
 
 check('无构建产物的包必须标记 private', () => {
@@ -443,14 +443,14 @@ function isPlaceholderPath(sub) {
  * 反例行不参与校验。
  *
  * 文档里刻意展示「错误写法」是很常见的（例如提示不要写
- * `@aura/components/button`），这类行会包含确实不存在的路径。
+ * `@aura-vue/components/button`），这类行会包含确实不存在的路径。
  * 约定：含 `❌` 标记的行视为反例，跳过。
  */
 function isCounterExample(line) {
   return line.includes('❌');
 }
 
-check('文档中引用的 @aura/* 子路径都已由 exports 暴露', () => {
+check('文档中引用的 @aura-vue/* 子路径都已由 exports 暴露', () => {
   const DOCS = [
     'README.md',
     ...walk(join(ROOT, 'docs')).filter((f) => f.endsWith('.md')),
@@ -487,7 +487,7 @@ check('文档中引用的 @aura/* 子路径都已由 exports 暴露', () => {
         const key = `./${sub.replace(/\/+$/, '')}`;
         if (!keysOf(pkg).some((k) => matchesExportKey(k, key))) {
           bad.push(
-            `${relative(ROOT, file)}:${i + 1} 引用了 @aura/${pkg}/${sub}，但 exports 未暴露可匹配的键`,
+            `${relative(ROOT, file)}:${i + 1} 引用了 @aura-vue/${pkg}/${sub}，但 exports 未暴露可匹配的键`,
           );
         }
       }

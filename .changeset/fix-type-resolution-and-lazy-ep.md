@@ -1,6 +1,6 @@
 ---
-'@aura/components': patch
-'@aura/business': patch
+'@aura-vue/components': patch
+'@aura-vue/business': patch
 ---
 
 修复发布包的类型解析问题，并让文档站按需加载 Element Plus

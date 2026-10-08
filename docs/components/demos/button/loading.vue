@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Button } from '@aura/components';
+import { Button } from '@aura-vue/components';
 
 const loading = ref(false);
 

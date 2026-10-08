@@ -64,7 +64,7 @@
 ### 类型导出
 
 ```ts
-import type { CascaderPanelProps, CascaderOption } from '@aura/business';
+import type { CascaderPanelProps, CascaderOption } from '@aura-vue/business';
 ```
 
 ### CSS 类名

@@ -1,5 +1,5 @@
 {
-  "name": "@aura/docs",
+  "name": "@aura-vue/docs",
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,8 +8,8 @@
     "preview": "vitepress preview"
   },
   "dependencies": {
-    "@aura/business": "workspace:*",
-    "@aura/components": "workspace:*",
+    "@aura-vue/business": "workspace:*",
+    "@aura-vue/components": "workspace:*",
     "highlight.js": "^11.12.0"
   },
   "devDependencies": {

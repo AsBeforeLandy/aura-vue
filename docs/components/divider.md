@@ -62,7 +62,7 @@ import type {
   DividerProps,
   DividerDirection,
   DividerOrientation,
-} from '@aura/components';
+} from '@aura-vue/components';
 ```
 
 ### CSS 类名

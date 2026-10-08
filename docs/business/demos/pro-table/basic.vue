@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { ProTable } from '@aura/business';
-import type { ProTableColumn, ProTableRequest } from '@aura/business';
+import { ProTable } from '@aura-vue/business';
+import type { ProTableColumn, ProTableRequest } from '@aura-vue/business';
 
 interface UserRow {
   id: number;

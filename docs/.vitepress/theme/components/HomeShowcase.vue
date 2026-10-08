@@ -88,7 +88,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Button, Input, Switch, Select, Modal } from '@aura/components';
+import { Button, Input, Switch, Select, Modal } from '@aura-vue/components';
 
 const keyword = ref('');
 const onlyMine = ref(true);

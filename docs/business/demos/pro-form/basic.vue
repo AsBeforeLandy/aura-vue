@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { ProForm } from '@aura/business';
-import type { ProFormInstance, ProFormItem } from '@aura/business';
+import { ProForm } from '@aura-vue/business';
+import type { ProFormInstance, ProFormItem } from '@aura-vue/business';
 
 const formRef = ref<ProFormInstance>();
 const result = ref('');

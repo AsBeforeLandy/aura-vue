@@ -44,7 +44,7 @@
 
 <script setup lang="ts">
 import { computed, ref, toRef } from 'vue';
-import { classNames, pickPresetClass, prefixCls } from '@aura/shared';
+import { classNames, pickPresetClass, prefixCls } from '@aura-vue/shared';
 import { useDialogBehavior } from '../composables/use-dialog';
 import { drawerProps, type DrawerEmits } from './types';
 import './style/index.less';

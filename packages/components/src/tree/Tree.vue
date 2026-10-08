@@ -9,7 +9,7 @@
 // 键盘方向树导航（↑↓ 移动、→ 展开、← 收起）留作后续增强，
 // 当前节点的选中 / 展开均可通过 pointer 完成。
 import { computed, provide, ref } from 'vue';
-import { prefixCls } from '@aura/shared';
+import { prefixCls } from '@aura-vue/shared';
 import { useControllable } from '../composables/use-controllable';
 import TreeItem from './TreeItem.vue';
 import {

@@ -16,18 +16,18 @@ packages/components/src/
 
 ```ts
 // 全局样式（含 CSS 变量）
-import '@aura/components/src/style/base.less';
+import '@aura-vue/components/src/style/base.less';
 
 // 按需引入组件样式
-import '@aura/components/src/button/style/index.less';
-import '@aura/components/src/input/style/index.less';
+import '@aura-vue/components/src/button/style/index.less';
+import '@aura-vue/components/src/input/style/index.less';
 ```
 
 ## 类名体系
 
 ### prefixCls
 
-所有类名由 `@aura/shared` 的 `prefixCls` 生成，统一带 `aura-` 前缀：
+所有类名由 `@aura-vue/shared` 的 `prefixCls` 生成，统一带 `aura-` 前缀：
 
 ```ts
 prefixCls('button'); // 'aura-button'

@@ -249,7 +249,7 @@ import {
   Search,
   Setting,
 } from '@element-plus/icons-vue';
-import { prefixCls, classNames } from '@aura/shared';
+import { prefixCls, classNames } from '@aura-vue/shared';
 import {
   proTableProps,
   type ProTableColumn,

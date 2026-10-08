@@ -71,7 +71,7 @@ function open(
 /**
  * 全局消息提示（命令式）：
  *
- *   import { Message } from '@aura/components';
+ *   import { Message } from '@aura-vue/components';
  *   Message.success('已保存');
  *   Message.danger('同步失败', { duration: 0, closable: true });
  *

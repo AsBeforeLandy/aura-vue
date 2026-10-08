@@ -63,7 +63,7 @@ import type {
   SpaceDirection,
   SpaceSize,
   SpaceAlign,
-} from '@aura/components';
+} from '@aura-vue/components';
 ```
 
 ### CSS 类名

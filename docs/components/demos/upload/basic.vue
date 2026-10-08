@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Upload } from '@aura/components';
+import { Upload } from '@aura-vue/components';
 
 const fileList = ref([]);
 

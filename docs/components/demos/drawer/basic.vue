@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Drawer } from '@aura/components';
+import { Drawer } from '@aura-vue/components';
 
 const visible = ref(false);
 const bottomVisible = ref(false);

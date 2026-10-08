@@ -50,7 +50,7 @@
 
 <script setup lang="ts">
 import { computed, inject } from 'vue';
-import { classNames, prefixCls } from '@aura/shared';
+import { classNames, prefixCls } from '@aura-vue/shared';
 import { collapseItemProps, type CollapseContext } from './types';
 import './style/index.less';
 

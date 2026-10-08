@@ -1,5 +1,5 @@
 ---
-'@aura/components': minor
+'@aura-vue/components': minor
 ---
 
 新增第一批轻量组件：Divider / Space / Tag / Typography
@@ -23,7 +23,7 @@
 - 新增语义色的柔和表面与文字级变体令牌（`--aura-success-soft` 等 +
   `--aura-color-*-strong`）：12px 小字直接用主色对比度不足，加深一档保证可读；
   亮暗两套都在 `base.less` 集中维护。
-- `@aura/shared` 新增 `pickPresetClass(value, presets, prefix)`：联合类型的
+- `@aura-vue/shared` 新增 `pickPresetClass(value, presets, prefix)`：联合类型的
   档位 prop（type / size / align）在运行时收到非法值时不再产生垃圾类名，
   安静回落到组件默认外观。
 

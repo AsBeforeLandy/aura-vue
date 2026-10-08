@@ -1,5 +1,5 @@
 ---
-'@aura/components': minor
+'@aura-vue/components': minor
 ---
 
 适配系统的「减少动态效果」偏好（prefers-reduced-motion）

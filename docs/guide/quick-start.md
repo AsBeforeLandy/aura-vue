@@ -16,17 +16,17 @@
 
 ```bash [pnpm]
 # 安装组件库
-pnpm add @aura/components
+pnpm add @aura-vue/components
 ```
 
 ```bash [yarn]
 # 安装组件库
-yarn add @aura/components
+yarn add @aura-vue/components
 ```
 
 ```bash [npm]
 # 安装组件库
-npm install @aura/components
+npm install @aura-vue/components
 ```
 
 :::
@@ -39,15 +39,15 @@ npm install @aura/components
 
 ```ts
 // main.ts
-import '@aura/components/src/style/base.less';
+import '@aura-vue/components/src/style/base.less';
 ```
 
 如果你只想引入用到的组件样式，可以按需引入：
 
 ```ts
-import '@aura/components/src/style/base.less';
-import '@aura/components/src/button/style/index.less';
-import '@aura/components/src/input/style/index.less';
+import '@aura-vue/components/src/style/base.less';
+import '@aura-vue/components/src/button/style/index.less';
+import '@aura-vue/components/src/input/style/index.less';
 ```
 
 > 每个组件的 `style/index.less` 内部已 `@import` 依赖的基础变量，重复引入不会产生副作用。
@@ -57,7 +57,7 @@ import '@aura/components/src/input/style/index.less';
 ```vue
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Button, Input, Switch } from '@aura/components';
+import { Button, Input, Switch } from '@aura-vue/components';
 
 const keyword = ref('');
 const onlyMine = ref(false);
@@ -78,20 +78,20 @@ const onlyMine = ref(false);
 
 ```vue
 <script setup lang="ts">
-import { Button } from '@aura/components';
+import { Button } from '@aura-vue/components';
 </script>
 ```
 
 样式则按组件按需引入：
 
 ```ts
-import '@aura/components/src/button/style/index.less';
+import '@aura-vue/components/src/button/style/index.less';
 ```
 
 :::warning
 组件库**没有**按组件的子路径导出，它只在包内 `exports` 暴露根入口、`./style.css` 与样式源码路径。
 
-❌ `import { Button } from '@aura/components/button'` —— 打包时会报 Module not found。
+❌ `import { Button } from '@aura-vue/components/button'` —— 打包时会报 Module not found。
 :::
 
 ## 受控 / 非受控

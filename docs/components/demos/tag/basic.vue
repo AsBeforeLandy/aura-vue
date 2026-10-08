@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Tag } from '@aura/components';
+import { Tag } from '@aura-vue/components';
 </script>
 
 <template>

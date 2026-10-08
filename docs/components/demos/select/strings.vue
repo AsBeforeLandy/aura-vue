@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Select } from '@aura/components';
+import { Select } from '@aura-vue/components';
 
 const options = ['待处理', '进行中', '已完成', '已关闭'];
 const status = ref('进行中');

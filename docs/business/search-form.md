@@ -68,7 +68,7 @@
 React 版通过受控 `form` 实例外部操纵表单；Vue 版按惯例走模板 ref，暴露 EP 表单实例：
 
 ```ts
-import type { SearchFormInstance } from '@aura/business';
+import type { SearchFormInstance } from '@aura-vue/business';
 
 // formRef.value.validate() / resetFields() / clearValidate()
 const formRef = ref<SearchFormInstance['formRef']>();
@@ -83,7 +83,7 @@ import type {
   SearchFieldOption,
   SearchFieldType,
   SearchFormInstance,
-} from '@aura/business';
+} from '@aura-vue/business';
 ```
 
 ### CSS 类名

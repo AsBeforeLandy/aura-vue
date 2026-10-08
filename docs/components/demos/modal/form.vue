@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Modal, Button, Input, Switch } from '@aura/components';
+import { Modal, Button, Input, Switch } from '@aura-vue/components';
 
 const open = ref(false);
 const form = ref({ name: '', notify: true });

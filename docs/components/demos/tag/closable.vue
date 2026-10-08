@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Tag } from '@aura/components';
+import { Tag } from '@aura-vue/components';
 
 /** 非受控：内部自持显隐 */
 const showUncontrolled = ref(true);

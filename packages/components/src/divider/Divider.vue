@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import { computed, useSlots } from 'vue';
-import { classNames, pickPresetClass, prefixCls } from '@aura/shared';
+import { classNames, pickPresetClass, prefixCls } from '@aura-vue/shared';
 import { dividerProps } from './types';
 import './style/index.less';
 

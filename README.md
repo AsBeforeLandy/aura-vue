@@ -23,11 +23,11 @@ Vue3 组件库 —— 基础组件 + 基于 Element Plus 二次封装的业务�
 ```
 aura-vue/
 ├── packages/
-│   ├── components/    # @aura/components — 基础组件（Button / Input / Form / Select / Switch / Modal）
-│   ├── business/      # @aura/business   — 业务组件（ProTable / ProForm / ProModalForm / Description / PageContainer）
-│   ├── shared/        # @aura/shared     — 内部工具（prefixCls / classNames），不对外发布
-│   └── icons/         # @aura/icons      — 图标包占位，尚未迁移资源，未发布
-├── docs/              # @aura/docs — VitePress 文档站
+│   ├── components/    # @aura-vue/components — 基础组件（Button / Input / Form / Select / Switch / Modal）
+│   ├── business/      # @aura-vue/business   — 业务组件（ProTable / ProForm / ProModalForm / Description / PageContainer）
+│   ├── shared/        # @aura-vue/shared     — 内部工具（prefixCls / classNames），不对外发布
+│   └── icons/         # @aura-vue/icons      — 图标包占位，尚未迁移资源，未发布
+├── docs/              # @aura-vue/docs — VitePress 文档站
 ├── scripts/smoke.mjs  # 产物冒烟测试（交付级校验）
 └── .github/workflows/ # CI / Release / Docs 部署
 ```
@@ -102,7 +102,7 @@ pnpm release         # 构建并发布到 npm
 
 ## 新增组件步骤
 
-### 基础组件（@aura/components）
+### 基础组件（@aura-vue/components）
 
 1. 在 `packages/components/src/<name>/` 下创建 `types.ts`、`<Name>.vue`、`style/index.less`
 2. 编写 `<name>/index.ts` 导出组件与类型，并在 `src/index.ts` 中 re-export
@@ -111,14 +111,14 @@ pnpm release         # 构建并发布到 npm
 4. 在 `docs/components/` 下新增文档页 + demo，并在 `docs/.vitepress/config.mts` 侧边栏注册
 5. 若组件用到新的 Element Plus 组件，在 `docs/.vitepress/theme/index.ts` 补对应的按需样式引入
 
-### 业务组件（@aura/business）
+### 业务组件（@aura-vue/business）
 
 同上，目录在 `packages/business/src/<name>/`，并需在 `src/index.ts` 的 `businessComponents` 中登记。
 
 ## 发布
 
-只发布 `@aura/components` 与 `@aura/business` 两个包；
-`@aura/shared` 与 `@aura/icons` 标记为 `private`，changesets 会跳过。
+只发布 `@aura-vue/components` 与 `@aura-vue/business` 两个包；
+`@aura-vue/shared` 与 `@aura-vue/icons` 标记为 `private`，changesets 会跳过。
 
 在仓库 Secrets 配置 `NPM_TOKEN` 后，Release workflow 才会执行发布步骤；
 未配置时仅做构建与测试校验。

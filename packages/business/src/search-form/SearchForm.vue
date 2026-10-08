@@ -112,7 +112,7 @@ import {
   type FormInstance,
 } from 'element-plus';
 import { ArrowDown, RefreshLeft, Search } from '@element-plus/icons-vue';
-import { classNames, prefixCls } from '@aura/shared';
+import { classNames, prefixCls } from '@aura-vue/shared';
 import { searchFormProps, type SearchFormEmits } from './types';
 import './style/index.less';
 

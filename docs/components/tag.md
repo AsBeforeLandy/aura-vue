@@ -74,7 +74,7 @@
 ### 类型导出
 
 ```ts
-import type { TagProps, TagType } from '@aura/components';
+import type { TagProps, TagType } from '@aura-vue/components';
 ```
 
 ### CSS 类名

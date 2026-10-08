@@ -4,10 +4,10 @@
 
 ## 命名规范：prefixCls + BEM
 
-所有组件类名由 `@aura/shared` 的 `prefixCls` 生成，统一带 `aura-` 前缀：
+所有组件类名由 `@aura-vue/shared` 的 `prefixCls` 生成，统一带 `aura-` 前缀：
 
 ```ts
-import { prefixCls } from '@aura/shared';
+import { prefixCls } from '@aura-vue/shared';
 
 prefixCls('button'); // 'aura-button'
 prefixCls('button--primary'); // 'aura-button--primary'

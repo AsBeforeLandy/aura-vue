@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Select } from '@aura/components';
+import { Select } from '@aura-vue/components';
 
 const city = ref('');
 const assigned = ref('design');

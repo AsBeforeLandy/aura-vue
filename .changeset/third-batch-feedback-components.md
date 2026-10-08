@@ -1,5 +1,5 @@
 ---
-'@aura/components': minor
+'@aura-vue/components': minor
 ---
 
 新增第三批组件：Message / Popover / Progress，基础组件扩至 17 个
@@ -27,7 +27,7 @@
 - **修复 Alert 的图标路径重复**：形状数据抽到内部模块 `_internal/semantic-icon`，
   Alert / Message 共用，避免两处各写一份后悄悄走样。
 - **修复 smoke 的裸依赖扫描假阳性**：d.ts 的 JSDoc 使用示例（如
-  `import { Message } from '@aura/components'`）会被当成未声明的裸依赖误报；
+  `import { Message } from '@aura-vue/components'`）会被当成未声明的裸依赖误报；
   扫描前先剥块注释与行首行注释。
 
 ### 体积预算

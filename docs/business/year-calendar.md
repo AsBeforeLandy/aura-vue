@@ -68,7 +68,10 @@
 ### 类型导出
 
 ```ts
-import type { YearCalendarProps, YearCalendarSlotProps } from '@aura/business';
+import type {
+  YearCalendarProps,
+  YearCalendarSlotProps,
+} from '@aura-vue/business';
 ```
 
 ### CSS 类名

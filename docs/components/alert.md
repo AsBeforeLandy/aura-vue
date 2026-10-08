@@ -73,7 +73,7 @@
 ### 类型导出
 
 ```ts
-import type { AlertProps, AlertType } from '@aura/components';
+import type { AlertProps, AlertType } from '@aura-vue/components';
 ```
 
 ### CSS 类名

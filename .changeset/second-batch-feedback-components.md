@@ -1,5 +1,5 @@
 ---
-'@aura/components': minor
+'@aura-vue/components': minor
 ---
 
 新增第二批组件：Alert / Spin / Empty / Tooltip，基础组件扩至 14 个

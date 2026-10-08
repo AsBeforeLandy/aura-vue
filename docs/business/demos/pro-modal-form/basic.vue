@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { ElMessage } from 'element-plus';
-import { ProModalForm } from '@aura/business';
-import type { ProFormItem } from '@aura/business';
+import { ProModalForm } from '@aura-vue/business';
+import type { ProFormItem } from '@aura-vue/business';
 
 const items: ProFormItem[] = [
   {

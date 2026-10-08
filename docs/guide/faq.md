@@ -29,8 +29,8 @@ Aura Vue 基于 Vue 3 构建，需要 ^3.4.0 及以上版本。组件库全量�
 Vite 开箱即用，安装后引入样式即可：
 
 ```ts
-import { Button } from '@aura/components';
-import '@aura/components/src/style/base.less';
+import { Button } from '@aura-vue/components';
+import '@aura-vue/components/src/style/base.less';
 ```
 
 若报 Less 解析错误，请确认已安装 `less` 依赖：
@@ -62,23 +62,23 @@ module.exports = {
 
 ```ts
 // ✅ 推荐：具名导入，未用到的组件会被摇掉
-import { Button } from '@aura/components';
+import { Button } from '@aura-vue/components';
 
 // ✅ 样式可按组件按需引入
-import '@aura/components/src/button/style/index.less';
+import '@aura-vue/components/src/button/style/index.less';
 ```
 
 :::warning 不要写组件子路径
 包的 `exports` 只暴露根入口、`./style.css` 与样式源码路径，**没有**按组件的子路径导出。
 
-❌ `import { Button } from '@aura/components/button'` —— 打包时会报 Module not found。
+❌ `import { Button } from '@aura-vue/components/button'` —— 打包时会报 Module not found。
 :::
 
 ### 样式没有生效怎么办？
 
 请依次检查：
 
-1. 是否引入了基础变量文件 `@aura/components/src/style/base.less`
+1. 是否引入了基础变量文件 `@aura-vue/components/src/style/base.less`
 2. 构建工具是否已配置 Less 解析
 3. 浏览器是否支持 CSS Variables（Chrome 80+ / Firefox 80+ / Safari 14+）
 4. 是否有其他全局样式覆盖了 Aura 的 CSS Variables

@@ -141,7 +141,7 @@ export default defineConfig({
         },
       ],
       // 业务组件独立成 tab 后有自己的 URL 分区（/business/），
-      // 与 React 版 @aura/business 的文档结构保持一致。
+      // 与 React 版 @aura-vue/business 的文档结构保持一致。
       '/business/': [
         {
           text: '业务组件',

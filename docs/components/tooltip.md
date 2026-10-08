@@ -69,7 +69,7 @@
 ### 类型导出
 
 ```ts
-import type { TooltipProps, TooltipPlacement } from '@aura/components';
+import type { TooltipProps, TooltipPlacement } from '@aura-vue/components';
 ```
 
 ### CSS 类名

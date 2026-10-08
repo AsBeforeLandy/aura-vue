@@ -31,7 +31,7 @@
 
 <script setup lang="ts">
 import { computed, useSlots } from 'vue';
-import { prefixCls } from '@aura/shared';
+import { prefixCls } from '@aura-vue/shared';
 import { emptyProps } from './types';
 import './style/index.less';
 

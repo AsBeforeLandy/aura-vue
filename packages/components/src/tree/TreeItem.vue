@@ -47,7 +47,7 @@
 
 <script setup lang="ts">
 import { computed, inject } from 'vue';
-import { classNames, prefixCls } from '@aura/shared';
+import { classNames, prefixCls } from '@aura-vue/shared';
 import { type TreeContext, type TreeNode } from './types';
 
 defineOptions({ name: 'ATreeItem' });

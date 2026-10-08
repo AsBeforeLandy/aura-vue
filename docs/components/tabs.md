@@ -74,7 +74,7 @@
 ### 类型导出
 
 ```ts
-import type { TabsProps, TabItem, TabsEmits } from '@aura/components';
+import type { TabsProps, TabItem, TabsEmits } from '@aura-vue/components';
 ```
 
 ### CSS 类名

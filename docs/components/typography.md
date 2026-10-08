@@ -61,7 +61,7 @@ import type {
   TypographyProps,
   TypographyLevel,
   TypographyType,
-} from '@aura/components';
+} from '@aura-vue/components';
 ```
 
 ### CSS 类名

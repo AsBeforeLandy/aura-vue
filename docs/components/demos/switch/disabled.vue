@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Switch } from '@aura/components';
+import { Switch } from '@aura-vue/components';
 </script>
 
 <template>

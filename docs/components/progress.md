@@ -50,7 +50,7 @@
 ### 类型导出
 
 ```ts
-import type { ProgressProps, ProgressStatus } from '@aura/components';
+import type { ProgressProps, ProgressStatus } from '@aura-vue/components';
 ```
 
 ### CSS 类名

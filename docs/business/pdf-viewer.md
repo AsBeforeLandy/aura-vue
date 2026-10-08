@@ -76,7 +76,7 @@
 ### 类型导出
 
 ```ts
-import type { PdfViewerProps } from '@aura/business';
+import type { PdfViewerProps } from '@aura-vue/business';
 ```
 
 ### CSS 类名

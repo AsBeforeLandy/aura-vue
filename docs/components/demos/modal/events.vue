@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Modal, Button } from '@aura/components';
+import { Modal, Button } from '@aura-vue/components';
 
 const open = ref(false);
 const events = ref<string[]>([]);

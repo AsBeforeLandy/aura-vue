@@ -51,7 +51,7 @@
 
 <script setup lang="ts">
 import { computed, ref, toRef } from 'vue';
-import { prefixCls } from '@aura/shared';
+import { prefixCls } from '@aura-vue/shared';
 import { useDialogBehavior } from '../composables/use-dialog';
 import { Button } from '../button';
 import { modalProps, type ModalEmits } from './types';

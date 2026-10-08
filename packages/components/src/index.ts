@@ -91,7 +91,7 @@ export const components = {
  * 全量注册插件：
  *   app.use(AuraComponents)
  *
- * 与 @aura/business 的 AuraBusiness 保持同一套约定：
+ * 与 @aura-vue/business 的 AuraBusiness 保持同一套约定：
  * 具名导出 `xxxComponents` 清单 + 默认导出的 install 插件，
  * 让两个包对使用方呈现一致的消费方式。
  */

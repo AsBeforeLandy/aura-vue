@@ -54,7 +54,7 @@
 ### 类型导出
 
 ```ts
-import type { SkeletonProps } from '@aura/components';
+import type { SkeletonProps } from '@aura-vue/components';
 ```
 
 ### CSS 类名

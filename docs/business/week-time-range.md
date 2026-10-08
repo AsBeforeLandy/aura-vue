@@ -86,7 +86,7 @@ import type {
   WeekTimeRangeProps,
   TimeRange,
   WeekTimeRangeValue,
-} from '@aura/business';
+} from '@aura-vue/business';
 ```
 
 ### CSS 类名

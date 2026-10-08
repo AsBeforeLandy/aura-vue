@@ -28,10 +28,10 @@ description: aura-vue 组件库本仓库的组件开发规范流程。在 aura-v
 
 ## Step 1 定位：选包与选参照
 
-| 包                 | 定位                          | 依赖约束                                                              | 参照组件                                    |
-| ------------------ | ----------------------------- | --------------------------------------------------------------------- | ------------------------------------------- |
-| `@aura/components` | 通用 UI 原子组件（不依赖 EP） | 只依赖 `@aura/shared`、`vue`；**不得引入 element-plus**               | `input` / `select` / `form` / `modal`       |
-| `@aura/business`   | 基于 Element Plus 二次封装    | 可用 element-plus（peer）+ `@element-plus/icons-vue` + `@aura/shared` | `pro-form` / `pro-table` / `pro-modal-form` |
+| 包                     | 定位                          | 依赖约束                                                                  | 参照组件                                    |
+| ---------------------- | ----------------------------- | ------------------------------------------------------------------------- | ------------------------------------------- |
+| `@aura-vue/components` | 通用 UI 原子组件（不依赖 EP） | 只依赖 `@aura-vue/shared`、`vue`；**不得引入 element-plus**               | `input` / `select` / `form` / `modal`       |
+| `@aura-vue/business`   | 基于 Element Plus 二次封装    | 可用 element-plus（peer）+ `@element-plus/icons-vue` + `@aura-vue/shared` | `pro-form` / `pro-table` / `pro-modal-form` |
 
 规则：
 
@@ -60,7 +60,7 @@ packages/<pkg>/src/<kebab-case-name>/
 
 - **Props**：`export type XxxProps = { ... }`，每个 prop 写 JSDoc，有默认值的在运行时对象里体现；**同时导出运行时 props 对象** `export const xxxProps = { ... } as const`（`PropType` 标注复杂类型），组件里 `defineProps(xxxProps)`——运行时对象是 `businessComponents` 插件映射与 api-surface 门禁的数据来源，只写类型化 defineProps 会挂门禁。
 - **Emits**：`export interface XxxEmits { (e: 'change', value: string): void }` 或 `export const xxxEmits = {} as const`（无事件时），组件里 `defineEmits<XxxEmits>()`。
-- 受控组件用 Vue 惯例：`modelValue` + `update:modelValue`；非受控给 `defaultValue`。双轨实现复用 `@aura/components/src/composables/use-controllable`（参照 input / select）。
+- 受控组件用 Vue 惯例：`modelValue` + `update:modelValue`；非受控给 `defaultValue`。双轨实现复用 `@aura-vue/components/src/composables/use-controllable`（参照 input / select）。
 - 暴露实例方法：`export interface XxxInstance { reload(): void; ... }` + `defineExpose<XxxInstance>({ ... })`（参照 ProTable）。
 - **TypeScript**：禁 `any`——需要宽类型用 `unknown` 并在使用处收窄；确需放宽的（如 EP 控件 v-model 值域）在行内注释说明原因并加 eslint-disable。
 
@@ -99,7 +99,7 @@ packages/<pkg>/src/<kebab-case-name>/
 ## Step 7 文档：docs/business/ + 侧边栏
 
 - 文档页 `docs/business/<kebab>.md`，章节结构照抄参照组件：`# 标题` → `## 何时使用` → `## 何时不用`（表格：场景 / 应该用）→ `## 基础用法` 等（每节先文字说明再 `<demo src="./demos/xxx/basic.vue" />`）→ `## API`（Props / Events / 类型导出 / CSS 类名 / 相关文档）。
-- demo 放 `docs/business/demos/<kebab>/`，自包含可运行，`<script setup lang="ts">` + 从 `@aura/business` 具名导入；命名按语义（`basic.vue` / `controlled.vue`）。
+- demo 放 `docs/business/demos/<kebab>/`，自包含可运行，`<script setup lang="ts">` + 从 `@aura-vue/business` 具名导入；命名按语义（`basic.vue` / `controlled.vue`）。
 - **侧边栏是手工维护的**（与 React 版 dumi 自动生成不同）：新组件要在 `docs/.vitepress/config.mts` 的 `/business/` 侧边栏加条目；demo 里新用 EP 组件要补 `docs/.vitepress/theme/index.ts` 的 EP 按需样式（smoke 会拦截）。
 - demo 引用走 `<demo src="./demos/xxx/basic.vue" />`（demo-plugin 编译期展开，路径相对当前 .md）。
 

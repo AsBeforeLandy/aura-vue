@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Switch } from '@aura/components';
+import { Switch } from '@aura-vue/components';
 
 const on = ref(true);
 const logs = ref<string[]>([]);

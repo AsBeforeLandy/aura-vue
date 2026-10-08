@@ -47,7 +47,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 import { ElButton, ElDialog } from 'element-plus';
-import { prefixCls } from '@aura/shared';
+import { prefixCls } from '@aura-vue/shared';
 import { ProForm } from '../pro-form';
 import type { ProFormInstance } from '../pro-form/types';
 import {

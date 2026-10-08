@@ -37,7 +37,7 @@
 
 <script setup lang="ts">
 import { computed, useSlots } from 'vue';
-import { classNames, prefixCls } from '@aura/shared';
+import { classNames, prefixCls } from '@aura-vue/shared';
 import { useControllable } from '../composables/use-controllable';
 import { tabsProps, type TabItem, type TabsEmits } from './types';
 import './style/index.less';

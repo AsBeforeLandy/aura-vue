@@ -87,7 +87,7 @@ import type {
   UploadStatus,
   UploadRequest,
   UploadEmits,
-} from '@aura/components';
+} from '@aura-vue/components';
 ```
 
 ### CSS 类名

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Input } from '@aura/components';
+import { Input } from '@aura-vue/components';
 
 /** 非受控模式：只给初始值，值由组件内部自持 */
 const inner = ref('');

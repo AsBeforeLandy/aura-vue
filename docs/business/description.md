@@ -113,7 +113,7 @@ import type {
   DescriptionGroup,
   DescriptionDirection,
   DescriptionProps,
-} from '@aura/business';
+} from '@aura-vue/business';
 ```
 
 ### CSS 类名

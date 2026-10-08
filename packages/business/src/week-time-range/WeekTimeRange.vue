@@ -103,7 +103,7 @@
 
 <script setup lang="ts">
 import { computed, ref, type CSSProperties } from 'vue';
-import { classNames, prefixCls } from '@aura/shared';
+import { classNames, prefixCls } from '@aura-vue/shared';
 import { useDragSelect } from '../_internal/use-drag-select';
 import type { DragRect, DragSelectMeta } from '../_internal/use-drag-select';
 import {

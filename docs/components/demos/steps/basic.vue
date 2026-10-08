@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Steps } from '@aura/components';
+import { Steps } from '@aura-vue/components';
 
 const current = ref(1);
 const failed = ref(false);

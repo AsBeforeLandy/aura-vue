@@ -25,7 +25,7 @@
 // ⚠️ 模板根节点前不能写 HTML 注释——Vue 会把「注释 + 根节点」当多根组件，
 // 破坏单根透传与测试工具对根元素的定位（Spin 批次已踩过一次）。
 import { computed } from 'vue';
-import { classNames, prefixCls } from '@aura/shared';
+import { classNames, prefixCls } from '@aura-vue/shared';
 import { skeletonProps } from './types';
 import './style/index.less';
 

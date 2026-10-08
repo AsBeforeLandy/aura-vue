@@ -17,15 +17,15 @@
 :::code-group
 
 ```bash [pnpm]
-pnpm add @aura/components
+pnpm add @aura-vue/components
 ```
 
 ```bash [yarn]
-yarn add @aura/components
+yarn add @aura-vue/components
 ```
 
 ```bash [npm]
-npm install @aura/components
+npm install @aura-vue/components
 ```
 
 :::
@@ -35,30 +35,30 @@ npm install @aura/components
 :::code-group
 
 ```bash [pnpm]
-pnpm add @aura/business element-plus
+pnpm add @aura-vue/business element-plus
 ```
 
 ```bash [yarn]
-yarn add @aura/business element-plus
+yarn add @aura-vue/business element-plus
 ```
 
 ```bash [npm]
-npm install @aura/business element-plus
+npm install @aura-vue/business element-plus
 ```
 
 :::
 
 ### 包一览
 
-| 包名               | 描述                                                                        | 运行时依赖            | 状态                                     |
-| ------------------ | --------------------------------------------------------------------------- | --------------------- | ---------------------------------------- |
-| `@aura/components` | 基础组件（Button / Input / Form / Select / Switch / Modal）                 | `vue`                 | 可发布                                   |
-| `@aura/business`   | 业务组件（ProTable / ProForm / ProModalForm / Description / PageContainer） | `vue`、`element-plus` | 可发布                                   |
-| `@aura/shared`     | 内部工具（`prefixCls`、`classNames`）                                       | -                     | **不单独发布**，构建期已内联进上面两个包 |
-| `@aura/icons`      | 图标资源包                                                                  | -                     | 占位，尚未迁移，**未发布**               |
+| 包名                   | 描述                                                                        | 运行时依赖            | 状态                                     |
+| ---------------------- | --------------------------------------------------------------------------- | --------------------- | ---------------------------------------- |
+| `@aura-vue/components` | 基础组件（Button / Input / Form / Select / Switch / Modal）                 | `vue`                 | 可发布                                   |
+| `@aura-vue/business`   | 业务组件（ProTable / ProForm / ProModalForm / Description / PageContainer） | `vue`、`element-plus` | 可发布                                   |
+| `@aura-vue/shared`     | 内部工具（`prefixCls`、`classNames`）                                       | -                     | **不单独发布**，构建期已内联进上面两个包 |
+| `@aura-vue/icons`      | 图标资源包                                                                  | -                     | 占位，尚未迁移，**未发布**               |
 
-:::tip 你不需要单独安装 `@aura/shared`
-它只有两个纯函数，构建时已被内联进 `@aura/components` 与 `@aura/business` 的产物里，
+:::tip 你不需要单独安装 `@aura-vue/shared`
+它只有两个纯函数，构建时已被内联进 `@aura-vue/components` 与 `@aura-vue/business` 的产物里，
 所以在 `dependencies` 中看不到它。它是工作区内部的构建期依赖。
 :::
 
@@ -79,48 +79,48 @@ pnpm docs:dev
 
 根目录可用脚本一览：
 
-| 脚本              | 说明                                   |
-| ----------------- | -------------------------------------- |
-| `pnpm build`      | 构建 `@aura/components` 产物到 `dist/` |
-| `pnpm test`       | 运行组件库单元测试（vitest）           |
-| `pnpm docs:dev`   | 启动 VitePress 文档站开发服务          |
-| `pnpm docs:build` | 构建文档站静态产物                     |
-| `pnpm changeset`  | 生成一条变更记录                       |
-| `pnpm release`    | 构建并发布到 npm                       |
+| 脚本              | 说明                                       |
+| ----------------- | ------------------------------------------ |
+| `pnpm build`      | 构建 `@aura-vue/components` 产物到 `dist/` |
+| `pnpm test`       | 运行组件库单元测试（vitest）               |
+| `pnpm docs:dev`   | 启动 VitePress 文档站开发服务              |
+| `pnpm docs:build` | 构建文档站静态产物                         |
+| `pnpm changeset`  | 生成一条变更记录                           |
+| `pnpm release`    | 构建并发布到 npm                           |
 
 ## 引入样式
 
 组件库使用 Less 编写样式，样式与逻辑分离存放在各组件目录下的 `style/index.less`。在应用入口引入基础变量文件：
 
 ```ts
-import '@aura/components/src/style/base.less';
+import '@aura-vue/components/src/style/base.less';
 ```
 
-| 引入路径                                       | 说明                                   |
-| ---------------------------------------------- | -------------------------------------- |
-| `@aura/components/src/style/base.less`         | 设计令牌（CSS 变量）定义，**必须引入** |
-| `@aura/components/src/{组件}/style/index.less` | 单个组件的样式，按需引入               |
+| 引入路径                                           | 说明                                   |
+| -------------------------------------------------- | -------------------------------------- |
+| `@aura-vue/components/src/style/base.less`         | 设计令牌（CSS 变量）定义，**必须引入** |
+| `@aura-vue/components/src/{组件}/style/index.less` | 单个组件的样式，按需引入               |
 
 ## 构建产物
 
 组件库产物采用 ES Module + `preserveModules` 模式，保留目录结构以支持 tree-shaking：
 
-| 产物     | 包内路径          | 对外引入路径                 | 说明             |
-| -------- | ----------------- | ---------------------------- | ---------------- |
-| JS 入口  | `dist/index.js`   | `@aura/components`           | ES Module        |
-| 类型声明 | `dist/index.d.ts` | —（由 types 字段自动关联）   | TypeScript 类型  |
-| 聚合样式 | `dist/style.css`  | `@aura/components/style.css` | 聚合样式（可选） |
+| 产物     | 包内路径          | 对外引入路径                     | 说明             |
+| -------- | ----------------- | -------------------------------- | ---------------- |
+| JS 入口  | `dist/index.js`   | `@aura-vue/components`           | ES Module        |
+| 类型声明 | `dist/index.d.ts` | —（由 types 字段自动关联）       | TypeScript 类型  |
+| 聚合样式 | `dist/style.css`  | `@aura-vue/components/style.css` | 聚合样式（可选） |
 
 :::tip 为什么引入路径里没有 `dist`
 包的 `exports` 字段只对外暴露 `./style.css`，`dist/` 目录并不在导出映射内。
 
-❌ `import '@aura/components/dist/style.css'` —— 打包时直接报 Module not found。
+❌ `import '@aura-vue/components/dist/style.css'` —— 打包时直接报 Module not found。
 :::
 
 ```ts
 // 使用构建产物（发布后）
-import { Button } from '@aura/components';
-import '@aura/components/style.css';
+import { Button } from '@aura-vue/components';
+import '@aura-vue/components/style.css';
 ```
 
 ## 全量注册
@@ -129,8 +129,8 @@ import '@aura/components/style.css';
 
 ```ts
 import { createApp } from 'vue';
-import AuraComponents from '@aura/components';
-import AuraBusiness from '@aura/business';
+import AuraComponents from '@aura-vue/components';
+import AuraBusiness from '@aura-vue/business';
 
 const app = createApp(App);
 app.use(AuraComponents); // 注册 Button / Input / Form / FormItem / Switch / Select / Modal
@@ -154,7 +154,7 @@ app.use(AuraBusiness); // 注册 ProTable / ProForm / ProModalForm / Description
 
 ### 样式没有生效
 
-1. 确认已引入 `@aura/components/src/style/base.less`
+1. 确认已引入 `@aura-vue/components/src/style/base.less`
 2. 确认构建工具的 Less 解析能力已开启（Vite 需安装 `less` 依赖）
 3. 检查是否有全局样式覆盖了 `--aura-*` 变量
 

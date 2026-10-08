@@ -36,7 +36,7 @@
 // （状态已由 aria-current 与配色承载），对读屏隐藏。
 // ⚠️ 模板根节点前不能写 HTML 注释（Vue 会当多根组件，Spin 批次已踩过）。
 import { computed } from 'vue';
-import { classNames, prefixCls } from '@aura/shared';
+import { classNames, prefixCls } from '@aura-vue/shared';
 import { stepsProps } from './types';
 import './style/index.less';
 

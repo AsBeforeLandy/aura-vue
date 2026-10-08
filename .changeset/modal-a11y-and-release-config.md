@@ -1,11 +1,11 @@
 ---
-'@aura/components': minor
-'@aura/business': patch
+'@aura-vue/components': minor
+'@aura-vue/business': patch
 ---
 
 Modal 补齐焦点管理，并修复三项发版配置
 
-### @aura/components — Modal 无障碍（minor）
+### @aura-vue/components — Modal 无障碍（minor）
 
 按 WAI-ARIA dialog 模式补齐了此前缺失的焦点管理：
 

@@ -99,7 +99,7 @@ import type {
   PageBreadcrumb,
   PageContainerProps,
   PageContainerSlots,
-} from '@aura/business';
+} from '@aura-vue/business';
 ```
 
 ### CSS 类名

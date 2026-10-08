@@ -27,7 +27,7 @@ import {
   provide,
   ref,
 } from 'vue';
-import { classNames, prefixCls } from '@aura/shared';
+import { classNames, prefixCls } from '@aura-vue/shared';
 import {
   formContextKey,
   formItemHookKey,

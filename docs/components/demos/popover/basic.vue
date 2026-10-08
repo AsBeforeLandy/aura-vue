@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Popover } from '@aura/components';
+import { Popover } from '@aura-vue/components';
 
 const saved = ref(false);
 </script>

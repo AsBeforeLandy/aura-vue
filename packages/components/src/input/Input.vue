@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
 import { computed, inject, ref } from 'vue';
-import { classNames, prefixCls } from '@aura/shared';
+import { classNames, prefixCls } from '@aura-vue/shared';
 import { useControllable } from '../composables/use-controllable';
 import { formItemHookKey } from '../form/context';
 import { inputProps, type InputEmits } from './types';

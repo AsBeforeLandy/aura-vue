@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { prefixCls } from '@aura/shared';
+import { prefixCls } from '@aura-vue/shared';
 import { breadcrumbProps } from './types';
 import './style/index.less';
 

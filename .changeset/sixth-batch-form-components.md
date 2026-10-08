@@ -1,5 +1,5 @@
 ---
-'@aura/components': minor
+'@aura-vue/components': minor
 ---
 
 新增第六批组件：Collapse / Tree / Upload，基础组件扩至 26 个

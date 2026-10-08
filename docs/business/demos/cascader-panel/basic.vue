@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { CascaderPanel } from '@aura/business';
-import type { CascaderOption } from '@aura/business';
+import { CascaderPanel } from '@aura-vue/business';
+import type { CascaderOption } from '@aura-vue/business';
 
 const selected = ref<string[]>([]);
 

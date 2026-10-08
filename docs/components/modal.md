@@ -144,7 +144,7 @@ watch(open, (val) => {
 ### 类型导出
 
 ```ts
-import type { ModalProps, ModalEmits } from '@aura/components';
+import type { ModalProps, ModalEmits } from '@aura-vue/components';
 ```
 
 ### CSS 类名

@@ -112,7 +112,11 @@ const full = [
 ### 类型导出
 
 ```ts
-import type { SelectProps, SelectEmits, SelectOption } from '@aura/components';
+import type {
+  SelectProps,
+  SelectEmits,
+  SelectOption,
+} from '@aura-vue/components';
 ```
 
 ### CSS 类名

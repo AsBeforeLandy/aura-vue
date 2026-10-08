@@ -1,5 +1,5 @@
 ---
-'@aura/components': minor
+'@aura-vue/components': minor
 ---
 
 新增第五批组件：Tabs / Drawer / Breadcrumb，基础组件扩至 23 个

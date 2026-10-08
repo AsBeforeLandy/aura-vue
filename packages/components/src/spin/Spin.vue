@@ -13,7 +13,7 @@
 // 注意：模板根节点前不要写 HTML 注释——Vue 会把「注释 + v-if 根」当作
 // 多根组件，破坏单根透传与测试工具对根元素的定位（第一版就栽在这里）。
 import { computed, useSlots } from 'vue';
-import { classNames, pickPresetClass, prefixCls } from '@aura/shared';
+import { classNames, pickPresetClass, prefixCls } from '@aura-vue/shared';
 import { spinProps } from './types';
 import './style/index.less';
 

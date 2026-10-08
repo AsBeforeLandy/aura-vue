@@ -32,7 +32,7 @@ import DandelionBackground from './components/DandelionBackground.vue';
  *   为什么不用 unplugin-element-plus 自动注入：
  *   自动注入发生在 `import { ElXxx } from 'element-plus'` 的位置，
  *   也就落在各个懒加载 chunk 里，最终 CSS 的拼接顺序不可控；
- *   而 @aura/business 的样式**确实覆盖了 EP 内部类**
+ *   而 @aura-vue/business 的样式**确实覆盖了 EP 内部类**
  *   （如 `.el-table th.el-table__cell`、`.el-dialog__body`），顺序错了就会被反覆盖。
  *   显式引入写在主题入口，顺序是确定的。
  *   为防止「新用了组件却忘了加样式」，scripts/smoke.mjs 有对应的自动校验。
@@ -73,34 +73,34 @@ import 'element-plus/es/components/tag/style/css';
 import 'element-plus/es/components/tooltip/style/css';
 
 import './styles/custom.css';
-import '@aura/components/src/style/base.less';
-import '@aura/components/src/button/style/index.less';
-import '@aura/components/src/input/style/index.less';
-import '@aura/components/src/form/style/index.less';
-import '@aura/components/src/switch/style/index.less';
-import '@aura/components/src/select/style/index.less';
-import '@aura/components/src/modal/style/index.less';
-import '@aura/components/src/divider/style/index.less';
-import '@aura/components/src/space/style/index.less';
-import '@aura/components/src/tag/style/index.less';
-import '@aura/components/src/typography/style/index.less';
-import '@aura/components/src/alert/style/index.less';
-import '@aura/components/src/spin/style/index.less';
-import '@aura/components/src/empty/style/index.less';
-import '@aura/components/src/tooltip/style/index.less';
-import '@aura/components/src/progress/style/index.less';
-import '@aura/components/src/popover/style/index.less';
-import '@aura/components/src/message/style/index.less';
-import '@aura/components/src/steps/style/index.less';
-import '@aura/components/src/segmented/style/index.less';
-import '@aura/components/src/skeleton/style/index.less';
-import '@aura/components/src/tabs/style/index.less';
-import '@aura/components/src/drawer/style/index.less';
-import '@aura/components/src/breadcrumb/style/index.less';
-import '@aura/components/src/collapse/style/index.less';
-import '@aura/components/src/tree/style/index.less';
-import '@aura/components/src/upload/style/index.less';
-import '@aura/business/src/style/index.less';
+import '@aura-vue/components/src/style/base.less';
+import '@aura-vue/components/src/button/style/index.less';
+import '@aura-vue/components/src/input/style/index.less';
+import '@aura-vue/components/src/form/style/index.less';
+import '@aura-vue/components/src/switch/style/index.less';
+import '@aura-vue/components/src/select/style/index.less';
+import '@aura-vue/components/src/modal/style/index.less';
+import '@aura-vue/components/src/divider/style/index.less';
+import '@aura-vue/components/src/space/style/index.less';
+import '@aura-vue/components/src/tag/style/index.less';
+import '@aura-vue/components/src/typography/style/index.less';
+import '@aura-vue/components/src/alert/style/index.less';
+import '@aura-vue/components/src/spin/style/index.less';
+import '@aura-vue/components/src/empty/style/index.less';
+import '@aura-vue/components/src/tooltip/style/index.less';
+import '@aura-vue/components/src/progress/style/index.less';
+import '@aura-vue/components/src/popover/style/index.less';
+import '@aura-vue/components/src/message/style/index.less';
+import '@aura-vue/components/src/steps/style/index.less';
+import '@aura-vue/components/src/segmented/style/index.less';
+import '@aura-vue/components/src/skeleton/style/index.less';
+import '@aura-vue/components/src/tabs/style/index.less';
+import '@aura-vue/components/src/drawer/style/index.less';
+import '@aura-vue/components/src/breadcrumb/style/index.less';
+import '@aura-vue/components/src/collapse/style/index.less';
+import '@aura-vue/components/src/tree/style/index.less';
+import '@aura-vue/components/src/upload/style/index.less';
+import '@aura-vue/business/src/style/index.less';
 
 /**
  * 仅在首页挂载蒲公英背景，其余页面不渲染 canvas（省性能）。

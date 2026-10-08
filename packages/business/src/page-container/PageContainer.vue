@@ -74,7 +74,7 @@ import {
   vLoading,
 } from 'element-plus';
 import { ArrowLeft } from '@element-plus/icons-vue';
-import { prefixCls } from '@aura/shared';
+import { prefixCls } from '@aura-vue/shared';
 import { pageContainerProps, type PageContainerEmits } from './types';
 import './style/index.less';
 
