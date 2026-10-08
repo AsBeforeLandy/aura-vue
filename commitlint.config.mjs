@@ -9,6 +9,11 @@
  */
 export default {
   extends: ['@commitlint/config-conventional'],
+  // changesets 机器人的版本提交是固定文案（"Version Packages"），
+  // 无 conventional 前缀——不豁免的话，runner 上的 commit-msg 钩子会
+  // 拒绝它，changesets/action 的 git commit 以退出码 1 失败，
+  // Version Packages PR 永远建不出来。
+  ignores: [(commit) => commit.startsWith('Version Packages')],
   rules: {
     // 允许的提交类型（在 config-conventional 默认值基础上显式声明）
     'type-enum': [
