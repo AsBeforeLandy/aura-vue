@@ -6,6 +6,10 @@ export default defineConfig({
   test: {
     environment: 'happy-dom',
     include: ['__tests__/**/*.test.ts'],
+    // 与 business 同理：共享 runner 的资源抖动造成过三次「CI 与 Release
+    // 同 commit 结果相反」。retry: 1 只重跑失败用例一次，确定性失败
+    // 重试后依然失败、门禁语义不变。
+    retry: 1,
     coverage: {
       provider: 'v8',
       // 统计口径：只覆盖组件源码本体（正向白名单，比逐项排除更可靠）。

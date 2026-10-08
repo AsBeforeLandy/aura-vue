@@ -11,6 +11,12 @@ export default defineConfig({
     // runner 资源紧张时，默认 5s 会偶发超时（Release 作业就因此挂过一次）。
     // 这里放宽到 15s：只影响「卡死多久才判失败」，不影响通过用例的速度。
     testTimeout: 15_000,
+    // CI 上的「偶发失败」已三次观测（CI 绿 Release 红 / 反向交替，相同命令
+    // 相同 commit），本地循环压测六轮无法复现——是共享 runner 的资源抖动，
+    // 而非代码问题。retry: 1 只重跑失败的用例一次：确定性失败重试后依然
+    // 失败、门禁语义不变；吸收的只是 runner 时序抖动。与上面的放宽超时
+    // 是同一问题的两层缓解。
+    retry: 1,
     server: {
       deps: {
         // element-plus 的产物里 `import AsyncValidator from 'async-validator'`
