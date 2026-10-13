@@ -68,8 +68,16 @@ Release 工作流（main 推送触发）：
 
 1. **Verify**：全量门禁（lint / typecheck / 覆盖率 / 构建 / size / attw / api-surface / smoke），失败自动重试一次
 2. **Version**：有 changeset 则消费并提交回 main（`[skip ci]`）；无则跳过
-3. **Publish**：发布到官方 registry（带 [provenance](https://docs.npmjs.com/generating-provenance-statements) 供应链声明），按版本形态自动选择 dist-tag
+3. **Publish**：发布到官方 registry，按版本形态自动选择 dist-tag。
+   认证采用 **OIDC（Trusted Publishing）**——npm 后台为每个包绑定了
+   Trusted Publisher（仓库 / 工作流），CI 凭 GitHub OIDC 令牌发布，
+   **不使用任何长期 token**；同时带 [provenance](https://docs.npmjs.com/generating-provenance-statements) 供应链声明
 4. **Tags**：推送发布 tag 到 GitHub
+
+::: warning 本地手动发布
+OIDC 仅在 GitHub Actions 内生效。确需本地手动发布时，`npm publish`
+需要 npm ≥ 11.5.1 并配置个人 token——正常流程交给 CI 即可。
+:::
 
 ## 相关文档
 
