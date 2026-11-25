@@ -56,7 +56,7 @@ jobs:
       # 否则前面任何步骤（如格式检查）失败都会空跑这两个步骤
       - name: Digest test failures
         if: ${{ failure() && steps.test.outcome == 'failure' }}
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const fs = require('fs');
