@@ -106,8 +106,21 @@ jobs:
           # 是为了不影响维护者本地手动发布——provenance 依赖 CI 的 OIDC，本地会直接失败。
           NPM_CONFIG_PROVENANCE: true
 
-      - name: Push release tags
-        run: git push --follow-tags
+      # 推送发布 tag，并按 tag 生成对应的 GitHub Release：
+      # 正文取各包 CHANGELOG.md 中该版本的章节（changesets 生成的格式，
+      # 章节标题即「## <包名>@<版本>」）。所有本次发布的 tag 都指向
+      # version commit，用 git tag --points-at HEAD 精确取到本批。
+      - name: Push release tags & create GitHub Releases
+        run: |
+          git push --follow-tags
+          for tag in $(git tag --points-at HEAD); do
+            pkg="${tag%@*}"
+            dir="packages/${pkg#@aura-vue/}"
+            body=$(awk -v header="## ${tag}" '$0 == header {p=1; next} p && /^## / {exit} p {print}' "$dir/CHANGELOG.md")
+            gh release create "$tag" --title "$tag" --notes "${body:-发布 ${tag}}"
+          done
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 # 发布失败时的排查顺序：
 #   1. 401 ENEEDAUTH → workflow 缺 registry-url，或 runner 不是 GitHub-hosted

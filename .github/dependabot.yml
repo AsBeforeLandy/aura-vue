@@ -1,0 +1,17 @@
+version: 2
+updates:
+  # pnpm workspace 依赖：每周一批，minor/patch 分组合并以减少 PR 噪音
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      minor-and-patch:
+        update-types:
+          - minor
+          - patch
+  # GitHub Actions 版本更新（checkout / setup-node / deploy-pages 等）
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
