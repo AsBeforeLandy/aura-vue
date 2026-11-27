@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           # changesets 需要完整历史来判断哪些 changeset 尚未被消费
           fetch-depth: 0
