@@ -110,10 +110,21 @@ jobs:
       # 正文取各包 CHANGELOG.md 中该版本的章节（changesets 生成的格式，
       # 章节标题即「## <包名>@<版本>」）。所有本次发布的 tag 都指向
       # version commit，用 git tag --points-at HEAD 精确取到本批。
+      #
+      # 两个防竞态要点（5 连合并的竞态中实测得出）：
+      #   1. 只推 tag 引用（git push origin <tags>），不推分支——
+      #      排队的前一轮 Release 用旧 main 跑普通 git push 会被
+      #      non-fast-forward 拒绝（dea1abf5 那次 failure 的根因）；
+      #   2. 没有 tag 时整体跳过——version no-op 的常规 push 不该碰远端。
       - name: Push release tags & create GitHub Releases
         run: |
-          git push --follow-tags
-          for tag in $(git tag --points-at HEAD); do
+          tags=$(git tag --points-at HEAD)
+          if [ -z "$tags" ]; then
+            echo "本次没有新发布 tag，跳过"
+            exit 0
+          fi
+          git push origin $tags
+          for tag in $tags; do
             pkg="${tag%@*}"
             dir="packages/${pkg#@aura-vue/}"
             body=$(awk -v header="## ${tag}" '$0 == header {p=1; next} p && /^## / {exit} p {print}' "$dir/CHANGELOG.md")
